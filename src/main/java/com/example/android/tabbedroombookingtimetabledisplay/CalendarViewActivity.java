@@ -86,7 +86,7 @@ public class CalendarViewActivity extends Fragment implements WeekView.MonthChan
                 Log.e("YEAR", String.valueOf(year));
 
 
-                while ((date.get(Calendar.DAY_OF_WEEK)) > Calendar.MONDAY) {
+                while ((date.get(Calendar.DAY_OF_WEEK)) != (Calendar.MONDAY)) {
                     date.add(Calendar.DATE, -1);
                 }
                 
