@@ -33,7 +33,8 @@
         android:uiOptions="splitActionBarWhenNarrow" >
         <activity
             android:name="com.example.android.tabbedroombookingtimetabledisplay.MainActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:screenOrientation="landscape" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -43,10 +44,6 @@
             <meta-data
                 android:name="android.support.UI_OPTIONS"
                 android:value="splitActionBarWhenNarrow" />
-        </activity>
-        <activity
-            android:name="com.example.android.tabbedroombookingtimetabledisplay.CalendarViewActivity"
-            android:label="@string/title_activity_calendar_view" >
         </activity>
     </application>
 
