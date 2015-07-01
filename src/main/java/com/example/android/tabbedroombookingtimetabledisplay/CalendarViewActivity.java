@@ -305,10 +305,10 @@ public class CalendarViewActivity extends Fragment implements WeekView.MonthChan
         public void createSpinner(ArrayList<String> roomNames) {
 
             ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(getActivity(),
-                    android.R.layout.simple_spinner_item, roomNames);
+                    R.layout.spinner_item, roomNames);
 
             spinnerAdapter
-                    .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    .setDropDownViewResource(R.layout.list_item);
 
             spinner.setAdapter(spinnerAdapter);
         }

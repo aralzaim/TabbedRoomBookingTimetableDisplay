@@ -54,11 +54,30 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <DatePicker
+            <LinearLayout
+                android:orientation="vertical"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/date_picker"
-                android:layout_gravity="center_vertical" />
+                android:layout_height="377dp"
+                android:layout_gravity="center_horizontal">
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="50dp"
+                    android:text="Booking Date: "
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:layout_marginLeft="20dp"
+                    android:layout_gravity="center" />
+
+                <DatePicker
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/date_picker"
+                    android:layout_gravity="center"
+                    android:calendarViewShown="true"
+                    android:foregroundGravity="center_vertical" />
+            </LinearLayout>
 
             <com.example.android.tabbedroombookingtimetabledisplay.WeekView
                 android:id="@+id/weekView"
