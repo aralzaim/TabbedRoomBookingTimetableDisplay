@@ -7,7 +7,6 @@ import java.util.Calendar;
 import java.util.Date;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
@@ -36,7 +35,9 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.TimePicker;
-import com.example.android.tabbedroombookingtimetabledisplay.R;
+
+import com.example.android.tabbedroombookingtimetabledisplay.helpers.Checkers;
+import com.example.android.tabbedroombookingtimetabledisplay.helpers.Converters;
 
 public class SearchingActivity extends Fragment implements OnClickListener {
 

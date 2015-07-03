@@ -1,4 +1,4 @@
-package com.example.android.tabbedroombookingtimetabledisplay;
+package com.example.android.tabbedroombookingtimetabledisplay.helpers;
 
 import java.io.BufferedReader;
 import java.io.IOException;

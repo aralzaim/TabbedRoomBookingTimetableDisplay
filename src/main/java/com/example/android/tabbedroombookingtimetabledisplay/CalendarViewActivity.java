@@ -18,6 +18,9 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 
+import com.example.android.tabbedroombookingtimetabledisplay.com.alamkanak.weekview.library.WeekView;
+import com.example.android.tabbedroombookingtimetabledisplay.com.alamkanak.weekview.library.WeekViewEvent;
+import com.example.android.tabbedroombookingtimetabledisplay.helpers.Converters;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -30,7 +33,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -218,17 +220,17 @@ public class CalendarViewActivity extends Fragment implements WeekView.MonthChan
 
 
 	private String getEventTitle(Calendar startTime,Calendar endTime) {
-		return String.format("Booked between %02d:%02d - %02d:%02d", startTime.get(Calendar.HOUR_OF_DAY), startTime.get(Calendar.MINUTE), endTime.get(Calendar.HOUR_OF_DAY),endTime.get(Calendar.MINUTE));
+		return String.format("%02d:%02d - %02d:%02d", startTime.get(Calendar.HOUR_OF_DAY), startTime.get(Calendar.MINUTE), endTime.get(Calendar.HOUR_OF_DAY),endTime.get(Calendar.MINUTE));
 	}
 
     @Override
     public void onEventClick(WeekViewEvent event, RectF eventRect) {
-        Toast.makeText(getActivity(), "Clicked " + event.getName(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), spinner.getSelectedItem().toString().toUpperCase() +  " is booked between:  " + event.getName(), Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onEventLongPress(WeekViewEvent event, RectF eventRect) {
-        Toast.makeText(getActivity(), "Long pressed event: " + event.getName(), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getActivity(), "Long pressed event: " + event.getName(), Toast.LENGTH_SHORT).show();
     }
 
     private class GetRoomsCalendar extends AsyncTask <String, Void, Boolean>{

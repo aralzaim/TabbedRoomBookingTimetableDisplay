@@ -40,14 +40,6 @@
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:layout_marginLeft="20dp" />
 
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="numberDecimal"
-                android:ems="10"
-                android:id="@+id/editText"
-                android:layout_weight="1" />
-
             <DatePicker
                 android:id="@+id/date_picker"
                 android:layout_width="wrap_content"

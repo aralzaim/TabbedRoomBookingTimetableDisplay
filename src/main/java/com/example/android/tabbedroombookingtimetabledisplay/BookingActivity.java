@@ -19,7 +19,6 @@ import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,6 +32,9 @@ import android.widget.DatePicker.OnDateChangedListener;
 import android.widget.Spinner;
 import android.widget.TimePicker;
 import android.widget.Toast;
+
+import com.example.android.tabbedroombookingtimetabledisplay.helpers.Checkers;
+import com.example.android.tabbedroombookingtimetabledisplay.helpers.Converters;
 
 
 public class BookingActivity extends Fragment implements OnClickListener {

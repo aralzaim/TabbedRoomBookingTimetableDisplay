@@ -79,7 +79,7 @@
                     android:foregroundGravity="center_vertical" />
             </LinearLayout>
 
-            <com.example.android.tabbedroombookingtimetabledisplay.WeekView
+            <com.example.android.tabbedroombookingtimetabledisplay.com.alamkanak.weekview.library.WeekView
                 android:id="@+id/weekView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

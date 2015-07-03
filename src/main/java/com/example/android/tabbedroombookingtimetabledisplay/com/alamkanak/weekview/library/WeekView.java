@@ -1,4 +1,4 @@
-package com.example.android.tabbedroombookingtimetabledisplay;
+package com.example.android.tabbedroombookingtimetabledisplay.com.alamkanak.weekview.library;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -16,18 +16,17 @@ import android.text.StaticLayout;
 import android.text.TextPaint;
 import android.text.TextUtils;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.GestureDetector;
 import android.view.HapticFeedbackConstants;
 import android.view.MotionEvent;
 import android.view.SoundEffectConstants;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.OverScroller;
 import android.widget.Scroller;
-import android.widget.Spinner;
 
+
+import com.example.android.tabbedroombookingtimetabledisplay.R;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -442,7 +441,7 @@ public class WeekView extends View {
 
             // Get more events if necessary. We want to store the events 3 months beforehand. Get
             // events only when it is the first iteration of the loop.
-            if (mEventRects == null || mRefreshEvents || (dayNumber == leftDaysWithGaps + 1 && mFetchedMonths[0] != day.get(Calendar.MONTH)+1 && day.get(Calendar.DAY_OF_MONTH) == 15)) {
+            if (mEventRects == null || mRefreshEvents) {
                 getMoreEvents(day);
                 mRefreshEvents = false;
             }

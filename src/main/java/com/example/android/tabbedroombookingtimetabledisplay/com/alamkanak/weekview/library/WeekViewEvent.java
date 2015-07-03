@@ -1,4 +1,4 @@
-package com.example.android.tabbedroombookingtimetabledisplay;
+package com.example.android.tabbedroombookingtimetabledisplay.com.alamkanak.weekview.library;
 
 import java.util.Calendar;
 
