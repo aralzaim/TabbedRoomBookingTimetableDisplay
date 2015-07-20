@@ -183,9 +183,11 @@
     <string name="multiple_computers">Multiple computers</string>
     <string name="projector">Projector</string>
     <string name="search_room_button">Search a Room </string>
-    <string name="succesfull_booking">Booking Room was succeed! ✔</string>
+    <string name="search_room_text">Search a Room</string>
+    <string name="succesful_booking">Booking Room was succesful! ✔</string>
     <string name="title_activity_calendar_view">CalendarViewActivity</string>
-    <string name="unsuccesfull_booking">Your booking is overlapping with existing ones! Please try another room or another time interval! ✖</string>
+    <string name="unsuccesful_booking">Your booking is overlapping with existing ones! Please try another room or another time interval! ✖</string>
+    <string name="weekly_view_text">Weekly View</string>
     <!-- From: file:/Users/aralzaim/StudioProjects/TabbedRoomBookingTimetableDisplay1/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.0.0/res/values/values.xml -->
     <eat-comment/>
     <style name="Animation.AppCompat.DropDownUp" parent="Base.Animation.AppCompat.DropDownUp"/>

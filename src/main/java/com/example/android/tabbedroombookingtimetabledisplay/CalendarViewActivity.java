@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -54,6 +55,7 @@ public class CalendarViewActivity extends Fragment implements WeekView.MonthChan
     List<WeekViewEvent> events = new ArrayList<WeekViewEvent>();
     DatePicker datepicker;
     Calendar date= Calendar.getInstance();
+    TextView selectedLab;
 
 
 	@Override
@@ -65,7 +67,9 @@ public class CalendarViewActivity extends Fragment implements WeekView.MonthChan
         datepicker= (DatePicker) rootView.findViewById(R.id.date_picker);
         spinner= (Spinner) rootView.findViewById(R.id.spinner);
         mWeekView =(WeekView) rootView.findViewById(R.id.weekView);
+        selectedLab= (TextView) rootView.findViewById(R.id.textView5);
 
+        selectedLab.setVisibility(View.INVISIBLE);
 
 
 
@@ -149,6 +153,12 @@ public class CalendarViewActivity extends Fragment implements WeekView.MonthChan
 	}
 
     public List<WeekViewEvent> onMonthChange() {
+        Calendar startTime=Calendar.getInstance();
+        Calendar endTime=Calendar.getInstance();
+        WeekViewEvent event= new WeekViewEvent();
+
+        events= new ArrayList<WeekViewEvent>();
+
 
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -171,8 +181,9 @@ public class CalendarViewActivity extends Fragment implements WeekView.MonthChan
 
             String roomSelected;
             // Populate the week view with some events.
-
+                selectedLab.setVisibility(View.VISIBLE);
                 roomSelected= spinner.getSelectedItem().toString();
+                selectedLab.setText(roomSelected);
 
             Log.e("ICERIDE", roomSelected);
 
@@ -186,12 +197,6 @@ public class CalendarViewActivity extends Fragment implements WeekView.MonthChan
             } catch (ExecutionException e) {
                 e.printStackTrace();
             }
-            Calendar startTime=Calendar.getInstance();
-            Calendar endTime=Calendar.getInstance();
-            WeekViewEvent event= new WeekViewEvent();
-
-            events= new ArrayList<WeekViewEvent>();
-
 
             for(int i=0; bookingsArray.size()>i;i++) {
 

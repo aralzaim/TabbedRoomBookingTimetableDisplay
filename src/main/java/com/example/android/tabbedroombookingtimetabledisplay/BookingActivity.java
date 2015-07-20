@@ -83,7 +83,7 @@ public class BookingActivity extends Fragment implements OnClickListener {
 		endTimePicker.setCurrentHour(availableBookingStartHour);
 		endTimePicker.setCurrentMinute(availableBookingStartMinute+30);
 		
-		dateSelected = (DatePicker) rootView.findViewById(R.id.date_picker);
+		dateSelected = (DatePicker) rootView.findViewById(R.id.datePicker);
 		
 			
 		 startTimePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
@@ -280,7 +280,7 @@ public class BookingActivity extends Fragment implements OnClickListener {
 			{
 				System.out.println("CONNECTED AND CAME BACK AS TRUE");
 				processDialog.dismiss();
-				Toast toast = Toast.makeText(getActivity(), R.string.succesfull_booking, Toast.LENGTH_LONG);
+				Toast toast = Toast.makeText(getActivity(), R.string.succesful_booking, Toast.LENGTH_LONG);
 				toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
 				View view = toast.getView();
 				view.setBackgroundColor(Color.GREEN);
@@ -291,7 +291,7 @@ public class BookingActivity extends Fragment implements OnClickListener {
 				
 				System.out.println("CONNECTED AND CAME BACK AS FALSE");
 				processDialog.dismiss();
-				Toast toast = Toast.makeText(getActivity(), R.string.unsuccesfull_booking, Toast.LENGTH_LONG);
+				Toast toast = Toast.makeText(getActivity(), R.string.unsuccesful_booking, Toast.LENGTH_LONG);
 				toast.setGravity(Gravity.CENTER, 0, 0);
 				
 				View view = toast.getView();

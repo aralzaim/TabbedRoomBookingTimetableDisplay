@@ -31,25 +31,38 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
 
-            <TextView
-                android:id="@+id/textView"
+            <LinearLayout
+                android:orientation="vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="130dp"
-                android:text="Booking Date: "
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:layout_marginLeft="20dp" />
+                android:layout_gravity="center_horizontal" >
 
-            <DatePicker
-                android:id="@+id/date_picker"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:calendarViewShown="true" />
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="Booking Date: "
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:layout_marginLeft="20dp"
+                    android:layout_gravity="center" />
+
+                <DatePicker
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/datePicker"
+                    android:layout_gravity="center"
+                    android:calendarViewShown="true"
+                    android:foregroundGravity="center_vertical" >
+
+                </DatePicker>
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="50dp" >
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="10dp">
 
                 <LinearLayout
                     android:layout_width="wrap_content"

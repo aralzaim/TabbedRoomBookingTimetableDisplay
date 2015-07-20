@@ -20,6 +20,8 @@
     <string name="app_name">Tabbed Room Booking Timetable Display</string>
     <string name="hello_world">Hello world!</string>
     <string name="book_room_text">Book a Room</string>
+    <string name="search_room_text">Search a Room</string>
+    <string name="weekly_view_text">Weekly View</string>
     <string name="booking_from">Booking from: </string>
     <string name="booking_to">Booking to: </string>
     <string name="book_now_button">Book now</string>
@@ -29,8 +31,8 @@
     <string name="multiple_computers">Multiple computers</string>
     <string name="capacity">Capacity ≥ 40 </string>
     <string name="search_room_button">Search a Room </string>
-    <string name="succesfull_booking">Booking Room was succeed! &#10004;</string>
-    <string name="unsuccesfull_booking">Your booking is overlapping with existing ones! Please try another room or another time interval! &#10006;</string>
+    <string name="succesful_booking">Booking Room was succesful! &#10004;</string>
+    <string name="unsuccesful_booking">Your booking is overlapping with existing ones! Please try another room or another time interval! &#10006;</string>
     <string name="title_activity_calendar_view">CalendarViewActivity</string>
     <string name="action_settings">Settings</string>
 

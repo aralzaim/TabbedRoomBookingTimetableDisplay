@@ -4,6 +4,14 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="@string/search_room_text"
+        android:textSize="40sp" />
+
     <EditText
         android:id="@+id/date_text"
         android:layout_width="match_parent"
