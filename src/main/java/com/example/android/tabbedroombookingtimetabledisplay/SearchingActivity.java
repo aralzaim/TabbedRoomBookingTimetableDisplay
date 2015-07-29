@@ -77,20 +77,20 @@ public class SearchingActivity extends Fragment implements OnClickListener {
 		resultsTitle=(TextView) rootView.findViewById(R.id.results_title);
 	   resultsTitle.setVisibility(View.GONE);
 
-		
+
 		dateCalendar = Calendar.getInstance();
 		startCalendar= new TimePicker(getActivity());
 		startCalendar.setCurrentHour(availableBookingStartHour);
 		startCalendar.setCurrentMinute(availableBookingStartMinute);
-		
+
 		endCalendar=new TimePicker(getActivity());
 		endCalendar.setCurrentHour(availableBookingStartHour);
 		endCalendar.setCurrentMinute(availableBookingStartMinute+30);
-		
+
 		dateText= (EditText) rootView.findViewById(R.id.date_text);
 		startText= (EditText) rootView.findViewById(R.id.start_text);
 		endText= (EditText) rootView.findViewById(R.id.end_text);
-		
+
 		
 		moveable=(CheckBox) rootView.findViewById(R.id.moveable_box);
 		projector=(CheckBox) rootView.findViewById(R.id.projector_box);
@@ -117,13 +117,13 @@ public class SearchingActivity extends Fragment implements OnClickListener {
 		        dateCalendar.set(Calendar.MONTH, monthOfYear);
 		        dateCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 		        dateText.setText("Searching Date:	" + converters.calendarToDateS(dateCalendar));
-				
+
 			}
 
 		};
-		
+
 		final TimePickerDialog.OnTimeSetListener startTime= new TimePickerDialog.OnTimeSetListener() {
-			
+
 			@Override
 			public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 				  // TODO Auto-generated method stub
@@ -131,16 +131,16 @@ public class SearchingActivity extends Fragment implements OnClickListener {
 		        startCalendar.setCurrentMinute(minute);
 		        endCalendar.setCurrentHour(hourOfDay);
 		        endCalendar.setCurrentMinute(minute+30);
-		        
-		        
+
+
 		        if(checkers.startTimeValidity(startCalendar))
 		        {
-		        	
+
 		        	startText.setText("Searching Time Start:	" + converters.timePickerToTimeS(startCalendar));
 				    endText.setText("Searching Time End:	" + converters.timePickerToTimeS(endCalendar));
 				    startText.setTextColor(Color.BLACK);
 				    endText.setTextColor(Color.BLACK);
-		        
+
 		        }
 		        else{
 		        	AlertDialog alert= new AlertDialog.Builder(getActivity()).
@@ -148,42 +148,42 @@ public class SearchingActivity extends Fragment implements OnClickListener {
 		        			setMessage("Times should be between 9am and 9pm as well as starting time should"
 		        					+ " not be later than ending time.")
 		        					.setPositiveButton("ok", new DialogInterface.OnClickListener() {
-		        				        public void onClick(DialogInterface dialog, int which) { 
-		        				            
+		        				        public void onClick(DialogInterface dialog, int which) {
+
 		        				        	startCalendar.setCurrentHour(availableBookingStartHour);
 		        				        	startCalendar.setCurrentMinute(availableBookingStartMinute);
 		        				        	 startText.setText("Searching Time Start:	" + converters.timePickerToTimeS(startCalendar));
 		        				        }
 		        				     }).show();
 		        }
-				
-			} 
+
+			}
 		};
-		
-		
+
+
 		final TimePickerDialog.OnTimeSetListener endTime= new TimePickerDialog.OnTimeSetListener() {
-			
+
 			@Override
 			public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 				  // TODO Auto-generated method stub
 		        endCalendar.setCurrentHour(hourOfDay);
 		        endCalendar.setCurrentMinute(minute);
-		        
-		        
+
+
 		        if(checkers.endTimeValidity(startCalendar, endCalendar))
 		        {
-		        	
+
 				        endText.setText("Searching Time End:	" + converters.timePickerToTimeS(endCalendar));
 
 		        }
-		        
+
 		        else{
 		        	AlertDialog alert= new AlertDialog.Builder(getActivity()).
 		        			setTitle("Invalid Time!").
 		        			setMessage("Times should be between 9am and 9pm as well as starting time should"
 		        					+ " not be later than ending time.")
 		        					.setPositiveButton("ok", new DialogInterface.OnClickListener() {
-		        				        public void onClick(DialogInterface dialog, int which) { 
+		        				        public void onClick(DialogInterface dialog, int which) {
 		        				            endCalendar.setCurrentHour(startCalendar.getCurrentHour());
 		        				            endCalendar.setCurrentMinute(startCalendar.getCurrentMinute()+30);
 		        				            endText.setText("Searching Time End:	" + converters.timePickerToTimeS(endCalendar));
@@ -192,35 +192,35 @@ public class SearchingActivity extends Fragment implements OnClickListener {
 		        				     }).show();
 		        }
 			}
-			
-			
+
+
 		};
-			
+
 		dateText.setOnClickListener(new View.OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				new DatePickerDialog(getActivity(),date , dateCalendar
 	                    .get(Calendar.YEAR), dateCalendar.get(Calendar.MONTH),
 	                    dateCalendar.get(Calendar.DAY_OF_MONTH)).show();
-				
+
 			}
 		});
-		
+
 		startText.setOnClickListener(new View.OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
-				new TimePickerDialog(getActivity(), startTime, availableBookingStartHour, availableBookingStartMinute, true).show();;	
-				
+				new TimePickerDialog(getActivity(), startTime, availableBookingStartHour, availableBookingStartMinute, true).show();;
+
 			}
 		});
-	
+
 		endText.setOnClickListener(new View.OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
-				new TimePickerDialog(getActivity(), endTime, startCalendar.getCurrentHour(), startCalendar.getCurrentMinute()+30, true).show();;	
+				new TimePickerDialog(getActivity(), endTime, startCalendar.getCurrentHour(), startCalendar.getCurrentMinute()+30, true).show();;
 			}
 		});
 		return rootView;
@@ -228,22 +228,22 @@ public class SearchingActivity extends Fragment implements OnClickListener {
 	
 	@Override
 	public void onClick(View v) {
-		
+
         String dateString;
         String startString;
         String endString;
         String startDateTimestamp;
         String endDateTimestamp;
         Date startDate;
-      	Date endDate;	
+      	Date endDate;
       	SearchRoom searchTask = new SearchRoom();
-      
-      	
-      	
+
+
+
         dateString=converters.calendarToDateS(dateCalendar);
         startString= converters.timePickerToTimeS(startCalendar);
-        endString=converters.timePickerToTimeS(endCalendar);        
-        
+        endString=converters.timePickerToTimeS(endCalendar);
+
       startDateTimestamp=(dateString+ " " + startString);
       endDateTimestamp=(dateString+ " "+ endString);
      
