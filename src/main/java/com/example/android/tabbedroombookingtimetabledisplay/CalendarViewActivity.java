@@ -220,6 +220,9 @@ public class CalendarViewActivity extends Fragment implements WeekView.MonthChan
 
             return events;
         }
+        else if(spinner.getSelectedItemPosition()==0){
+            selectedLab.setVisibility(View.INVISIBLE);
+        }
         return null;
         }
 

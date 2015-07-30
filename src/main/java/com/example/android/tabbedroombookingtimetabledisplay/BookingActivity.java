@@ -30,6 +30,7 @@ import android.widget.DatePicker;
 import android.widget.RelativeLayout;
 import android.widget.DatePicker.OnDateChangedListener;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -46,6 +47,11 @@ public class BookingActivity extends Fragment implements OnClickListener {
 	Spinner roomSpinner;
 	Converters converters = new Converters();
 	Checkers checkers= new Checkers();
+    Button selectBtn;
+    ArrayList<String> roomNames= new ArrayList<>();
+    TextView buttonInvisibleText;
+    TextView endTimeTextView;
+
 
 	
 	
@@ -65,14 +71,83 @@ public class BookingActivity extends Fragment implements OnClickListener {
 		
 		roomSpinner= (Spinner) rootView.findViewById(R.id.room_spinner);
 
+        buttonInvisibleText = (TextView) rootView.findViewById(R.id.button_invisible_error);
+        buttonInvisibleText.setVisibility(View.INVISIBLE);
+        buttonInvisibleText.setTextColor(Color.RED);
+
 		GetRoomsBooking getRoomTask=new GetRoomsBooking();
 
 		getRoomTask.execute();
 
 		submitBtn=(Button) rootView.findViewById(R.id.submit_button);
 		submitBtn.setOnClickListener(this);
-		
-		
+
+
+		//selectBtn =(Button) rootView.findViewById(R.id.button);
+      //  selectBtn.setOnClickListener(new OnClickListener() {
+    //        @Override
+  //          public void onClick(View v) {
+//
+    //            final AlertDialog.Builder builderSingle = new AlertDialog.Builder(getActivity());
+
+  //              builderSingle.setIcon(R.drawable.ic_launcher);
+//                builderSingle.setTitle("Select a room...");
+
+
+
+
+                //final ListAdapter adapter = new ListAdapter(getActivity(), roomNames);
+              //  adapter.setCustomButtonListner(new ListAdapter.customButtonListener() {
+                    //@Override
+                    //public void onButtonClickListner(int position, String value) {
+                  //      Toast.makeText(getActivity(),"Details"+ value,Toast.LENGTH_SHORT).show();
+                //    }
+              //  });
+            //    adapter.setCustomTextListner(new ListAdapter.customTextListener(){
+          //          @Override
+        //            public void onTextClickListner(int position, String value) {
+      //                  Toast.makeText(getActivity(),"Itself"+ value,Toast.LENGTH_SHORT).show();
+    //                }
+  //              });
+//
+    //            builderSingle.setNegativeButton("cancel",
+  //                      new DialogInterface.OnClickListener() {
+//
+          //                  @Override
+        //                    public void onClick(DialogInterface dialog, int which) {
+      //                          dialog.dismiss();
+    //                        }
+  //                      });
+//
+    //            builderSingle.setAdapter(adapter,
+  //                      new DialogInterface.OnClickListener() {
+//
+                    //        @Override
+                  //          public void onClick(DialogInterface dialog, int which) {
+                //                String strName = adapter.getItem(which);
+              //                  AlertDialog.Builder builderInner = new AlertDialog.Builder(
+            //                            getActivity());
+          //                      builderInner.setMessage(strName);
+        //                        builderInner.setTitle("Your Selected Item is");
+      //                          selectBtn.setText(strName);
+    //                            builderInner.setPositiveButton("Ok",
+  //                                      new DialogInterface.OnClickListener() {
+//
+                      //                      @Override
+                    //                        public void onClick(
+                  //                                  DialogInterface dialog,
+                //                                    int which) {
+              //                                  dialog.dismiss();
+             //                               }
+           //                             });
+           //                     builderInner.show();
+         //                   }
+        //                });
+         //       builderSingle.show();
+
+        //    }
+       // });
+
 		startTimePicker= (TimePicker) rootView.findViewById(R.id.time_picker_start);
 		startTimePicker.setIs24HourView(true);
 		startTimePicker.setCurrentHour(availableBookingStartHour);
@@ -97,11 +172,14 @@ public class BookingActivity extends Fragment implements OnClickListener {
 	            	newEndHour++;
 	            }
 	            
-           	if(checkers.startTimeValidity(startTimePicker) && !checkers.dateOlder(dateSelected.getYear(), dateSelected.getMonth(), dateSelected.getDayOfMonth()))
-					submitBtn.setEnabled(true);
-				else
-					submitBtn.setEnabled(false);
-			
+           	if(checkers.startTimeValidity(startTimePicker) && !checkers.dateOlder(dateSelected.getYear(), dateSelected.getMonth(), dateSelected.getDayOfMonth())) {
+                buttonInvisibleText.setVisibility(View.INVISIBLE);
+                submitBtn.setEnabled(true);
+            }
+            else {
+                buttonInvisibleText.setVisibility(View.VISIBLE);
+                submitBtn.setEnabled(false);
+            }
 	            
 	            
 	            	
@@ -115,11 +193,16 @@ public class BookingActivity extends Fragment implements OnClickListener {
 			@Override
 			public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
 				
-				if(checkers.endTimeValidity(startTimePicker, endTimePicker) && !checkers.dateOlder(dateSelected.getYear(), dateSelected.getMonth(), dateSelected.getDayOfMonth()))
-					submitBtn.setEnabled(true);
-				else
-					submitBtn.setEnabled(false);
-			}
+				if(checkers.endTimeValidity(startTimePicker, endTimePicker) && !checkers.dateOlder(dateSelected.getYear(), dateSelected.getMonth(), dateSelected.getDayOfMonth())) {
+                    submitBtn.setEnabled(true);
+                    buttonInvisibleText.setVisibility(View.INVISIBLE);
+                }
+                else {
+                    buttonInvisibleText.setVisibility(View.VISIBLE);
+                    submitBtn.setEnabled(false);
+                }
+                }
+
 
 
 		 });
@@ -131,24 +214,29 @@ public class BookingActivity extends Fragment implements OnClickListener {
 					int dayOfMonth) {
 				
 				
-				if(checkers.dateOlder(year,monthOfYear,dayOfMonth)&& checkers.endTimeValidity(startTimePicker, endTimePicker) && checkers.startTimeValidity(startTimePicker))
+				if(checkers.dateOlder(year,monthOfYear,dayOfMonth) || !checkers.endTimeValidity(startTimePicker, endTimePicker) || !checkers.startTimeValidity(startTimePicker))
 				{
 					submitBtn.setEnabled(false);
+                    buttonInvisibleText.setVisibility(View.VISIBLE);
 				}
-				else
-					submitBtn.setEnabled(true);
-			}
+				else {
+
+                    submitBtn.setEnabled(true);
+                    buttonInvisibleText.setVisibility(View.INVISIBLE);
+                }
+                }
+
 		});
 		return rootView;
 	    
 
 		
 	}
-	
+
 
 	@Override
 	public void onClick(View v) {
-        
+
         String roomName;
         int year=0;
         int month=0;
@@ -163,23 +251,25 @@ public class BookingActivity extends Fragment implements OnClickListener {
         Date startParsedDateTime=null;
         Date endParsedDateTime=null;
         Booking newBooking= new Booking();
-        
-        
-        roomName=roomSpinner.getSelectedItem().toString();	
-        
+
+
+         //selectBtn.getText().toString();
+
+        roomName=roomSpinner.getSelectedItem().toString();
+
         year=dateSelected.getYear();
         month=dateSelected.getMonth()+1;
         day=dateSelected.getDayOfMonth();
-        
+
         startHour=startTimePicker.getCurrentHour();
         startMinute=startTimePicker.getCurrentMinute();
-        
+
         endHour=endTimePicker.getCurrentHour();
         endMinute=endTimePicker.getCurrentMinute();
-       
+
         startDateTimestamp=year+"-"+month+"-"+day + " " + startHour +":"+ startMinute;
         endDateTimestamp = year+"-"+month+"-"+day + " " + endHour +":"+ endMinute;
-        
+
       if(!roomName.equalsIgnoreCase("select a room...")) {
 		  try {
 
@@ -207,7 +297,7 @@ public class BookingActivity extends Fragment implements OnClickListener {
 		  toast.show();
 	  }
 	}
-	
+
 	
 	private class BookRoom extends AsyncTask <Booking, Boolean, Boolean>{
 
@@ -311,7 +401,7 @@ public class BookingActivity extends Fragment implements OnClickListener {
 		HttpClient httpClient=null;
 		HttpGet httpGet=null;
 		HttpResponse httpResponse=null;
-		ArrayList<String> roomNames = new ArrayList<>();
+	//	ArrayList<String> roomNames = new ArrayList<>();
 
 		@Override
 		protected void onPreExecute(){
@@ -343,30 +433,33 @@ public class BookingActivity extends Fragment implements OnClickListener {
 
 		public void jsonRoomParse(HttpResponse httpResponse) {
 			String jsonResult;
-			try {
-				roomNames.add("Select a room...");
-				jsonResult = converters.inputStreamToString(httpResponse.getEntity().getContent()).toString();
 
-				JSONObject jsonObj = new JSONObject(jsonResult);
+            if(roomNames.size()<=0) {
+                try {
+                    roomNames.add("Select a room...");
+                    jsonResult = converters.inputStreamToString(httpResponse.getEntity().getContent()).toString();
 
-				if (jsonObj != null) {
-					JSONArray rooms = jsonObj.getJSONArray("rooms");
+                    JSONObject jsonObj = new JSONObject(jsonResult);
 
-					for (int i = 0; i < rooms.length(); i++) {
-						JSONObject catObj = (JSONObject) rooms.get(i);
+                    if (jsonObj != null) {
+                        JSONArray rooms = jsonObj.getJSONArray("rooms");
 
-						roomNames.add(catObj.getString("room_name"));
-					}
-				}
+                        for (int i = 0; i < rooms.length(); i++) {
+                            JSONObject catObj = (JSONObject) rooms.get(i);
 
-			} catch (IllegalStateException | IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+                            roomNames.add(catObj.getString("room_name"));
+                        }
+                    }
 
+
+                } catch (IllegalStateException | IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                } catch (JSONException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }
 
 		}
 		@Override
@@ -378,7 +471,13 @@ public class BookingActivity extends Fragment implements OnClickListener {
 
 		public void createSpinner(ArrayList<String> roomNames) {
 
-			ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(getActivity(),
+            //MyCustomAdapter adapter = new MyCustomAdapter(roomNames, this);
+
+            //handle listview and assign adapter
+            //ListView lView = (ListView)findViewById(R.id.my_listview);
+            //lView.setAdapter(adapter);
+
+            ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(getActivity(),
 					R.layout.spinner_item, roomNames);
 
 			spinnerAdapter

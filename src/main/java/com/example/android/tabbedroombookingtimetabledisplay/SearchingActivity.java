@@ -365,6 +365,7 @@ public class SearchingActivity extends Fragment implements OnClickListener {
 				resultsTitle.setText("Matching Rooms");
 				resultsTitle.setVisibility(View.VISIBLE);
 				createList(resultList);
+
 				searchList.setVisibility(View.VISIBLE);
 				processDialog.dismiss();
 			}
@@ -387,11 +388,11 @@ public class SearchingActivity extends Fragment implements OnClickListener {
 			
 			
 			   ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(getActivity(),
-			            R.layout.list_item, resultList);
+			            R.layout.result_list_item, resultList);
 			
 		    
 		    listAdapter
-		            .setDropDownViewResource(R.layout.list_item);
+		            .setDropDownViewResource(R.layout.result_list_item);
 
 		    searchList.setAdapter(listAdapter);
 		}
