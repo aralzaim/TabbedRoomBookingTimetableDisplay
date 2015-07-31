@@ -49,7 +49,7 @@ public class Converters {
 	  public String calendarToDateS(Calendar dateCalendar) {
 
 		   
-		    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		    SimpleDateFormat sdf = new SimpleDateFormat("EEE, d MMM yyyy ");
 
 		    return sdf.format(dateCalendar.getTime());
 		   

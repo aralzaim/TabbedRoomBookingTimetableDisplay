@@ -1550,6 +1550,7 @@ containing a value of this type.
         public static final int beginning=0x7f0b0013;
         public static final int book_room_textView=0x7f0b0048;
         public static final int button_invisible_error=0x7f0b0051;
+        public static final int button_spinner=0x7f0b007d;
         public static final int capacity_box=0x7f0b0076;
         public static final int checkbox=0x7f0b0032;
         public static final int childButton=0x7f0b007a;
@@ -1578,11 +1579,12 @@ containing a value of this type.
         public static final int ifRoom=0x7f0b0018;
         public static final int image=0x7f0b002c;
         public static final int imageView=0x7f0b0060;
-        public static final int imageView2=0x7f0b0061;
-        public static final int imageView3=0x7f0b0062;
-        public static final int imageView4=0x7f0b0063;
+        public static final int imageView2=0x7f0b0062;
+        public static final int imageView3=0x7f0b0063;
+        public static final int imageView4=0x7f0b0064;
         public static final int imageView5=0x7f0b006c;
         public static final int inside_text=0x7f0b005e;
+        public static final int left_pic=0x7f0b007c;
         public static final int length_long=0x7f0b0025;
         public static final int length_short=0x7f0b0026;
         public static final int linearLayout1=0x7f0b0049;
@@ -1622,7 +1624,7 @@ containing a value of this type.
         public static final int showHome=0x7f0b0010;
         public static final int showTitle=0x7f0b0011;
         public static final int spinner=0x7f0b0054;
-        public static final int spinner_text=0x7f0b007b;
+        public static final int spinner_text=0x7f0b007e;
         public static final int split_action_bar=0x7f0b0007;
         public static final int start_text=0x7f0b0070;
         public static final int submit_area=0x7f0b0045;
@@ -1639,10 +1641,11 @@ containing a value of this type.
         public static final int textView3=0x7f0b004b;
         public static final int textView4=0x7f0b0053;
         public static final int textView5=0x7f0b0055;
-        public static final int textView6=0x7f0b0064;
-        public static final int textView7=0x7f0b0065;
+        public static final int textView6=0x7f0b0065;
+        public static final int textView7=0x7f0b0061;
         public static final int textView8=0x7f0b0066;
         public static final int textView9=0x7f0b0067;
+        public static final int text_main_seen=0x7f0b007b;
         public static final int thursday=0x7f0b0022;
         public static final int time_picker_end=0x7f0b0050;
         public static final int time_picker_start=0x7f0b004f;
@@ -1691,10 +1694,11 @@ containing a value of this type.
         public static final int activity_main=0x7f030019;
         public static final int activity_searching=0x7f03001a;
         public static final int custom_popup_adapter=0x7f03001b;
-        public static final int list_item=0x7f03001c;
-        public static final int result_list_item=0x7f03001d;
-        public static final int spinner_item=0x7f03001e;
-        public static final int support_simple_spinner_dropdown_item=0x7f03001f;
+        public static final int custom_spinner=0x7f03001c;
+        public static final int list_item=0x7f03001d;
+        public static final int result_list_item=0x7f03001e;
+        public static final int spinner_item=0x7f03001f;
+        public static final int support_simple_spinner_dropdown_item=0x7f030020;
     }
     public static final class string {
         public static final int abc_action_bar_home_description=0x7f050000;

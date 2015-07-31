@@ -253,7 +253,7 @@ public class CalendarViewActivity extends Fragment implements WeekView.MonthChan
         @Override
         protected void onPreExecute(){
             fetchingDialog = new ProgressDialog(getActivity());
-            fetchingDialog.setMessage("Fetching Rooms..");
+            fetchingDialog.setMessage("Loading Bookings..");
             fetchingDialog.setCancelable(false);
             fetchingDialog.show();
         }
