@@ -510,6 +510,8 @@ public class BookingActivity extends Fragment implements OnClickListener {
             //ListView lView = (ListView)findViewById(R.id.my_listview);
             //lView.setAdapter(adapter);
 
+
+
             ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(getActivity(),
 					R.layout.spinner_item, roomNames);
 

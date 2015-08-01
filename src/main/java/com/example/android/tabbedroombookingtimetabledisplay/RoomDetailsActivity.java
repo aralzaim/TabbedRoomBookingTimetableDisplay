@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -54,12 +55,30 @@ public class RoomDetailsActivity extends Fragment {
         outside2=(ImageView) rootView.findViewById(R.id.imageView2);
 
 
-        //Picasso.with(getActivity()).load("https://zeno.computing.dundee.ac.uk/2014-msc/aralzaim/images/GOPR3417.JPG").into(outside1);
 
-        //Picasso.with(getActivity()).load("https://zeno.computing.dundee.ac.uk/2014-msc/aralzaim/images/GOPR3414.JPG").into(outside2);
+
+     //   Picasso.with(getActivity()).load("https://zeno.computing.dundee.ac.uk/2014-msc/aralzaim/images/GOPR3414.JPG").into(outside2);
       //  outside2.setImageBitmap(getBitmapFromURL("https://zeno.computing.dundee.ac.uk/2014-msc/aralzaim/images/GOPR3414.PNG"));
         GetRoomsBooking getRooms= new GetRoomsBooking();
             getRooms.execute();
+
+        roomSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+
+                if(roomSpinner.getSelectedItem().toString().equals("Lab 0"))
+                    outside1.setImageResource(R.drawable.image_one);
+                else
+                    outside1.setImageResource(R.drawable.ic_action_booking);
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+            }
+
+        });
+
 
         return rootView;
     }

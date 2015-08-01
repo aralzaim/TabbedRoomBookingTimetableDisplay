@@ -1532,6 +1532,7 @@ containing a value of this type.
         public static final int ic_event_black_24dp=0x7f02003b;
         public static final int ic_launcher=0x7f02003c;
         public static final int ic_launcher2=0x7f02003d;
+        public static final int image_one=0x7f02003e;
     }
     public static final class id {
         public static final int action_bar=0x7f0b003a;
@@ -1552,7 +1553,7 @@ containing a value of this type.
         public static final int beginning=0x7f0b0013;
         public static final int book_room_textView=0x7f0b0048;
         public static final int button_invisible_error=0x7f0b0052;
-        public static final int button_spinner=0x7f0b0082;
+        public static final int button_spinner=0x7f0b0081;
         public static final int capacity_box=0x7f0b007b;
         public static final int checkbox=0x7f0b0032;
         public static final int childButton=0x7f0b007f;
@@ -1590,7 +1591,6 @@ containing a value of this type.
         public static final int imageView7=0x7f0b0073;
         public static final int imageView8=0x7f0b0071;
         public static final int inside_text=0x7f0b0060;
-        public static final int left_pic=0x7f0b0081;
         public static final int length_long=0x7f0b0025;
         public static final int length_short=0x7f0b0026;
         public static final int linearLayout1=0x7f0b0049;
@@ -1631,7 +1631,7 @@ containing a value of this type.
         public static final int showTitle=0x7f0b0011;
         public static final int spinner=0x7f0b0055;
         public static final int spinner2=0x7f0b005f;
-        public static final int spinner_text=0x7f0b0083;
+        public static final int spinner_text=0x7f0b0082;
         public static final int split_action_bar=0x7f0b0007;
         public static final int start_text=0x7f0b0074;
         public static final int submit_area=0x7f0b0045;
