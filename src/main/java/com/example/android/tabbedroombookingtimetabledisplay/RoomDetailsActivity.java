@@ -17,6 +17,7 @@ import android.widget.RelativeLayout;
 import android.widget.Spinner;
 
 import com.example.android.tabbedroombookingtimetabledisplay.helpers.Converters;
+import com.squareup.picasso.Picasso;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -40,6 +41,7 @@ public class RoomDetailsActivity extends Fragment {
 
     ImageView outside1;
     ImageView outside2;
+    ImageView outside3;
     Converters converters= new Converters();
     Spinner roomSpinner;
 
@@ -53,12 +55,15 @@ public class RoomDetailsActivity extends Fragment {
         roomSpinner = (Spinner) rootView.findViewById(R.id.spinner2);
         outside1=(ImageView) rootView.findViewById(R.id.imageView);
         outside2=(ImageView) rootView.findViewById(R.id.imageView2);
+        outside3=(ImageView) rootView.findViewById(R.id.imageView3);
 
 
 
 
-     //   Picasso.with(getActivity()).load("https://zeno.computing.dundee.ac.uk/2014-msc/aralzaim/images/GOPR3414.JPG").into(outside2);
-      //  outside2.setImageBitmap(getBitmapFromURL("https://zeno.computing.dundee.ac.uk/2014-msc/aralzaim/images/GOPR3414.PNG"));
+        Picasso.with(getActivity()).load("https://zeno.computing.dundee.ac.uk/2014-msc/aralzaim/images/11824241_10153410531706206_1007425622_n.jpg").into(outside2);
+        Picasso.with(getActivity()).load("https://zeno.computing.dundee.ac.uk/2014-msc/aralzaim/images/11824241_10153410531706206_1007425622_n.jpg").into(outside3);
+
+        //  outside2.setImageBitmap(getBitmapFromURL("https://zeno.computing.dundee.ac.uk/2014-msc/aralzaim/images/11824241_10153410531706206_1007425622_n.jpg"));
         GetRoomsBooking getRooms= new GetRoomsBooking();
             getRooms.execute();
 
