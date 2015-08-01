@@ -183,7 +183,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         	}
         	else if (position==1)
         	{
-        		 return "Search a Room ";
+        		 return "Search Rooms";
         	}
         	else if (position==2)
         		 return "Weekly View";

@@ -49,8 +49,8 @@ public class BookingActivity extends Fragment implements OnClickListener {
 	Checkers checkers= new Checkers();
     Button selectBtn;
     ArrayList<String> roomNames= new ArrayList<>();
-    TextView buttonInvisibleText;
-    TextView endTimeTextView;
+    TextView invalidTimeText;
+    TextView dateOldText;
 
 
 	
@@ -71,9 +71,13 @@ public class BookingActivity extends Fragment implements OnClickListener {
 		
 		roomSpinner= (Spinner) rootView.findViewById(R.id.room_spinner);
 
-        buttonInvisibleText = (TextView) rootView.findViewById(R.id.button_invisible_error);
-        buttonInvisibleText.setVisibility(View.INVISIBLE);
-        buttonInvisibleText.setTextColor(Color.RED);
+        invalidTimeText = (TextView) rootView.findViewById(R.id.button_invisible_error);
+        invalidTimeText.setVisibility(View.INVISIBLE);
+        invalidTimeText.setTextColor(Color.RED);
+
+		dateOldText= (TextView) rootView.findViewById(R.id.date_error_text);
+		dateOldText.setVisibility(View.INVISIBLE);
+		dateOldText.setTextColor(Color.RED);
 
 		GetRoomsBooking getRoomTask=new GetRoomsBooking();
 
@@ -172,19 +176,30 @@ public class BookingActivity extends Fragment implements OnClickListener {
 	            	newEndHour++;
 	            }
 	            
-           	if(checkers.startTimeValidity(startTimePicker) && !checkers.dateOlder(dateSelected.getYear(), dateSelected.getMonth(), dateSelected.getDayOfMonth())) {
-                buttonInvisibleText.setVisibility(View.INVISIBLE);
+           	if(checkers.startTimeValidity(startTimePicker) && checkers.endTimeValidity(startTimePicker, endTimePicker) && !checkers.dateOlder(dateSelected.getYear(), dateSelected.getMonth(), dateSelected.getDayOfMonth())) {
+                invalidTimeText.setVisibility(View.INVISIBLE);
+				dateOldText.setVisibility(View.INVISIBLE);
                 submitBtn.setEnabled(true);
             }
             else {
-                buttonInvisibleText.setVisibility(View.VISIBLE);
+				if(!checkers.startTimeValidity(startTimePicker) || !checkers.endTimeValidity(startTimePicker, endTimePicker)){
+
+					invalidTimeText.setVisibility(View.VISIBLE);
+					dateOldText.setVisibility(View.INVISIBLE);
+				}
+				else if(checkers.dateOlder(dateSelected.getYear(), dateSelected.getMonth(), dateSelected.getDayOfMonth())){
+					dateOldText.setVisibility(View.VISIBLE);
+					invalidTimeText.setVisibility(View.INVISIBLE);
+				}
                 submitBtn.setEnabled(false);
             }
 	            
 	            
-	            	
-	               endTimePicker.setCurrentHour(newEndHour);
-	               endTimePicker.setCurrentMinute(newEndMinute);
+	            	if(hourOfDay>endTimePicker.getCurrentHour()||(endTimePicker.getCurrentHour().equals(hourOfDay) && endTimePicker.getCurrentMinute()<minute)){
+						 endTimePicker.setCurrentHour(newEndHour);
+						  endTimePicker.setCurrentMinute(newEndMinute);
+					}
+
 	            }
 	        });
 		 
@@ -195,11 +210,20 @@ public class BookingActivity extends Fragment implements OnClickListener {
 				
 				if(checkers.endTimeValidity(startTimePicker, endTimePicker) && !checkers.dateOlder(dateSelected.getYear(), dateSelected.getMonth(), dateSelected.getDayOfMonth())) {
                     submitBtn.setEnabled(true);
-                    buttonInvisibleText.setVisibility(View.INVISIBLE);
+                    invalidTimeText.setVisibility(View.INVISIBLE);
+					dateOldText.setVisibility(View.INVISIBLE);
                 }
                 else {
-                    buttonInvisibleText.setVisibility(View.VISIBLE);
-                    submitBtn.setEnabled(false);
+					if(checkers.dateOlder(dateSelected.getYear(), dateSelected.getMonth(), dateSelected.getDayOfMonth())){
+						dateOldText.setVisibility(View.VISIBLE);
+						invalidTimeText.setVisibility(View.INVISIBLE);
+					}
+					else {
+						dateOldText.setVisibility(View.INVISIBLE);
+						invalidTimeText.setVisibility(View.VISIBLE);
+
+					}
+					submitBtn.setEnabled(false);
                 }
                 }
 
@@ -216,13 +240,22 @@ public class BookingActivity extends Fragment implements OnClickListener {
 				
 				if(checkers.dateOlder(year,monthOfYear,dayOfMonth) || !checkers.endTimeValidity(startTimePicker, endTimePicker) || !checkers.startTimeValidity(startTimePicker))
 				{
+					if(checkers.dateOlder(year,monthOfYear,dayOfMonth)) {
+						dateOldText.setVisibility(View.VISIBLE);
+						invalidTimeText.setVisibility(View.INVISIBLE);
+					}
+
+					else if(!checkers.endTimeValidity(startTimePicker, endTimePicker) || !checkers.startTimeValidity(startTimePicker)){
+						invalidTimeText.setVisibility(View.VISIBLE);
+						dateOldText.setVisibility(View.INVISIBLE);
+					}
+
 					submitBtn.setEnabled(false);
-                    buttonInvisibleText.setVisibility(View.VISIBLE);
 				}
 				else {
-
+					invalidTimeText.setVisibility(View.INVISIBLE);
+					dateOldText.setVisibility(View.INVISIBLE);
                     submitBtn.setEnabled(true);
-                    buttonInvisibleText.setVisibility(View.INVISIBLE);
                 }
                 }
 

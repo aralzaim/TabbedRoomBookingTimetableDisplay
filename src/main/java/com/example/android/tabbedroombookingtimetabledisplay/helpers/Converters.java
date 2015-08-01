@@ -47,13 +47,22 @@ public class Converters {
 	   }
 	
 	  public String calendarToDateS(Calendar dateCalendar) {
-
+//, d MMM yyyy
 		   
-		    SimpleDateFormat sdf = new SimpleDateFormat("EEE, d MMM yyyy ");
+		    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
 		    return sdf.format(dateCalendar.getTime());
 		   
 		    }
+
+	public String dateShower(Calendar dateCalendar) {
+//, d MMM yyyy
+
+		SimpleDateFormat sdf = new SimpleDateFormat("EEE, d MMM yyyy");
+
+		return sdf.format(dateCalendar.getTime());
+
+	}
 	  
 	  public String timePickerToTimeS( TimePicker editingCalendar){
 		  Calendar calendar= Calendar.getInstance();

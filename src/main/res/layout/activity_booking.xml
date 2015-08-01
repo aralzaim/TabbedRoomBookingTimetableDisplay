@@ -62,6 +62,14 @@
                     android:foregroundGravity="center_vertical" >
 
                 </DatePicker>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="Date is older than today."
+                    android:id="@+id/date_error_text"
+                    android:layout_marginLeft="40dp" />
             </LinearLayout>
 
             <LinearLayout
@@ -121,7 +129,7 @@
                         android:layout_width="182dp"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:text="Time should be between 9.00-21.00 and date should not be passed."
+                        android:text="Time should be between 09.00-21.00 and end time must be bigger."
                         android:id="@+id/button_invisible_error"
                         android:layout_marginTop="120dp" />
 

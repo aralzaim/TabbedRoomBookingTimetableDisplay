@@ -30,8 +30,8 @@
     <string name="projector">Projector</string>
     <string name="multiple_computers">Multiple computers</string>
     <string name="capacity">Capacity ≥ 40 </string>
-    <string name="search_room_button">Search a Room </string>
-    <string name="succesful_booking">Booking Room was succesful! &#10004;</string>
+    <string name="search_room_button">Search Rooms </string>
+    <string name="succesful_booking">Room was succesfully booked! &#10004;</string>
     <string name="unsuccesful_booking">Your booking is overlapping with existing ones! Please try another room or another time interval! &#10006;</string>
     <string name="title_activity_calendar_view">CalendarViewActivity</string>
     <string name="action_settings">Settings</string>

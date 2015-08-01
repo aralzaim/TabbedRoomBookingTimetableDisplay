@@ -100,7 +100,7 @@ public class SearchingActivity extends Fragment implements OnClickListener {
 		
 		
 		
-		 dateText.setText("Date:	" + converters.calendarToDateS(dateCalendar));
+		 dateText.setText("Date:	" + converters.dateShower(dateCalendar));
 		 dateText.setTextSize(30);
 		 startText.setText("Time Start:	" + converters.timePickerToTimeS(startCalendar));
 		 startText.setTextSize(30);
@@ -116,7 +116,7 @@ public class SearchingActivity extends Fragment implements OnClickListener {
 		        dateCalendar.set(Calendar.YEAR, year);
 		        dateCalendar.set(Calendar.MONTH, monthOfYear);
 		        dateCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-		        dateText.setText("Date:	" + converters.calendarToDateS(dateCalendar));
+		        dateText.setText("Date:	" + converters.dateShower(dateCalendar));
 
 			}
 
@@ -149,7 +149,7 @@ public class SearchingActivity extends Fragment implements OnClickListener {
 		        			setTitle("Invalid Time!").
 		        			setMessage("Times should be between 9am and 9pm as well as starting time should"
 		        					+ " not be later than ending time.")
-		        					.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+		        					.setPositiveButton("Retry!", new DialogInterface.OnClickListener() {
 		        				        public void onClick(DialogInterface dialog, int which) {
 
 		        				        	startCalendar.setCurrentHour(availableBookingStartHour);
@@ -182,7 +182,7 @@ public class SearchingActivity extends Fragment implements OnClickListener {
 		        else{
 		        	AlertDialog alert= new AlertDialog.Builder(getActivity()).
 		        			setTitle("Invalid Time!").
-		        			setMessage("Times should be between 9am and 9pm as well as starting time should"
+		        			setMessage("Times should be between 09.00 and 21.00 as well as starting time should"
 		        					+ " not be later than ending time.")
 		        					.setPositiveButton("ok", new DialogInterface.OnClickListener() {
 		        				        public void onClick(DialogInterface dialog, int which) {
