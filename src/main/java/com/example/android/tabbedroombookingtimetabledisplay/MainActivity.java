@@ -136,13 +136,15 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         	if(position==0)
         		return R.drawable.ic_action_booking;
         	else if(position==1)
-        		return R.drawable.ic_action_searching;
+                return R.drawable.ic_action_booking;
 
         	else if(position==2)
-                return R.drawable.ic_action_calendar;
+                return R.drawable.ic_action_searching;
+
 
             else if (position==3){
-                return R.drawable.ic_action_booking;
+                return R.drawable.ic_action_calendar;
+
             }
             else
                 return Integer.parseInt(null);
@@ -156,14 +158,13 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
                     return new BookingActivity();
 
                 case 1:
-                	
-                	return new SearchingActivity();
-                
+                    return new RoomDetailsActivity();
+
                 case 2:
-                	return new CalendarViewActivity();
+                    return new SearchingActivity();
 
                 case 3:
-                    return new RoomDetailsActivity();
+                    return new CalendarViewActivity();
                 default:
                     return null;
             }
@@ -183,12 +184,12 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         	}
         	else if (position==1)
         	{
-        		 return "Search Rooms";
+        		 return "Room Details";
         	}
         	else if (position==2)
-        		 return "Weekly View";
+        		 return "Search Rooms";
             else if (position==3)
-                return "Room Details";
+                return "Weekly View";
             else
                 return "unknown";
         }

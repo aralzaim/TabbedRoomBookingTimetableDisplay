@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <TextView
         android:layout_width="wrap_content"
@@ -20,9 +20,10 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Outside"
         android:id="@+id/outside_text"
-        android:textSize="40dp"
-        android:layout_below="@+id/spinner2"
-        android:layout_alignParentLeft="true" />
+        android:textSize="30dp"
+        android:layout_alignTop="@+id/inside_text"
+        android:layout_alignLeft="@+id/outside_picture1"
+        android:layout_marginLeft="70dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -30,9 +31,9 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Inside"
         android:id="@+id/inside_text"
-        android:textSize="40dp"
+        android:textSize="30dp"
         android:layout_below="@+id/spinner2"
-        android:layout_alignLeft="@+id/imageView3" />
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -40,129 +41,138 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Details"
         android:id="@+id/details_text"
-        android:textSize="40dp"
+        android:textSize="30dp"
         android:layout_marginLeft="191dp"
         android:layout_alignTop="@+id/inside_text"
         android:layout_toRightOf="@+id/details_title" />
 
     <ImageView
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/outside_picture1"
         android:src="@drawable/ic_launcher"
-        android:layout_below="@+id/textView7"
-        android:layout_alignParentLeft="true" />
+        android:layout_below="@+id/outside_text"
+        android:layout_alignLeft="@+id/outside_picture2"
+        android:layout_marginTop="2dp" />
 
     <ImageView
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/outside_picture2"
         android:src="@drawable/ic_launcher"
-        android:layout_alignTop="@+id/imageView"
-        android:layout_toRightOf="@+id/imageView" />
+        android:layout_marginLeft="76dp"
+        android:layout_below="@+id/outside_picture1"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="2dp" />
 
     <ImageView
-        android:layout_width="200dp"
-        android:layout_height="150dp"
-        android:id="@+id/imageView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/inside_picture1"
         android:src="@drawable/ic_launcher"
-        android:layout_alignTop="@+id/imageView2"
-        android:layout_alignBottom="@+id/imageView2"
-        android:layout_alignLeft="@+id/details_title" />
+        android:layout_below="@+id/inside_text"
+        android:layout_alignLeft="@+id/inside_picture2"
+        android:layout_marginTop="2dp" />
 
     <ImageView
-        android:layout_width="200dp"
-        android:layout_height="150dp"
-        android:id="@+id/imageView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/inside_picture2"
         android:src="@drawable/ic_launcher"
-        android:layout_alignTop="@+id/imageView3"
-        android:layout_toRightOf="@+id/imageView3"
-        android:layout_alignBottom="@+id/imageView2" />
+        android:layout_below="@+id/inside_picture1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="2dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Capacity"
-        android:id="@+id/textView6"
-        android:textSize="30dp"
+        android:id="@+id/capacity_title"
+        android:textSize="20dp"
         android:layout_below="@+id/details_text"
-        android:layout_alignRight="@+id/details_text" />
+        android:layout_alignLeft="@+id/details_text" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Large Text"
-        android:id="@+id/textView7"
-        android:layout_below="@+id/textView6"
-        android:layout_alignLeft="@+id/textView6" />
+        android:id="@+id/capacity_text"
+        android:layout_below="@+id/capacity_title"
+        android:layout_alignLeft="@+id/capacity_title"
+        android:textSize="15dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Resources"
-        android:id="@+id/textView8"
-        android:textSize="30dp"
-        android:layout_below="@+id/textView7"
-        android:layout_alignLeft="@+id/textView7"
-        android:layout_marginTop="20dp" />
+        android:id="@+id/resources_title"
+        android:textSize="20dp"
+        android:layout_below="@+id/capacity_text"
+        android:layout_alignLeft="@+id/capacity_text"
+        android:paddingTop="5dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Location"
-        android:id="@+id/textView9"
+        android:id="@+id/location_title"
         android:textSize="30dp"
-        android:paddingTop="20dp"
-        android:layout_below="@+id/textView13"
-        android:layout_alignLeft="@+id/textView13" />
+        android:paddingTop="5dp"
+        android:layout_below="@+id/comment2"
+        android:layout_alignLeft="@+id/comment2" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Large Text"
-        android:id="@+id/textView10"
-        android:layout_below="@+id/textView11"
-        android:layout_alignLeft="@+id/textView8" />
+        android:id="@+id/resource1"
+        android:layout_below="@+id/resources_title"
+        android:layout_alignLeft="@+id/resources_title"
+        android:textSize="15dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Large Text"
-        android:id="@+id/textView11"
-        android:layout_below="@+id/textView8"
-        android:layout_alignLeft="@+id/textView8" />
+        android:id="@+id/resource2"
+        android:layout_below="@+id/resource1"
+        android:layout_alignLeft="@+id/resources_title"
+        android:textIsSelectable="false"
+        android:textSize="15dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Large Text"
-        android:id="@+id/textView12"
-        android:layout_below="@+id/textView10"
-        android:layout_alignLeft="@+id/textView8" />
+        android:id="@+id/resource3"
+        android:layout_below="@+id/resource2"
+        android:layout_alignLeft="@+id/resources_title"
+        android:textSize="15dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Large Text"
-        android:id="@+id/textView13"
-        android:layout_below="@+id/textView12"
-        android:layout_alignLeft="@+id/textView8" />
+        android:id="@+id/resource4"
+        android:layout_below="@+id/resource3"
+        android:layout_alignLeft="@+id/resources_title"
+        android:textSize="15dp" />
 
     <ImageView
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:id="@+id/imageView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/location_picture"
         android:src="@drawable/ic_launcher"
-        android:layout_below="@+id/textView9"
-        android:layout_alignRight="@+id/textView8" />
+        android:layout_below="@+id/location_title"
+        android:layout_alignLeft="@+id/location_title" />
 
     <Spinner
         android:layout_width="match_parent"
@@ -170,5 +180,36 @@
         android:id="@+id/spinner2"
         android:layout_below="@+id/details_title"
         android:layout_alignParentLeft="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Comments"
+        android:id="@+id/comment_title"
+        android:textSize="20dp"
+        android:paddingTop="5dp"
+        android:layout_below="@+id/resource4"
+        android:layout_alignLeft="@+id/resource4" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Large Text"
+        android:id="@+id/comment1"
+        android:textSize="15dp"
+        android:layout_below="@+id/comment_title"
+        android:layout_alignLeft="@+id/comment_title" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Large Text"
+        android:id="@+id/comment2"
+        android:textSize="15dp"
+        android:layout_below="@+id/comment1"
+        android:layout_alignLeft="@+id/comment1" />
 
 </RelativeLayout>
