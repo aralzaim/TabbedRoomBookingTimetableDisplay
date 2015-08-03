@@ -6,4 +6,5 @@
     android:textStyle="bold"
     android:paddingLeft="6dip"
     android:paddingRight="6dip"
-    android:gravity="center_vertical"/>
+    android:gravity="center_vertical"
+    />

@@ -5,4 +5,6 @@
     android:textSize="20sp"
     android:paddingLeft="6dip"
     android:paddingRight="6dip"
-    android:gravity="center_vertical"/>
+    android:gravity="center_vertical"
+    android:clickable="false"
+    android:focusable="false"/>

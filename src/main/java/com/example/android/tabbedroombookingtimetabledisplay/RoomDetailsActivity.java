@@ -15,6 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.example.android.tabbedroombookingtimetabledisplay.helpers.Converters;
 import com.squareup.picasso.Picasso;
@@ -47,6 +48,20 @@ public class RoomDetailsActivity extends Fragment {
     ImageView inside1;
     ImageView inside2;
     ImageView location;
+    TextView capacityTitle;
+    TextView capacityText;
+    TextView resourcesTitle;
+    TextView resource1;
+    TextView resource2;
+    TextView resource3;
+    TextView resource4;
+    TextView commentsTitle;
+    TextView comment2;
+    TextView comment1;
+    TextView locationTitle;
+    ArrayList<String> comments = new ArrayList<>();
+    ArrayList<String> resources = new ArrayList<>();
+
     Converters converters= new Converters();
     Spinner roomSpinner;
     RoomDetails selectedRoomDetails;
@@ -66,14 +81,41 @@ public class RoomDetailsActivity extends Fragment {
         inside2=(ImageView) rootView.findViewById(R.id.inside_picture2);
         location=(ImageView) rootView.findViewById(R.id.location_picture);
 
+        capacityTitle=(TextView) rootView.findViewById(R.id.capacity_title);
+        capacityText=(TextView) rootView.findViewById(R.id.capacity_text);
 
-        outside1.setVisibility(View.INVISIBLE);
-        outside2.setVisibility(View.INVISIBLE);
-        inside1.setVisibility(View.INVISIBLE);
-        inside2.setVisibility(View.INVISIBLE);
+        resourcesTitle=(TextView) rootView.findViewById(R.id.resources_title);
+        resource1=(TextView) rootView.findViewById(R.id.resource1);
+        resource2=(TextView) rootView.findViewById(R.id.resource2);
+        resource3=(TextView) rootView.findViewById(R.id.resource3);
+        resource4=(TextView) rootView.findViewById(R.id.resource4);
 
-        //  outside2.setImageBitmap(getBitmapFromURL("https://zeno.computing.dundee.ac.uk/2014-msc/aralzaim/images/11824241_10153410531706206_1007425622_n.jpg"));
-        GetRoomsBooking getRooms= new GetRoomsBooking();
+        commentsTitle=(TextView) rootView.findViewById(R.id.comment_title);
+        comment1=(TextView) rootView.findViewById(R.id.comment1);
+        comment2=(TextView) rootView.findViewById(R.id.comment2);
+        locationTitle=(TextView) rootView.findViewById(R.id.location_title);
+
+        capacityTitle.setText("Select room to show details..");
+
+
+        capacityText.setVisibility(View.INVISIBLE);
+        resourcesTitle.setVisibility(View.INVISIBLE);
+        resource1.setVisibility(View.INVISIBLE);
+        resource2.setVisibility(View.INVISIBLE);
+        resource3.setVisibility(View.INVISIBLE);
+        resource4.setVisibility(View.INVISIBLE);
+        commentsTitle.setVisibility(View.INVISIBLE);
+        comment1.setVisibility(View.INVISIBLE);
+        comment2.setVisibility(View.INVISIBLE);
+
+
+        Picasso.with(getActivity()).load(R.drawable.qmb_placeholder).resize(400,300).into(location);
+        Picasso.with(getActivity()).load(R.drawable.placeholder).resize(350,250).into(outside1);
+        Picasso.with(getActivity()).load(R.drawable.placeholder).resize(350,250).into(outside2);
+        Picasso.with(getActivity()).load(R.drawable.placeholder).resize(350,250).into(inside1);
+        Picasso.with(getActivity()).load(R.drawable.placeholder).resize(350,250).into(inside2);
+
+      GetRoomsBooking getRooms= new GetRoomsBooking();
             getRooms.execute();
 
         roomSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -84,6 +126,10 @@ public class RoomDetailsActivity extends Fragment {
                 GetRoomDetails getRoomDetails= new GetRoomDetails();
 
                 if(roomSpinner.getSelectedItem().toString().equals("Lab 0")){
+
+
+                    resources= new ArrayList<>();
+                    comments = new ArrayList<>();
 
                     selectedRoomDetails.setRoomName(roomSpinner.getSelectedItem().toString());
                     getRoomDetails.execute();
@@ -96,20 +142,118 @@ public class RoomDetailsActivity extends Fragment {
                         e.printStackTrace();
                     }
 
+
+                    capacityTitle.setText("Capacity");
+                    capacityText.setText(Integer.toString(selectedRoomDetails.getCapacity()));
+                    capacityText.setVisibility(View.VISIBLE);
+
+                    resourcesTitle.setVisibility(View.VISIBLE);
+
+                    if(!selectedRoomDetails.getResource1().equalsIgnoreCase("NULL")){
+                       resources.add(selectedRoomDetails.getResource1());
+                    }
+                    if(!selectedRoomDetails.getResource2().equalsIgnoreCase("NULL")){
+                        resources.add(selectedRoomDetails.getResource2());
+                    }
+                    if(!selectedRoomDetails.getResource3().equalsIgnoreCase("NULL")){
+                        resources.add(selectedRoomDetails.getResource3());
+                    }
+                    if(!selectedRoomDetails.getResource4().equalsIgnoreCase("NULL")){
+                        resources.add(selectedRoomDetails.getResource4());
+                    }
+
+
+                        for(int i=0; i<resources.size();i++){
+
+                            if(i==0){
+                                resource1.setText(resources.get(i));
+                                resource1.setVisibility(View.VISIBLE);
+                            }
+                            if(i==1){
+                                resource2.setText(resources.get(i));
+                                resource2.setVisibility(View.VISIBLE);
+                            }
+                            if(i==2){
+                                resource3.setText(resources.get(i));
+                                resource3.setVisibility(View.VISIBLE);
+                            }
+                            if(i==3){
+                                resource4.setText(resources.get(i));
+                                resource4.setVisibility(View.VISIBLE);
+                            }
+
+                        }
+
+                    if(resources.size()<=0)
+                    {
+                        resource1.setText("No resources added.");
+                        resource1.setVisibility(View.VISIBLE);
+                    }
+
+
+                    commentsTitle.setVisibility(View.VISIBLE);
+
+                    if(!selectedRoomDetails.getComment1().equalsIgnoreCase("NULL")){
+                       comments.add(selectedRoomDetails.getComment1());
+                    }
+
+                    if(!selectedRoomDetails.getComment2().equalsIgnoreCase("NULL")){
+                        comments.add(selectedRoomDetails.getComment2());
+                    }
+
+                    for(int i=0; i<comments.size();i++){
+
+                        if(i==0){
+                            comment1.setText(comments.get(i));
+                            comment1.setVisibility(View.VISIBLE);
+                        }
+                        if(i==1){
+                            comment2.setText(comments.get(i));
+                            comment2.setVisibility(View.VISIBLE);
+                        }
+
+                    }
+
+                    if(resources.size()<=0)
+                    {
+                        comment1.setText("No comments added.");
+                        comment1.setVisibility(View.VISIBLE);
+                    }
+
+
                     Picasso.with(getActivity()).load(selectedRoomDetails.getOutsidePic1()).resize(350, 250).into(outside1);
                     Picasso.with(getActivity()).load(selectedRoomDetails.getOutsidePic2()).resize(350,250).into(outside2);
                     Picasso.with(getActivity()).load(selectedRoomDetails.getInsidePic1()).resize(350, 250).into(inside1);
                     Picasso.with(getActivity()).load(selectedRoomDetails.getInsidePic2()).resize(350, 250).into(inside2);
 
 
-                    outside1.setVisibility(View.VISIBLE);
-                    outside2.setVisibility(View.VISIBLE);
-                    inside1.setVisibility(View.VISIBLE);
-                    inside2.setVisibility(View.VISIBLE);
-                }
-                else if(roomSpinner.getSelectedItem().toString().equals("Lab 1"))
-                {
 
+                }
+
+
+
+
+
+
+
+                else if(roomSpinner.getSelectedItem().toString().equals("Select a room..."))
+                {
+                    capacityText.setVisibility(View.INVISIBLE);
+                    resourcesTitle.setVisibility(View.INVISIBLE);
+                    resource1.setVisibility(View.INVISIBLE);
+                    resource2.setVisibility(View.INVISIBLE);
+                    resource3.setVisibility(View.INVISIBLE);
+                    resource4.setVisibility(View.INVISIBLE);
+                    commentsTitle.setVisibility(View.INVISIBLE);
+                    comment1.setVisibility(View.INVISIBLE);
+                    comment2.setVisibility(View.INVISIBLE);
+
+
+
+                    Picasso.with(getActivity()).load(R.drawable.placeholder).resize(350,250).into(outside1);
+                    Picasso.with(getActivity()).load(R.drawable.placeholder).resize(350,250).into(outside2);
+                    Picasso.with(getActivity()).load(R.drawable.placeholder).resize(350,250).into(inside1);
+                    Picasso.with(getActivity()).load(R.drawable.placeholder).resize(350,250).into(inside2);
                 }
 
             }

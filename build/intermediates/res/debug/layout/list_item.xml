@@ -6,4 +6,5 @@
     android:textStyle="bold"
     android:paddingLeft="6dip"
     android:paddingRight="6dip"
-    android:gravity="center_vertical"/><!-- From: file:/Users/aralzaim/StudioProjects/TabbedRoomBookingTimetableDisplay1/app/src/main/res/layout/list_item.xml -->
+    android:gravity="center_vertical"
+    /><!-- From: file:/Users/aralzaim/StudioProjects/TabbedRoomBookingTimetableDisplay1/app/src/main/res/layout/list_item.xml -->

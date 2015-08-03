@@ -167,12 +167,15 @@
         android:textSize="15dp" />
 
     <ImageView
-        android:layout_width="wrap_content"
+        android:layout_width="500dp"
         android:layout_height="wrap_content"
         android:id="@+id/location_picture"
         android:src="@drawable/ic_launcher"
         android:layout_below="@+id/location_title"
-        android:layout_alignLeft="@+id/location_title" />
+        android:layout_alignParentRight="false"
+        android:layout_alignWithParentIfMissing="false"
+        android:layout_alignRight="@+id/spinner2"
+        android:layout_centerVertical="true" />
 
     <Spinner
         android:layout_width="match_parent"
