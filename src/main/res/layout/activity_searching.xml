@@ -121,6 +121,14 @@
         android:layout_gravity="center_horizontal"
         android:orientation="vertical" >
 
+        <Button
+                android:id="@+id/submit_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/search_room_button"
+                android:textSize="30sp" />
+
         <TextView
             android:id="@+id/results_title"
             android:layout_width="wrap_content"
@@ -138,12 +146,5 @@
 
         
     </LinearLayout>
-    <Button
-            android:id="@+id/submit_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="@string/search_room_button"
-            android:textSize="30sp" />
 
 </LinearLayout>

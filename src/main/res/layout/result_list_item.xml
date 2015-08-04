@@ -3,6 +3,7 @@
     android:layout_height="?android:attr/listPreferredItemHeight"
     android:layout_width="wrap_content"
     android:textSize="20sp"
+    android:textStyle="bold"
     android:paddingLeft="6dip"
     android:paddingRight="6dip"
     android:gravity="center_vertical"

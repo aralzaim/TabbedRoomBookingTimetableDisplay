@@ -128,11 +128,21 @@ public class RoomDetailsActivity extends Fragment {
                 if(!roomSpinner.getSelectedItem().toString().equalsIgnoreCase("Select a room...")){
 
 
-                    resources= new ArrayList<>();
-                    comments = new ArrayList<>();
+
+                    capacityText.setVisibility(View.INVISIBLE);
+                    resourcesTitle.setVisibility(View.INVISIBLE);
+                    resource1.setVisibility(View.INVISIBLE);
+                    resource2.setVisibility(View.INVISIBLE);
+                    resource3.setVisibility(View.INVISIBLE);
+                    resource4.setVisibility(View.INVISIBLE);
+                    commentsTitle.setVisibility(View.INVISIBLE);
+                    comment1.setVisibility(View.INVISIBLE);
+                    comment2.setVisibility(View.INVISIBLE);
 
                     selectedRoomDetails.setRoomName(roomSpinner.getSelectedItem().toString());
                     getRoomDetails.execute();
+
+
 
                     try {
                         getRoomDetails.get();
@@ -141,6 +151,12 @@ public class RoomDetailsActivity extends Fragment {
                     } catch (ExecutionException e) {
                         e.printStackTrace();
                     }
+
+
+                    resources.clear();
+                    comments.clear();
+                    resources= new ArrayList<>();
+                    comments = new ArrayList<>();
 
 
                     capacityTitle.setText("Capacity");
@@ -217,7 +233,7 @@ public class RoomDetailsActivity extends Fragment {
 
                     }
 
-                    if(resources.size()<=0)
+                    if(comments.size()<=0)
                     {
                         comment1.setText("No comments added.");
                         comment1.setVisibility(View.VISIBLE);
