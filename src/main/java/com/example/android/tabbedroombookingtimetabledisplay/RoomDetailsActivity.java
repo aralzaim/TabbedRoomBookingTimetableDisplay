@@ -125,7 +125,7 @@ public class RoomDetailsActivity extends Fragment {
                 selectedRoomDetails=new RoomDetails();
                 GetRoomDetails getRoomDetails= new GetRoomDetails();
 
-                if(roomSpinner.getSelectedItem().toString().equals("Lab 0")){
+                if(!roomSpinner.getSelectedItem().toString().equalsIgnoreCase("Select a room...")){
 
 
                     resources= new ArrayList<>();
@@ -188,6 +188,9 @@ public class RoomDetailsActivity extends Fragment {
                     {
                         resource1.setText("No resources added.");
                         resource1.setVisibility(View.VISIBLE);
+                        resource2.setVisibility(View.INVISIBLE);
+                        resource3.setVisibility(View.INVISIBLE);
+                        resource4.setVisibility(View.INVISIBLE);
                     }
 
 
@@ -218,6 +221,7 @@ public class RoomDetailsActivity extends Fragment {
                     {
                         comment1.setText("No comments added.");
                         comment1.setVisibility(View.VISIBLE);
+                        comment2.setVisibility(View.INVISIBLE);
                     }
 
 
@@ -225,6 +229,8 @@ public class RoomDetailsActivity extends Fragment {
                     Picasso.with(getActivity()).load(selectedRoomDetails.getOutsidePic2()).resize(350,250).into(outside2);
                     Picasso.with(getActivity()).load(selectedRoomDetails.getInsidePic1()).resize(350, 250).into(inside1);
                     Picasso.with(getActivity()).load(selectedRoomDetails.getInsidePic2()).resize(350, 250).into(inside2);
+                    Picasso.with(getActivity()).load(selectedRoomDetails.getLocationPic()).resize(400, 250).into(location);
+
 
 
 
@@ -238,6 +244,7 @@ public class RoomDetailsActivity extends Fragment {
 
                 else if(roomSpinner.getSelectedItem().toString().equals("Select a room..."))
                 {
+                    capacityTitle.setText("Select room to show details...");
                     capacityText.setVisibility(View.INVISIBLE);
                     resourcesTitle.setVisibility(View.INVISIBLE);
                     resource1.setVisibility(View.INVISIBLE);
@@ -254,6 +261,8 @@ public class RoomDetailsActivity extends Fragment {
                     Picasso.with(getActivity()).load(R.drawable.placeholder).resize(350,250).into(outside2);
                     Picasso.with(getActivity()).load(R.drawable.placeholder).resize(350,250).into(inside1);
                     Picasso.with(getActivity()).load(R.drawable.placeholder).resize(350,250).into(inside2);
+                    Picasso.with(getActivity()).load(R.drawable.qmb_placeholder).resize(350,250).into(location);
+
                 }
 
             }
@@ -386,12 +395,15 @@ public class RoomDetailsActivity extends Fragment {
         ProgressDialog processDialog=new ProgressDialog(getActivity());
         HttpClient httpClient=null;
         HttpPost httpPost=null;
+        ProgressDialog fetchingDialog;
 
         ArrayList<String> resultList = new ArrayList<String>();
 
         @Override
         protected void onPreExecute(){
-
+           fetchingDialog = new ProgressDialog(getActivity());
+            fetchingDialog.setMessage("Getting Details..");
+            fetchingDialog.show();
         }
 
 
@@ -463,8 +475,7 @@ public class RoomDetailsActivity extends Fragment {
 
             @Override
             protected void onPostExecute(Boolean result){
-
-
+                fetchingDialog.dismiss();
         }
 
 
