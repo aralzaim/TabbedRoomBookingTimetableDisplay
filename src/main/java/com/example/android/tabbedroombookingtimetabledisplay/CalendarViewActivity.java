@@ -1,6 +1,7 @@
 package com.example.android.tabbedroombookingtimetabledisplay;
 
 import android.app.ProgressDialog;
+import android.graphics.Color;
 import android.graphics.RectF;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -68,8 +69,9 @@ public class CalendarViewActivity extends Fragment implements WeekView.MonthChan
         spinner= (Spinner) rootView.findViewById(R.id.spinner);
         mWeekView =(WeekView) rootView.findViewById(R.id.weekView);
         selectedLab= (TextView) rootView.findViewById(R.id.textView5);
-
-        selectedLab.setVisibility(View.INVISIBLE);
+        selectedLab.setText("Select a room");
+        selectedLab.setTextColor(Color.RED);
+        selectedLab.setVisibility(View.VISIBLE);
 
 
 
@@ -182,6 +184,7 @@ public class CalendarViewActivity extends Fragment implements WeekView.MonthChan
             String roomSelected;
             // Populate the week view with some events.
                 selectedLab.setVisibility(View.VISIBLE);
+                selectedLab.setTextColor(Color.BLACK);
                 roomSelected= spinner.getSelectedItem().toString();
                 selectedLab.setText(roomSelected);
 
@@ -221,7 +224,9 @@ public class CalendarViewActivity extends Fragment implements WeekView.MonthChan
             return events;
         }
         else if(spinner.getSelectedItemPosition()==0){
-            selectedLab.setVisibility(View.INVISIBLE);
+            selectedLab.setText("Select a room");
+            selectedLab.setTextColor(Color.RED);
+            selectedLab.setVisibility(View.VISIBLE);
         }
         return null;
         }

@@ -2,6 +2,7 @@ package com.example.android.tabbedroombookingtimetabledisplay;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 import org.apache.http.HttpResponse;
@@ -24,6 +25,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -51,6 +53,7 @@ public class BookingActivity extends Fragment implements OnClickListener {
     ArrayList<String> roomNames= new ArrayList<>();
     TextView invalidTimeText;
     TextView dateOldText;
+	TextView roomText;
 
 
 	
@@ -79,6 +82,11 @@ public class BookingActivity extends Fragment implements OnClickListener {
 		dateOldText.setVisibility(View.INVISIBLE);
 		dateOldText.setTextColor(Color.RED);
 
+	//	roomText= (TextView) rootView.findViewById(R.id.room_text);
+	//	roomText.setVisibility(View.VISIBLE);
+	//	roomText.setTextColor(Color.RED);
+
+
 		GetRoomsBooking getRoomTask=new GetRoomsBooking();
 
 		getRoomTask.execute();
@@ -86,8 +94,42 @@ public class BookingActivity extends Fragment implements OnClickListener {
 		submitBtn=(Button) rootView.findViewById(R.id.submit_button);
 		submitBtn.setOnClickListener(this);
 
+	//	roomSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+	//		@Override
+	//		public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+///
+	//			if(roomSpinner.getSelectedItemPosition()==0){
+	//				roomText.setVisibility(View.VISIBLE);
+	//				submitBtn.setEnabled(false);
+	//			}
+	//			else if(checkers.endTimeValidity(startTimePicker, endTimePicker) || !checkers.dateOlder(dateSelected.getYear(), dateSelected.getMonth(), dateSelected.getDayOfMonth())||roomSpinner.getSelectedItemPosition()!=0){
+	//				dateOldText.setVisibility(View.INVISIBLE);
+	//				invalidTimeText.setVisibility(View.INVISIBLE);
+//
+	//				if(roomSpinner.getSelectedItemPosition()!=0) {
+	//					roomText.setVisibility(View.INVISIBLE);
+	//				}
+	//				else if(checkers.dateOlder(dateSelected.getYear(),dateSelected.getMonth(),dateSelected.getDayOfMonth()))
+	//				{
+	//					dateOldText.setVisibility(View.INVISIBLE);
+	//				}
+	//				else if(!checkers.endTimeValidity(startTimePicker, endTimePicker)){
+	//					dateOldText.setVisibility(View.INVISIBLE);
+	//				}
+	//				submitBtn.setEnabled(true);
+	//			}
+	//		}
 
-		//selectBtn =(Button) rootView.findViewById(R.id.button);
+	//		@Override
+	//		public void onNothingSelected(AdapterView<?> parent) {
+
+	//		}
+	//		});
+
+
+
+
+			//selectBtn =(Button) rootView.findViewById(R.id.button);
       //  selectBtn.setOnClickListener(new OnClickListener() {
     //        @Override
   //          public void onClick(View v) {
@@ -176,7 +218,7 @@ public class BookingActivity extends Fragment implements OnClickListener {
 	            	newEndHour++;
 	            }
 	            
-           	if(checkers.startTimeValidity(startTimePicker) && checkers.endTimeValidity(startTimePicker, endTimePicker) && !checkers.dateOlder(dateSelected.getYear(), dateSelected.getMonth(), dateSelected.getDayOfMonth())) {
+           	if(checkers.startTimeValidity(startTimePicker) && checkers.endTimeValidity(startTimePicker, endTimePicker) && !checkers.dateOlder(dateSelected.getYear(), dateSelected.getMonth(), dateSelected.getDayOfMonth()) )/*&& roomSpinner.getSelectedItemPosition()!=0)*/ {
                 invalidTimeText.setVisibility(View.INVISIBLE);
 				dateOldText.setVisibility(View.INVISIBLE);
                 submitBtn.setEnabled(true);
@@ -191,6 +233,11 @@ public class BookingActivity extends Fragment implements OnClickListener {
 					dateOldText.setVisibility(View.VISIBLE);
 					invalidTimeText.setVisibility(View.INVISIBLE);
 				}
+		//		else if(roomSpinner.getSelectedItemPosition()==0){
+		//			dateOldText.setVisibility(View.INVISIBLE);
+		//			invalidTimeText.setVisibility(View.INVISIBLE);
+		//			 roomText.setVisibility(View.VISIBLE);
+		//		}
                 submitBtn.setEnabled(false);
             }
 	            
@@ -208,7 +255,7 @@ public class BookingActivity extends Fragment implements OnClickListener {
 			@Override
 			public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
 				
-				if(checkers.endTimeValidity(startTimePicker, endTimePicker) && !checkers.dateOlder(dateSelected.getYear(), dateSelected.getMonth(), dateSelected.getDayOfMonth())) {
+				if(checkers.endTimeValidity(startTimePicker, endTimePicker) && !checkers.dateOlder(dateSelected.getYear(), dateSelected.getMonth(), dateSelected.getDayOfMonth()) /*&& roomSpinner.getSelectedItemPosition()!=0*/) {
                     submitBtn.setEnabled(true);
                     invalidTimeText.setVisibility(View.INVISIBLE);
 					dateOldText.setVisibility(View.INVISIBLE);
@@ -218,11 +265,17 @@ public class BookingActivity extends Fragment implements OnClickListener {
 						dateOldText.setVisibility(View.VISIBLE);
 						invalidTimeText.setVisibility(View.INVISIBLE);
 					}
-					else {
+					else if(!checkers.endTimeValidity(startTimePicker,endTimePicker)){
 						dateOldText.setVisibility(View.INVISIBLE);
 						invalidTimeText.setVisibility(View.VISIBLE);
 
 					}
+			//		else if(roomSpinner.getSelectedItemPosition()==0){
+			//			dateOldText.setVisibility(View.INVISIBLE);
+			//			invalidTimeText.setVisibility(View.INVISIBLE);
+			//			roomText.setVisibility(View.VISIBLE);
+			//		}
+
 					submitBtn.setEnabled(false);
                 }
                 }
@@ -238,7 +291,7 @@ public class BookingActivity extends Fragment implements OnClickListener {
 					int dayOfMonth) {
 				
 				
-				if(checkers.dateOlder(year,monthOfYear,dayOfMonth) || !checkers.endTimeValidity(startTimePicker, endTimePicker) || !checkers.startTimeValidity(startTimePicker))
+				if(checkers.dateOlder(year,monthOfYear,dayOfMonth) || !checkers.endTimeValidity(startTimePicker, endTimePicker) || !checkers.startTimeValidity(startTimePicker) /*|| roomSpinner.getSelectedItemPosition()==0*/)
 				{
 					if(checkers.dateOlder(year,monthOfYear,dayOfMonth)) {
 						dateOldText.setVisibility(View.VISIBLE);
@@ -249,6 +302,12 @@ public class BookingActivity extends Fragment implements OnClickListener {
 						invalidTimeText.setVisibility(View.VISIBLE);
 						dateOldText.setVisibility(View.INVISIBLE);
 					}
+				//	else if(roomSpinner.getSelectedItemPosition()==0)
+			//		{
+		//				dateOldText.setVisibility(View.INVISIBLE);
+	//					invalidTimeText.setVisibility(View.INVISIBLE);
+	//					roomText.setVisibility(View.VISIBLE);
+	//				}
 
 					submitBtn.setEnabled(false);
 				}
@@ -303,7 +362,7 @@ public class BookingActivity extends Fragment implements OnClickListener {
         startDateTimestamp=year+"-"+month+"-"+day + " " + startHour +":"+ startMinute;
         endDateTimestamp = year+"-"+month+"-"+day + " " + endHour +":"+ endMinute;
 
-      if(!roomName.equalsIgnoreCase("select a room...")) {
+      if(!roomName.equalsIgnoreCase("select a room to book...")) {
 		  try {
 
 			  startParsedDateTime = converters.stringToDate(startDateTimestamp);
@@ -469,7 +528,7 @@ public class BookingActivity extends Fragment implements OnClickListener {
 
             if(roomNames.size()<=0) {
                 try {
-                    roomNames.add("Select a room...");
+                    roomNames.add("Select a room to book...");
                     jsonResult = converters.inputStreamToString(httpResponse.getEntity().getContent()).toString();
 
                     JSONObject jsonObj = new JSONObject(jsonResult);

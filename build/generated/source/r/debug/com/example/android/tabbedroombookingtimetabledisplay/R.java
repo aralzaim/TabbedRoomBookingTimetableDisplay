@@ -1532,8 +1532,6 @@ containing a value of this type.
         public static final int ic_event_black_24dp=0x7f02003b;
         public static final int ic_launcher=0x7f02003c;
         public static final int ic_launcher2=0x7f02003d;
-        public static final int placeholder=0x7f02003e;
-        public static final int qmb_placeholder=0x7f02003f;
     }
     public static final class id {
         public static final int action_bar=0x7f0b003a;

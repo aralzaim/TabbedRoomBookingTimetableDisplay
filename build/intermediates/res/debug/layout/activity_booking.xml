@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:text="@string/book_room_text"
-        android:textSize="40sp" />
+        android:textSize="35sp" />
 
     <LinearLayout
         android:id="@+id/linearLayout1"
@@ -20,18 +20,25 @@
         android:layout_centerHorizontal="true"
         android:orientation="vertical" >
 
-        <Spinner
-            android:id="@+id/room_spinner"
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical" />
+            android:layout_height="wrap_content">
+
+            <Spinner
+                android:id="@+id/room_spinner"
+                android:layout_width="978dp"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical" />
+
+        </LinearLayout>
 
 
-      <!--  <Button
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="Select a room..."
-            android:id="@+id/button" />-->
+        <!--  <Button
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:text="Select a room..."
+              android:id="@+id/button" />-->
 
         <LinearLayout
             android:layout_width="match_parent"

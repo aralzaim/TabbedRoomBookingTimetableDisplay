@@ -29,6 +29,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -48,6 +49,9 @@ public class RoomDetailsActivity extends Fragment {
     ImageView inside1;
     ImageView inside2;
     ImageView location;
+    TextView outside;
+    TextView inside;
+    TextView details;
     TextView capacityTitle;
     TextView capacityText;
     TextView resourcesTitle;
@@ -75,29 +79,39 @@ public class RoomDetailsActivity extends Fragment {
         RelativeLayout rootView = (RelativeLayout) (inflater.inflate(R.layout.activity_details, container, false));
 
         roomSpinner = (Spinner) rootView.findViewById(R.id.spinner2);
+
         outside1=(ImageView) rootView.findViewById(R.id.outside_picture1);
         outside2=(ImageView) rootView.findViewById(R.id.outside_picture2);
         inside1=(ImageView) rootView.findViewById(R.id.inside_picture1);
         inside2=(ImageView) rootView.findViewById(R.id.inside_picture2);
         location=(ImageView) rootView.findViewById(R.id.location_picture);
 
+        details=(TextView) rootView.findViewById(R.id.details_text);
+        inside= (TextView) rootView.findViewById(R.id.inside_text);
+        outside=(TextView) rootView.findViewById(R.id.outside_text);
         capacityTitle=(TextView) rootView.findViewById(R.id.capacity_title);
         capacityText=(TextView) rootView.findViewById(R.id.capacity_text);
-
         resourcesTitle=(TextView) rootView.findViewById(R.id.resources_title);
         resource1=(TextView) rootView.findViewById(R.id.resource1);
         resource2=(TextView) rootView.findViewById(R.id.resource2);
         resource3=(TextView) rootView.findViewById(R.id.resource3);
         resource4=(TextView) rootView.findViewById(R.id.resource4);
-
         commentsTitle=(TextView) rootView.findViewById(R.id.comment_title);
         comment1=(TextView) rootView.findViewById(R.id.comment1);
         comment2=(TextView) rootView.findViewById(R.id.comment2);
         locationTitle=(TextView) rootView.findViewById(R.id.location_title);
 
-        capacityTitle.setText("Select room to show details..");
 
-
+        inside.setVisibility(View.INVISIBLE);
+        outside.setVisibility(View.INVISIBLE);
+        details.setVisibility(View.INVISIBLE);
+        outside1.setVisibility(View.INVISIBLE);
+        inside1.setVisibility(View.INVISIBLE);
+        outside2.setVisibility(View.INVISIBLE);
+        inside2.setVisibility(View.INVISIBLE);
+        location.setVisibility(View.INVISIBLE);
+        locationTitle.setVisibility(View.INVISIBLE);
+        capacityTitle.setVisibility(View.INVISIBLE);
         capacityText.setVisibility(View.INVISIBLE);
         resourcesTitle.setVisibility(View.INVISIBLE);
         resource1.setVisibility(View.INVISIBLE);
@@ -109,11 +123,8 @@ public class RoomDetailsActivity extends Fragment {
         comment2.setVisibility(View.INVISIBLE);
 
 
-        Picasso.with(getActivity()).load(R.drawable.qmb_placeholder).resize(400,300).into(location);
-        Picasso.with(getActivity()).load(R.drawable.placeholder).resize(350,250).into(outside1);
-        Picasso.with(getActivity()).load(R.drawable.placeholder).resize(350,250).into(outside2);
-        Picasso.with(getActivity()).load(R.drawable.placeholder).resize(350,250).into(inside1);
-        Picasso.with(getActivity()).load(R.drawable.placeholder).resize(350,250).into(inside2);
+
+
 
       GetRoomsBooking getRooms= new GetRoomsBooking();
             getRooms.execute();
@@ -128,6 +139,16 @@ public class RoomDetailsActivity extends Fragment {
                 if(!roomSpinner.getSelectedItem().toString().equalsIgnoreCase("Select a room...")){
 
 
+                    inside.setVisibility(View.VISIBLE);
+                    outside.setVisibility(View.VISIBLE);
+                    details.setVisibility(View.VISIBLE);
+                    outside1.setVisibility(View.VISIBLE);
+                    inside1.setVisibility(View.VISIBLE);
+                    outside2.setVisibility(View.VISIBLE);
+                    inside2.setVisibility(View.VISIBLE);
+                    location.setVisibility(View.VISIBLE);
+                    locationTitle.setVisibility(View.VISIBLE);
+                    capacityTitle.setVisibility(View.VISIBLE);
 
                     capacityText.setVisibility(View.INVISIBLE);
                     resourcesTitle.setVisibility(View.INVISIBLE);
@@ -258,9 +279,18 @@ public class RoomDetailsActivity extends Fragment {
 
 
 
-                else if(roomSpinner.getSelectedItem().toString().equals("Select a room..."))
+                else if(roomSpinner.getSelectedItem().toString().equalsIgnoreCase("Select a room..."))
                 {
-                    capacityTitle.setText("Select room to show details...");
+                    inside.setVisibility(View.INVISIBLE);
+                    outside.setVisibility(View.INVISIBLE);
+                    details.setVisibility(View.INVISIBLE);
+                    outside1.setVisibility(View.INVISIBLE);
+                    inside1.setVisibility(View.INVISIBLE);
+                    outside2.setVisibility(View.INVISIBLE);
+                    inside2.setVisibility(View.INVISIBLE);
+                    location.setVisibility(View.INVISIBLE);
+                    locationTitle.setVisibility(View.INVISIBLE);
+                    capacityTitle.setVisibility(View.INVISIBLE);
                     capacityText.setVisibility(View.INVISIBLE);
                     resourcesTitle.setVisibility(View.INVISIBLE);
                     resource1.setVisibility(View.INVISIBLE);
@@ -270,14 +300,6 @@ public class RoomDetailsActivity extends Fragment {
                     commentsTitle.setVisibility(View.INVISIBLE);
                     comment1.setVisibility(View.INVISIBLE);
                     comment2.setVisibility(View.INVISIBLE);
-
-
-
-                    Picasso.with(getActivity()).load(R.drawable.placeholder).resize(350,250).into(outside1);
-                    Picasso.with(getActivity()).load(R.drawable.placeholder).resize(350,250).into(outside2);
-                    Picasso.with(getActivity()).load(R.drawable.placeholder).resize(350,250).into(inside1);
-                    Picasso.with(getActivity()).load(R.drawable.placeholder).resize(350,250).into(inside2);
-                    Picasso.with(getActivity()).load(R.drawable.qmb_placeholder).resize(350,250).into(location);
 
                 }
 
@@ -295,23 +317,6 @@ public class RoomDetailsActivity extends Fragment {
         return rootView;
     }
 
-    public static Bitmap getBitmapFromURL(String src) {
-        try {
-            Log.e("src",src);
-            URL url = new URL(src);
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setDoInput(true);
-            connection.connect();
-            InputStream input = connection.getInputStream();
-            Bitmap myBitmap = BitmapFactory.decodeStream(input);
-            Log.e("Bitmap","returned");
-            return myBitmap;
-        } catch (IOException e) {
-            e.printStackTrace();
-            Log.e("Exception",e.getMessage());
-            return null;
-        }
-    }
 
     private class GetRoomsBooking extends AsyncTask <String, Void, Boolean>{
 
@@ -445,7 +450,7 @@ public class RoomDetailsActivity extends Fragment {
                 String jsonResult = converters.inputStreamToString(httpResponse.getEntity().getContent()).toString();
 
 
-                Log.e("JSONRESULT", jsonResult);
+                //Log.e("JSONRESULT", jsonResult);
 
                 JSONObject jsonObj = new JSONObject(jsonResult);
 

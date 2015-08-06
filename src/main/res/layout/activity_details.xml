@@ -9,7 +9,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Room Details"
         android:id="@+id/details_title"
-        android:textSize="50dp"
+        android:textSize="35sp"
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="false"
         android:layout_alignParentTop="false" />
