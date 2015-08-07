@@ -7,17 +7,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Room Details"
-        android:id="@+id/details_title"
-        android:textSize="35sp"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="false"
-        android:layout_alignParentTop="false" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Outside"
         android:id="@+id/outside_text"
         android:textSize="30dp"
@@ -42,9 +31,9 @@
         android:text="Details"
         android:id="@+id/details_text"
         android:textSize="30dp"
-        android:layout_marginLeft="191dp"
-        android:layout_alignTop="@+id/inside_text"
-        android:layout_toRightOf="@+id/details_title" />
+        android:layout_marginLeft="189dp"
+        android:layout_below="@+id/spinner2"
+        android:layout_alignLeft="@+id/location_picture" />
 
     <ImageView
         android:layout_width="wrap_content"
@@ -181,8 +170,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/spinner2"
-        android:layout_below="@+id/details_title"
-        android:layout_alignParentLeft="true" />
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="10dp" />
 
     <TextView
         android:layout_width="wrap_content"

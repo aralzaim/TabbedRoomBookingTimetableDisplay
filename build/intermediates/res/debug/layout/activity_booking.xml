@@ -4,19 +4,10 @@
     android:layout_height="match_parent"
     tools:context="com.example.roombookingtimetabledisplay.BookingActivity" >
 
-    <TextView
-        android:id="@+id/book_room_textView"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:text="@string/book_room_text"
-        android:textSize="35sp" />
-
     <LinearLayout
         android:id="@+id/linearLayout1"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_below="@+id/book_room_textView"
         android:layout_centerHorizontal="true"
         android:orientation="vertical" >
 
@@ -29,7 +20,8 @@
                 android:id="@+id/room_spinner"
                 android:layout_width="978dp"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical" />
+                android:gravity="center_vertical"
+                android:layout_marginTop="10dp" />
 
         </LinearLayout>
 
@@ -44,29 +36,32 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
 
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Booking Date: "
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:layout_marginLeft="20dp"
+                android:layout_gravity="center_vertical" />
+
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal" >
-
-                <TextView
-                    android:id="@+id/textView3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="Booking Date: "
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:layout_marginLeft="20dp"
-                    android:layout_gravity="center" />
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="50dp"
+                android:weightSum="1">
 
                 <DatePicker
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="356dp"
+                    android:layout_height="324dp"
                     android:id="@+id/datePicker"
                     android:layout_gravity="center"
                     android:calendarViewShown="true"
-                    android:foregroundGravity="center_vertical" >
+                    android:foregroundGravity="center_vertical"
+                    android:spinnersShown="false"
+                    android:nestedScrollingEnabled="false">
 
                 </DatePicker>
 
@@ -158,4 +153,4 @@
 
     </LinearLayout>
 
-</RelativeLayout><!-- From: file:/Users/aralzaim/StudioProjects/TabbedRoomBookingTimetableDisplay1/app/src/main/res/layout/activity_booking.xml -->
+</RelativeLayout><!-- From: file:/Users/aralzaim/StudioProjects/TabbedRoomBookingTimetableDisplay1%20v3/app/src/main/res/layout/activity_booking.xml -->

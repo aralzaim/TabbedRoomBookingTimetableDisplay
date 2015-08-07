@@ -17,7 +17,7 @@
 
 <resources>
 
-    <string name="app_name">Tabbed Room Booking Timetable Display</string>
+    <string name="app_name">v3 Room Booking Timetable Display </string>
     <string name="hello_world">Hello world!</string>
     <string name="book_room_text">Book a Room</string>
     <string name="search_room_text">Search a Room</string>

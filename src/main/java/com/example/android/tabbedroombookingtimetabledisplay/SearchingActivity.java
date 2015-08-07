@@ -85,7 +85,7 @@ public class SearchingActivity extends Fragment implements OnClickListener {
 
 		endCalendar=new TimePicker(getActivity());
 		endCalendar.setCurrentHour(availableBookingStartHour);
-		endCalendar.setCurrentMinute(availableBookingStartMinute+30);
+		endCalendar.setCurrentMinute(availableBookingStartMinute + 30);
 
 		dateText= (EditText) rootView.findViewById(R.id.date_text);
 		startText= (EditText) rootView.findViewById(R.id.start_text);
@@ -106,7 +106,6 @@ public class SearchingActivity extends Fragment implements OnClickListener {
 		 startText.setTextSize(30);
 		 endText.setText("Time End:	" + converters.timePickerToTimeS(endCalendar));
 		 endText.setTextSize(30);
-
 		final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
 
 			@Override

@@ -164,7 +164,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
                     return new SearchingActivity();
 
                 case 3:
-                    return new CalendarViewActivity();
+                    return new AvailableRoomActivity();
                 default:
                     return null;
             }
@@ -189,7 +189,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         	else if (position==2)
         		 return "Search Rooms";
             else if (position==3)
-                return "Weekly View";
+                return "Availability";
             else
                 return "unknown";
         }

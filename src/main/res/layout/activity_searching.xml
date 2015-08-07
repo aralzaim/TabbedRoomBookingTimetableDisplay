@@ -4,18 +4,11 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:text="@string/search_room_text"
-        android:textSize="35sp" />
-
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
 
         <ImageView
             android:layout_width="wrap_content"
@@ -87,31 +80,36 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/extra_needs"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textSize="25sp" />
 
         <CheckBox
             android:id="@+id/moveable_box"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/moveable_tables" />
+            android:text="@string/moveable_tables"
+            android:textSize="25sp" />
 
         <CheckBox
             android:id="@+id/projector_box"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/projector" />
+            android:text="@string/projector"
+            android:textSize="25sp" />
 
         <CheckBox
             android:id="@+id/multiple_box"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/multiple_computers" />
+            android:text="@string/multiple_computers"
+            android:textSize="25sp" />
 
         <CheckBox
             android:id="@+id/capacity_box"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/capacity" />
+            android:text="@string/capacity"
+            android:textSize="25sp" />
 
     </LinearLayout>
 
@@ -127,7 +125,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:text="@string/search_room_button"
-                android:textSize="30sp" />
+                android:textSize="30sp"
+            android:layout_marginTop="10dp" />
 
         <TextView
             android:id="@+id/results_title"
@@ -135,7 +134,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="30sp" />
+            android:textSize="30sp"
+            android:layout_marginTop="10dp" />
 
         <ListView
             android:id="@+id/search_list"

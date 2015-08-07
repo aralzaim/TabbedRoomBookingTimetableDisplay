@@ -4,7 +4,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="com.example.android.tabbedroombookingtimetabledisplay.CalendarViewActivity"
+        tools:context="com.example.android.tabbedroombookingtimetabledisplay.AvailableRoomActivity"
         android:background="#fff">
 
 
@@ -13,26 +13,20 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/textView4"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:text="@string/weekly_view_text"
-                android:textSize="35sp" />
-
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:weightSum="1">
+                android:weightSum="1"
+                android:layout_marginTop="10dp">
 
                 <Spinner
-                    android:layout_width="773dp"
+                    android:layout_width="709dp"
                     android:layout_height="wrap_content"
                     android:id="@+id/spinner"
                     android:layout_alignParentEnd="false"
-                    android:layout_alignParentStart="true" />
+                    android:layout_alignParentStart="true"
+                    android:layout_weight="0.92" />
 
                 <TextView
                     android:layout_width="130dp"
@@ -61,6 +55,7 @@
                     style="?android:attr/buttonStyleSmall"
                     android:layout_width="130dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
                     android:text="Next Week &#62;"
                     android:id="@+id/next_week" />
 
@@ -72,7 +67,7 @@
             android:layout_height="wrap_content">
 
             <LinearLayout
-                android:orientation="vertical"
+                android:orientation="horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="377dp"
                 android:layout_gravity="center_horizontal">
@@ -81,18 +76,18 @@
                     android:id="@+id/textView2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="50dp"
+                    android:layout_marginTop="200dp"
                     android:text="Booking Date: "
                     android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:layout_marginLeft="20dp"
-                    android:layout_gravity="center" />
+                    android:layout_marginLeft="20dp" />
 
                 <DatePicker
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/date_picker"
-                    android:layout_gravity="center"
+                    android:layout_gravity="center_vertical"
                     android:calendarViewShown="true"
+                    android:spinnersShown="false"
                     android:foregroundGravity="center_vertical" />
             </LinearLayout>
 
@@ -100,6 +95,9 @@
                 android:id="@+id/weekView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="5dp"
                 app:eventTextColor="@android:color/white"
                 app:textSize="12sp"
                 app:hourHeight="60dp"
@@ -115,4 +113,4 @@
         </LinearLayout>
         </LinearLayout>
 
-    </RelativeLayout><!-- From: file:/Users/aralzaim/StudioProjects/TabbedRoomBookingTimetableDisplay1/app/src/main/res/layout/activity_calendar_view.xml -->
+    </RelativeLayout><!-- From: file:/Users/aralzaim/StudioProjects/TabbedRoomBookingTimetableDisplay1%20v3/app/src/main/res/layout/activity_calendar_view.xml -->
