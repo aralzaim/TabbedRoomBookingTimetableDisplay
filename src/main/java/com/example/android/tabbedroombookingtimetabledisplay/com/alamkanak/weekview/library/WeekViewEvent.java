@@ -12,6 +12,7 @@ public class WeekViewEvent {
     private Calendar mEndTime;
     private String mName;
     private int mColor;
+    private String mNamePurpose;
 
     public WeekViewEvent(){
 
@@ -59,7 +60,7 @@ public class WeekViewEvent {
      * @param startTime The time when the event starts.
      * @param endTime The time when the event ends.
      */
-    public WeekViewEvent(long id, String name, Calendar startTime, Calendar endTime) {
+    public WeekViewEvent(long id, String name, Calendar startTime, Calendar endTime, String namePurpose) {
 
         startTime.add(Calendar.HOUR,-9);
         endTime.add(Calendar.HOUR,-9);
@@ -68,8 +69,12 @@ public class WeekViewEvent {
         this.mName = name;
         this.mStartTime =startTime;
         this.mEndTime =endTime;
+        this.mNamePurpose=namePurpose;
     }
 
+    public String getNamePurpose(){return mNamePurpose;}
+
+    public void setNamePurpose(String namePurpose){this.mNamePurpose=namePurpose;}
 
     public Calendar getStartTime() {
         return mStartTime;

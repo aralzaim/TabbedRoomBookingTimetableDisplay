@@ -8,6 +8,16 @@ public class Booking {
 	String roomName;
 	Date bookingStart;
 	Date bookingEnd;
+	String bookingName;
+
+	public String getBookingName() {
+		return bookingName;
+	}
+
+	public void setBookingName(String bookingName) {
+		this.bookingName = bookingName;
+	}
+
 	
 	public String getBookedBy() {
 		return bookedBy;

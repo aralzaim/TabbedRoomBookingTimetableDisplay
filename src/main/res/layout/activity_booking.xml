@@ -142,6 +142,29 @@
 
         </LinearLayout>
 
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:layout_width="868dp"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:ems="10"
+                android:id="@+id/name_booking"
+                android:textSize="25sp"
+                android:hint="Name or Purpose of Booking" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:id="@+id/name_warning"
+                android:textSize="20sp"
+                android:text="(*)" />
+        </LinearLayout>
+
         <Button
             android:id="@+id/submit_button"
             android:layout_width="wrap_content"

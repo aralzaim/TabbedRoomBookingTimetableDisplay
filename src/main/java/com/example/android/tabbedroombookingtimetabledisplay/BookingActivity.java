@@ -31,6 +31,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.DatePicker.OnDateChangedListener;
 import android.widget.Spinner;
@@ -55,7 +56,8 @@ public class BookingActivity extends Fragment implements OnClickListener {
     ArrayList<String> roomNames= new ArrayList<>();
     TextView invalidTimeText;
     TextView dateOldText;
-	TextView roomText;
+	TextView nameWarn;
+	EditText nameBooking;
 
 
 	
@@ -204,7 +206,12 @@ public class BookingActivity extends Fragment implements OnClickListener {
 		endTimePicker= (TimePicker) rootView.findViewById(R.id.time_picker_end);
 		endTimePicker.setIs24HourView(true);
 		endTimePicker.setCurrentHour(availableBookingStartHour);
-		endTimePicker.setCurrentMinute(availableBookingStartMinute+30);
+		endTimePicker.setCurrentMinute(availableBookingStartMinute + 30);
+
+		nameBooking= (EditText) rootView.findViewById(R.id.name_booking);
+
+		nameWarn=(TextView) rootView.findViewById(R.id.name_warning);
+		nameWarn.setTextColor(Color.RED);
 		
 		dateSelected = (DatePicker) rootView.findViewById(R.id.datePicker);
 		
@@ -344,6 +351,7 @@ public class BookingActivity extends Fragment implements OnClickListener {
         BookRoom bookingTask;
         Date startParsedDateTime=null;
         Date endParsedDateTime=null;
+		String namePurpose=null;
         Booking newBooking= new Booking();
 
 
@@ -364,16 +372,18 @@ public class BookingActivity extends Fragment implements OnClickListener {
         startDateTimestamp=year+"-"+month+"-"+day + " " + startHour +":"+ startMinute;
         endDateTimestamp = year+"-"+month+"-"+day + " " + endHour +":"+ endMinute;
 
-      if(!roomName.equalsIgnoreCase("select a room to book...")) {
+      if(!roomName.equalsIgnoreCase("select a room to book..." ) && !nameBooking.getText().toString().matches("")) {
 		  try {
 
 			  startParsedDateTime = converters.stringToDate(startDateTimestamp);
 			  endParsedDateTime = converters.stringToDate(endDateTimestamp);
+			  namePurpose=nameBooking.getText().toString();
 
 
 			  newBooking.setBookingStart(startParsedDateTime);
 			  newBooking.setBookingEnd(endParsedDateTime);
 			  newBooking.setRoomName(roomName);
+			  newBooking.setBookingName(namePurpose);
 
 
 		  } catch (Exception e) {
@@ -384,9 +394,16 @@ public class BookingActivity extends Fragment implements OnClickListener {
 		  bookingTask = new BookRoom();
 		  bookingTask.execute(newBooking);
 
+
+
 	  }
-		else {
+		else if (roomName.equalsIgnoreCase("select a room to book..." )) {
 		  Toast toast = Toast.makeText(getActivity(), "Select a room to book.", Toast.LENGTH_LONG);
+		  toast.setGravity(Gravity.CENTER, 0, 0);
+		  toast.show();
+	  }
+		else if(nameBooking.getText().toString().matches("")){
+		  Toast toast = Toast.makeText(getActivity(), "Enter purpose or name for booking.", Toast.LENGTH_LONG);
 		  toast.setGravity(Gravity.CENTER, 0, 0);
 		  toast.show();
 	  }
@@ -422,6 +439,7 @@ public class BookingActivity extends Fragment implements OnClickListener {
 	                    newBookingJS.put("booking_start",converters.dateToString(newBooking[0].getBookingStart()));
 	                    newBookingJS.put("booking_end",converters.dateToString(newBooking[0].getBookingEnd()));
 	                    newBookingJS.put("booked_by",newBooking[0].getBookedBy());
+					    newBookingJS.put("name_purpose",newBooking[0].getBookingName());
                    
                     System.out.println(newBookingJS.toString());
                     
@@ -486,6 +504,10 @@ public class BookingActivity extends Fragment implements OnClickListener {
 														}
 													});
 															                     successfulDialog.show();
+				Calendar today= Calendar.getInstance();
+				nameBooking.setText("");
+				roomSpinner.setSelection(0);
+				dateSelected.updateDate(today.get(Calendar.YEAR),today.get(Calendar.MONTH),today.get(Calendar.DAY_OF_MONTH));
 			}
 			else
 			{
@@ -515,6 +537,7 @@ public class BookingActivity extends Fragment implements OnClickListener {
 					}
 				});
 				collisionDialog.show();
+
 
 				}
 			
