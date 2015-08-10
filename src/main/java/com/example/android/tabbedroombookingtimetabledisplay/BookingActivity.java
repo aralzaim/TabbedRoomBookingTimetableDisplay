@@ -59,7 +59,8 @@ public class BookingActivity extends Fragment implements OnClickListener {
 	TextView nameWarn;
 	EditText nameBooking;
 
-
+	int availableBookingStartHour=9;
+	int availableBookingStartMinute=00;
 	
 	
 	
@@ -72,8 +73,7 @@ public class BookingActivity extends Fragment implements OnClickListener {
 
 
 		
-		int availableBookingStartHour=9;
-		int availableBookingStartMinute=00;
+
 		
 		
 		roomSpinner= (Spinner) rootView.findViewById(R.id.room_spinner);
@@ -436,10 +436,10 @@ public class BookingActivity extends Fragment implements OnClickListener {
 					 JSONObject newBookingJS= new JSONObject();
 	                    
 	                    newBookingJS.put("booked_room", newBooking[0].getRoomName());
-	                    newBookingJS.put("booking_start",converters.dateToString(newBooking[0].getBookingStart()));
+					newBookingJS.put("booking_start",converters.dateToString(newBooking[0].getBookingStart()));
 	                    newBookingJS.put("booking_end",converters.dateToString(newBooking[0].getBookingEnd()));
-	                    newBookingJS.put("booked_by",newBooking[0].getBookedBy());
-					    newBookingJS.put("name_purpose",newBooking[0].getBookingName());
+					newBookingJS.put("booked_by",newBooking[0].getBookedBy());
+					newBookingJS.put("name_purpose",newBooking[0].getBookingName());
                    
                     System.out.println(newBookingJS.toString());
                     
@@ -508,6 +508,10 @@ public class BookingActivity extends Fragment implements OnClickListener {
 				nameBooking.setText("");
 				roomSpinner.setSelection(0);
 				dateSelected.updateDate(today.get(Calendar.YEAR),today.get(Calendar.MONTH),today.get(Calendar.DAY_OF_MONTH));
+				startTimePicker.setCurrentHour(availableBookingStartHour);
+				startTimePicker.setCurrentMinute(availableBookingStartMinute);
+				endTimePicker.setCurrentHour(availableBookingStartHour);
+				endTimePicker.setCurrentMinute(availableBookingStartMinute+30);
 			}
 			else
 			{
