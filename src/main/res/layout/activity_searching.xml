@@ -70,6 +70,50 @@
     </LinearLayout>
 
     <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/capacity_text"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textSize="25sp" />
+
+        <RadioGroup
+            android:id="@+id/capacities"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation='horizontal'>
+
+            <RadioButton
+                android:id="@+id/capacity_low"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="&#60; 15"
+                android:textSize="25sp" />
+
+            <RadioButton
+                android:id="@+id/capacity_medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="15-25"
+                android:textSize="25sp" />
+
+            <RadioButton
+                android:id="@+id/capacity_high"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="25 &#62;"
+                android:textSize="25sp" />
+
+        </RadioGroup>
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
@@ -104,20 +148,14 @@
             android:text="@string/multiple_computers"
             android:textSize="25sp" />
 
-        <CheckBox
-            android:id="@+id/capacity_box"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/capacity"
-            android:textSize="25sp" />
-
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:orientation="vertical" >
+        android:orientation="vertical"
+        android:weightSum="1">
 
         <Button
                 android:id="@+id/submit_button"
@@ -141,7 +179,8 @@
             android:id="@+id/search_list"
             android:layout_width="wrap_content"
             android:layout_height="294dp"
-            android:clickable="false">
+            android:clickable="false"
+            android:layout_weight="3.92">
         </ListView>
 
         

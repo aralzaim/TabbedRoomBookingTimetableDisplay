@@ -177,12 +177,13 @@
     <string name="booking_from">Booking from: </string>
     <string name="booking_to">Booking to: </string>
     <string name="capacity">Capacity ≥ 40 </string>
+    <string name="capacity_text">Capacity: </string>
     <string name="extra_needs">Extra needs: </string>
     <string name="hello_world">Hello world!</string>
     <string name="moveable_tables">Moveable tables</string>
     <string name="multiple_computers">Multiple computers</string>
     <string name="projector">Projector</string>
-    <string name="search_room_button">Search Rooms </string>
+    <string name="search_room_button">Search now </string>
     <string name="search_room_text">Search a Room</string>
     <string name="succesful_booking">Room was succesfully booked! ✔</string>
     <string name="title_activity_calendar_view">CalendarViewActivity</string>

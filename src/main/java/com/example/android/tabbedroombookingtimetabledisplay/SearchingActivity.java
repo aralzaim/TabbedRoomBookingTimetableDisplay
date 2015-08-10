@@ -21,7 +21,9 @@ import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -33,6 +35,8 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
@@ -58,10 +62,16 @@ public class SearchingActivity extends Fragment implements OnClickListener {
 		CheckBox moveable;
 		CheckBox projector;
 		CheckBox multipleComputers;
-		CheckBox capacity;
-		
+
+		RadioGroup capacities;
+
+	    RadioButton capacityLow;
+		RadioButton capacityMedium;
+		RadioButton capacityHigh;
+
 		int availableBookingStartHour=9;
 		int availableBookingStartMinute=00;
+		int selectedCapacity = 0;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -95,9 +105,11 @@ public class SearchingActivity extends Fragment implements OnClickListener {
 		moveable=(CheckBox) rootView.findViewById(R.id.moveable_box);
 		projector=(CheckBox) rootView.findViewById(R.id.projector_box);
 		multipleComputers=(CheckBox) rootView.findViewById(R.id.multiple_box);
-		capacity=(CheckBox) rootView.findViewById(R.id.capacity_box);
-		
-		
+
+
+		capacities= (RadioGroup) rootView.findViewById(R.id.capacities);
+		capacities.clearCheck();
+
 		
 		
 		 dateText.setText("Date:	" + converters.dateShower(dateCalendar));
@@ -245,8 +257,8 @@ public class SearchingActivity extends Fragment implements OnClickListener {
         startString= converters.timePickerToTimeS(startCalendar);
         endString=converters.timePickerToTimeS(endCalendar);
 
-      startDateTimestamp=(dateString+ " " + startString);
-      endDateTimestamp=(dateString+ " "+ endString);
+      	startDateTimestamp=(dateString+ " " + startString);
+      	endDateTimestamp=(dateString+ " "+ endString);
      
       
     
@@ -257,7 +269,20 @@ public class SearchingActivity extends Fragment implements OnClickListener {
 		
 		   searchBooking.setBookingStart(startDate);
 		   searchBooking.setBookingEnd(endDate);
-		   
+
+		if(capacities.getCheckedRadioButtonId()==R.id.capacity_low){
+		selectedCapacity=1;
+		}
+		else if(capacities.getCheckedRadioButtonId()==R.id.capacity_medium){
+			selectedCapacity=2;
+		}
+		else if(capacities.getCheckedRadioButtonId()==R.id.capacity_high){
+			selectedCapacity=3;
+		}
+
+
+			Log.e("SELECTED CAPACITY", Integer.toString(selectedCapacity));
+
 		   searchTask.execute(searchBooking);
 		   
 		   
@@ -305,8 +330,8 @@ public class SearchingActivity extends Fragment implements OnClickListener {
                     newBookingJS.put("moveable_table",moveable.isChecked());
                     newBookingJS.put("projector",projector.isChecked());
                     newBookingJS.put("multiple_computer",multipleComputers.isChecked());
-                    newBookingJS.put("capacity", capacity.isChecked());
-                    
+                    newBookingJS.put("capacity", selectedCapacity);
+
                     
                     httpPost = new HttpPost("https://zeno.computing.dundee.ac.uk/2014-msc/aralzaim/searchRoom.php");
                     httpPost.setEntity(new StringEntity(newBookingJS.toString()));

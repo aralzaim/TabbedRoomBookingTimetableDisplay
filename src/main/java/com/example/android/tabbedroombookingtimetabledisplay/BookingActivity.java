@@ -15,7 +15,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -460,25 +462,60 @@ public class BookingActivity extends Fragment implements OnClickListener {
 			
 			if(result==true)
 			{
-				System.out.println("CONNECTED AND CAME BACK AS TRUE");
+			//	System.out.println("CONNECTED AND CAME BACK AS TRUE");
 				processDialog.dismiss();
-				Toast toast = Toast.makeText(getActivity(), R.string.succesful_booking, Toast.LENGTH_LONG);
-				toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-				View view = toast.getView();
-				view.setBackgroundColor(Color.GREEN);
-				toast.show();
+			//	Toast toast = Toast.makeText(getActivity(), R.string.succesful_booking, Toast.LENGTH_LONG);
+			//	toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+			//	View view = toast.getView();
+			//	view.setBackgroundColor(Color.GREEN);
+			//	toast.show();
+
+
+				AlertDialog.Builder successfulDialog = new AlertDialog.Builder(
+						                            getActivity(),AlertDialog.THEME_HOLO_DARK);
+
+						                        successfulDialog.setTitle("Successful !");
+												successfulDialog.setMessage(R.string.succesful_booking);
+						                            successfulDialog.setPositiveButton("Done !", new DialogInterface.OnClickListener() {
+
+														@Override
+														public void onClick(
+																DialogInterface dialog,
+																int which) {
+															dialog.dismiss();
+														}
+													});
+															                     successfulDialog.show();
 			}
 			else
 			{
 				
 				System.out.println("CONNECTED AND CAME BACK AS FALSE");
 				processDialog.dismiss();
-				Toast toast = Toast.makeText(getActivity(), R.string.unsuccesful_booking, Toast.LENGTH_LONG);
-				toast.setGravity(Gravity.CENTER, 0, 0);
+				//Toast toast = Toast.makeText(getActivity(), R.string.unsuccesful_booking, Toast.LENGTH_LONG);
+			//	toast.setGravity(Gravity.CENTER, 0, 0);
 				
-				View view = toast.getView();
-				view.setBackgroundColor(Color.RED);
-				toast.show();
+			//	View view = toast.getView();
+			//	view.setBackgroundColor(Color.RED);
+			//	toast.show();
+
+
+				AlertDialog.Builder collisionDialog = new AlertDialog.Builder(
+						getActivity(),AlertDialog.THEME_HOLO_DARK);
+
+				collisionDialog.setTitle("Collision !");
+				collisionDialog.setMessage(R.string.unsuccesful_booking);
+				collisionDialog.setPositiveButton("Retry !", new DialogInterface.OnClickListener() {
+
+					@Override
+					public void onClick(
+							DialogInterface dialog,
+							int which) {
+						dialog.dismiss();
+					}
+				});
+				collisionDialog.show();
+
 				}
 			
 		}
