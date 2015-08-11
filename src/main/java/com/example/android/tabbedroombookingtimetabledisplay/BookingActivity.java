@@ -202,7 +202,8 @@ public class BookingActivity extends Fragment implements OnClickListener {
 		startTimePicker.setIs24HourView(true);
 		startTimePicker.setCurrentHour(availableBookingStartHour);
 		startTimePicker.setCurrentMinute(availableBookingStartMinute);
-		
+
+
 		endTimePicker= (TimePicker) rootView.findViewById(R.id.time_picker_end);
 		endTimePicker.setIs24HourView(true);
 		endTimePicker.setCurrentHour(availableBookingStartHour);
@@ -214,15 +215,29 @@ public class BookingActivity extends Fragment implements OnClickListener {
 		nameWarn.setTextColor(Color.RED);
 		
 		dateSelected = (DatePicker) rootView.findViewById(R.id.datePicker);
-		
 			
 		 startTimePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
 
 	            public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
-	            	
+
+
+
 	            int newEndHour=startTimePicker.getCurrentHour();
 	            int newEndMinute=startTimePicker.getCurrentMinute()+30;
-	            
+
+					final int TIME_PICKER_INTERVAL=15;
+					boolean mIgnoreEvent=false;
+					if (mIgnoreEvent)
+						return;
+					if (minute%TIME_PICKER_INTERVAL!=0) {
+						int minuteFloor = minute - (minute % TIME_PICKER_INTERVAL);
+						minute = minuteFloor + (minute == minuteFloor + 1 ? TIME_PICKER_INTERVAL : 0);
+						if (minute == 60)
+							minute = 0;
+						mIgnoreEvent = true;
+						startTimePicker.setCurrentMinute(minute);
+						mIgnoreEvent = false;
+					}
 	            if(newEndMinute>=60){
 	            	newEndHour++;
 	            }
