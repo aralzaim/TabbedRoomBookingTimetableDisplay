@@ -28,7 +28,7 @@ public class TimePickerDialogs extends TimePickerDialog {
         }
     }
 
-    private final int TIME_PICKER_INTERVAL=15;
+    private final int TIME_PICKER_INTERVAL=30;
     private boolean mIgnoreEvent=false;
 }
  

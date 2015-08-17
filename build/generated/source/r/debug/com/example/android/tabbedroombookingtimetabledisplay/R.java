@@ -1550,8 +1550,10 @@ containing a value of this type.
         public static final int activity_chooser_view_content=0x7f0b002a;
         public static final int always=0x7f0b0016;
         public static final int beginning=0x7f0b0013;
+        public static final int book_btn=0x7f0b0089;
         public static final int button_invisible_error=0x7f0b0051;
         public static final int button_spinner=0x7f0b0086;
+        public static final int cap_text=0x7f0b0078;
         public static final int capacities=0x7f0b0079;
         public static final int capacity_high=0x7f0b007c;
         public static final int capacity_low=0x7f0b007a;
@@ -1567,6 +1569,7 @@ containing a value of this type.
         public static final int comment_title=0x7f0b006f;
         public static final int datePicker=0x7f0b004b;
         public static final int date_error_text=0x7f0b004c;
+        public static final int date_icon=0x7f0b0072;
         public static final int date_picker=0x7f0b005b;
         public static final int date_text=0x7f0b0073;
         public static final int decor_content_parent=0x7f0b0038;
@@ -1577,9 +1580,11 @@ containing a value of this type.
         public static final int dropdown=0x7f0b001c;
         public static final int edit_query=0x7f0b003c;
         public static final int end=0x7f0b0014;
+        public static final int end_icon=0x7f0b0076;
         public static final int end_text=0x7f0b0077;
         public static final int expand_activities_button=0x7f0b002b;
         public static final int expanded_menu=0x7f0b0031;
+        public static final int extra_text=0x7f0b007d;
         public static final int friday=0x7f0b001e;
         public static final int from=0x7f0b004d;
         public static final int home=0x7f0b0004;
@@ -1587,9 +1592,6 @@ containing a value of this type.
         public static final int icon=0x7f0b002f;
         public static final int ifRoom=0x7f0b0018;
         public static final int image=0x7f0b002c;
-        public static final int imageView6=0x7f0b0076;
-        public static final int imageView7=0x7f0b0074;
-        public static final int imageView8=0x7f0b0072;
         public static final int inside_picture1=0x7f0b0064;
         public static final int inside_picture2=0x7f0b0065;
         public static final int inside_text=0x7f0b005e;
@@ -1624,6 +1626,7 @@ containing a value of this type.
         public static final int resource3=0x7f0b006d;
         public static final int resource4=0x7f0b006e;
         public static final int resources_title=0x7f0b0068;
+        public static final int result_list=0x7f0b0087;
         public static final int results_title=0x7f0b0081;
         public static final int room_spinner=0x7f0b0049;
         public static final int saturday=0x7f0b0020;
@@ -1644,15 +1647,15 @@ containing a value of this type.
         public static final int showTitle=0x7f0b0011;
         public static final int spinner=0x7f0b0055;
         public static final int spinner2=0x7f0b0060;
-        public static final int spinner_text=0x7f0b0087;
+        public static final int spinner_text=0x7f0b008a;
         public static final int split_action_bar=0x7f0b0007;
+        public static final int start_icon=0x7f0b0074;
         public static final int start_text=0x7f0b0075;
         public static final int submit_area=0x7f0b0045;
         public static final int submit_button=0x7f0b0054;
         public static final int sunday=0x7f0b0021;
         public static final int tabMode=0x7f0b000b;
-        public static final int textView=0x7f0b0078;
-        public static final int textView1=0x7f0b007d;
+        public static final int text=0x7f0b0088;
         public static final int textView2=0x7f0b005a;
         public static final int textView3=0x7f0b004a;
         public static final int textView5=0x7f0b0056;

@@ -14,6 +14,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -146,13 +147,7 @@ public class BookingActivity extends Fragment implements OnClickListener {
 
 
 
-                //final ListAdapter adapter = new ListAdapter(getActivity(), roomNames);
-              //  adapter.setCustomButtonListner(new ListAdapter.customButtonListener() {
-                    //@Override
-                    //public void onButtonClickListner(int position, String value) {
-                  //      Toast.makeText(getActivity(),"Details"+ value,Toast.LENGTH_SHORT).show();
-                //    }
-              //  });
+
             //    adapter.setCustomTextListner(new ListAdapter.customTextListener(){
           //          @Override
         //            public void onTextClickListner(int position, String value) {
@@ -206,8 +201,8 @@ public class BookingActivity extends Fragment implements OnClickListener {
 
 		endTimePicker= (TimePicker) rootView.findViewById(R.id.time_picker_end);
 		endTimePicker.setIs24HourView(true);
-		endTimePicker.setCurrentHour(availableBookingStartHour);
-		endTimePicker.setCurrentMinute(availableBookingStartMinute + 30);
+		endTimePicker.setCurrentHour((availableBookingStartHour)+1);
+		endTimePicker.setCurrentMinute(availableBookingStartMinute);
 
 		nameBooking= (EditText) rootView.findViewById(R.id.name_booking);
 
@@ -218,14 +213,13 @@ public class BookingActivity extends Fragment implements OnClickListener {
 			
 		 startTimePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
 
+				@Override
 	            public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
 
+	            int newEndHour=(startTimePicker.getCurrentHour())+1;
+	            int newEndMinute=startTimePicker.getCurrentMinute();
 
-
-	            int newEndHour=startTimePicker.getCurrentHour();
-	            int newEndMinute=startTimePicker.getCurrentMinute()+30;
-
-					final int TIME_PICKER_INTERVAL=15;
+					final int TIME_PICKER_INTERVAL=30;
 					boolean mIgnoreEvent=false;
 					if (mIgnoreEvent)
 						return;
@@ -266,7 +260,7 @@ public class BookingActivity extends Fragment implements OnClickListener {
             }
 	            
 	            
-	            	if(hourOfDay>endTimePicker.getCurrentHour()||(endTimePicker.getCurrentHour().equals(hourOfDay) && endTimePicker.getCurrentMinute()<minute)){
+	            	if(hourOfDay>endTimePicker.getCurrentHour()||(endTimePicker.getCurrentHour().equals(hourOfDay) && endTimePicker.getCurrentMinute()<=minute)){
 						 endTimePicker.setCurrentHour(newEndHour);
 						  endTimePicker.setCurrentMinute(newEndMinute);
 					}
@@ -278,6 +272,20 @@ public class BookingActivity extends Fragment implements OnClickListener {
 
 			@Override
 			public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
+
+				final int TIME_PICKER_INTERVAL=30;
+				boolean mIgnoreEvent=false;
+				if (mIgnoreEvent)
+					return;
+				if (minute%TIME_PICKER_INTERVAL!=0) {
+					int minuteFloor = minute - (minute % TIME_PICKER_INTERVAL);
+					minute = minuteFloor + (minute == minuteFloor + 1 ? TIME_PICKER_INTERVAL : 0);
+					if (minute == 60)
+						minute = 0;
+					mIgnoreEvent = true;
+					endTimePicker.setCurrentMinute(minute);
+					mIgnoreEvent = false;
+				}
 				
 				if(checkers.endTimeValidity(startTimePicker, endTimePicker) && !checkers.dateOlder(dateSelected.getYear(), dateSelected.getMonth(), dateSelected.getDayOfMonth()) /*&& roomSpinner.getSelectedItemPosition()!=0*/) {
                     submitBtn.setEnabled(true);
@@ -507,26 +515,36 @@ public class BookingActivity extends Fragment implements OnClickListener {
 				AlertDialog.Builder successfulDialog = new AlertDialog.Builder(
 						                            getActivity(),AlertDialog.THEME_HOLO_DARK);
 
-						                        successfulDialog.setTitle("Successful !");
-												successfulDialog.setMessage(R.string.succesful_booking);
-						                            successfulDialog.setPositiveButton("Done !", new DialogInterface.OnClickListener() {
+				successfulDialog.setTitle("Successful !");
+				successfulDialog.setMessage(R.string.succesful_booking);
 
-														@Override
-														public void onClick(
-																DialogInterface dialog,
-																int which) {
-															dialog.dismiss();
-														}
-													});
-															                     successfulDialog.show();
+				successfulDialog.setPositiveButton("Done !", new DialogInterface.OnClickListener() {
+
+
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+
+						dialog.dismiss();
+					}
+				});
+				AlertDialog alertDialog = successfulDialog.create();
+				alertDialog.show();
+
+
+
+				Button sButton = (Button) alertDialog.getButton(alertDialog.BUTTON_POSITIVE);
+				if(sButton!=null)
+				sButton.setBackgroundColor(Color.GREEN);
+				sButton.setTextColor(Color.BLACK);
+
 				Calendar today= Calendar.getInstance();
 				nameBooking.setText("");
 				roomSpinner.setSelection(0);
 				dateSelected.updateDate(today.get(Calendar.YEAR),today.get(Calendar.MONTH),today.get(Calendar.DAY_OF_MONTH));
 				startTimePicker.setCurrentHour(availableBookingStartHour);
 				startTimePicker.setCurrentMinute(availableBookingStartMinute);
-				endTimePicker.setCurrentHour(availableBookingStartHour);
-				endTimePicker.setCurrentMinute(availableBookingStartMinute+30);
+				endTimePicker.setCurrentHour(availableBookingStartHour+1);
+				endTimePicker.setCurrentMinute(availableBookingStartMinute);
 			}
 			else
 			{
@@ -555,7 +573,19 @@ public class BookingActivity extends Fragment implements OnClickListener {
 						dialog.dismiss();
 					}
 				});
-				collisionDialog.show();
+
+				AlertDialog alertDialog= collisionDialog.create();
+
+				alertDialog.show();
+
+				Button fButton= (Button) alertDialog.getButton(alertDialog.BUTTON_POSITIVE);
+
+
+
+				if(fButton!=null)
+				fButton.setBackgroundColor(Color.RED);
+
+				fButton.setTextColor(Color.BLACK);
 
 
 				}

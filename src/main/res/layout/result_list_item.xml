@@ -1,11 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_height="?android:attr/listPreferredItemHeight"
-    android:layout_width="wrap_content"
-    android:textSize="20sp"
-    android:textStyle="bold"
-    android:paddingLeft="6dip"
-    android:paddingRight="6dip"
-    android:gravity="center_vertical"
-    android:clickable="false"
-    android:focusable="false"/>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/result_list">
+
+    <TextView
+        android:id="@+id/text"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:paddingLeft="6dip"
+        android:paddingRight="6dip"
+        android:gravity="center_vertical"
+        android:clickable="false"
+        android:focusable="false"
+        android:text="Room Name"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignBottom="@+id/book_btn"
+        android:layout_alignTop="@+id/book_btn" />
+
+    <Button
+        android:id="@+id/book_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Book Now"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="522dp" />
+
+
+</RelativeLayout>

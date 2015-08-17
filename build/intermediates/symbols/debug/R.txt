@@ -389,8 +389,10 @@ int id action_mode_close_button 0x7f0b0029
 int id activity_chooser_view_content 0x7f0b002a
 int id always 0x7f0b0016
 int id beginning 0x7f0b0013
+int id book_btn 0x7f0b0089
 int id button_invisible_error 0x7f0b0051
 int id button_spinner 0x7f0b0086
+int id cap_text 0x7f0b0078
 int id capacities 0x7f0b0079
 int id capacity_high 0x7f0b007c
 int id capacity_low 0x7f0b007a
@@ -406,6 +408,7 @@ int id comment2 0x7f0b006a
 int id comment_title 0x7f0b006f
 int id datePicker 0x7f0b004b
 int id date_error_text 0x7f0b004c
+int id date_icon 0x7f0b0072
 int id date_picker 0x7f0b005b
 int id date_text 0x7f0b0073
 int id decor_content_parent 0x7f0b0038
@@ -416,9 +419,11 @@ int id disableHome 0x7f0b000c
 int id dropdown 0x7f0b001c
 int id edit_query 0x7f0b003c
 int id end 0x7f0b0014
+int id end_icon 0x7f0b0076
 int id end_text 0x7f0b0077
 int id expand_activities_button 0x7f0b002b
 int id expanded_menu 0x7f0b0031
+int id extra_text 0x7f0b007d
 int id friday 0x7f0b001e
 int id from 0x7f0b004d
 int id home 0x7f0b0004
@@ -426,9 +431,6 @@ int id homeAsUp 0x7f0b000d
 int id icon 0x7f0b002f
 int id ifRoom 0x7f0b0018
 int id image 0x7f0b002c
-int id imageView6 0x7f0b0076
-int id imageView7 0x7f0b0074
-int id imageView8 0x7f0b0072
 int id inside_picture1 0x7f0b0064
 int id inside_picture2 0x7f0b0065
 int id inside_text 0x7f0b005e
@@ -463,6 +465,7 @@ int id resource2 0x7f0b006c
 int id resource3 0x7f0b006d
 int id resource4 0x7f0b006e
 int id resources_title 0x7f0b0068
+int id result_list 0x7f0b0087
 int id results_title 0x7f0b0081
 int id room_spinner 0x7f0b0049
 int id saturday 0x7f0b0020
@@ -483,15 +486,15 @@ int id showHome 0x7f0b0010
 int id showTitle 0x7f0b0011
 int id spinner 0x7f0b0055
 int id spinner2 0x7f0b0060
-int id spinner_text 0x7f0b0087
+int id spinner_text 0x7f0b008a
 int id split_action_bar 0x7f0b0007
+int id start_icon 0x7f0b0074
 int id start_text 0x7f0b0075
 int id submit_area 0x7f0b0045
 int id submit_button 0x7f0b0054
 int id sunday 0x7f0b0021
 int id tabMode 0x7f0b000b
-int id textView 0x7f0b0078
-int id textView1 0x7f0b007d
+int id text 0x7f0b0088
 int id textView2 0x7f0b005a
 int id textView3 0x7f0b004a
 int id textView5 0x7f0b0056

@@ -38,6 +38,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.example.android.tabbedroombookingtimetabledisplay.helpers.Checkers;
 import com.example.android.tabbedroombookingtimetabledisplay.helpers.Converters;
@@ -54,7 +55,7 @@ public class SearchingActivity extends Fragment implements OnClickListener {
 		Button searchBtn;
 		TextView resultsTitle;
 		ListView searchList;
-		
+
 		Converters converters = new Converters();
 		Booking searchBooking= new Booking();
 		Checkers checkers = new Checkers();
@@ -72,6 +73,9 @@ public class SearchingActivity extends Fragment implements OnClickListener {
 		int availableBookingStartHour=9;
 		int availableBookingStartMinute=00;
 		int selectedCapacity = 0;
+
+		String startDateTimestamp;
+		String endDateTimestamp;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -119,6 +123,37 @@ public class SearchingActivity extends Fragment implements OnClickListener {
 		 endText.setText("Time End:	" + converters.timePickerToTimeS(endCalendar));
 		 endText.setTextSize(30);
 
+		moveable.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				searchList.setVisibility(View.INVISIBLE);
+				resultsTitle.setVisibility(View.INVISIBLE);
+			}
+		});
+
+		projector.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				searchList.setVisibility(View.INVISIBLE);
+				resultsTitle.setVisibility(View.INVISIBLE);
+			}
+		});
+
+		multipleComputers.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				searchList.setVisibility(View.INVISIBLE);
+				resultsTitle.setVisibility(View.INVISIBLE);
+			}
+		});
+
+		capacities.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+			@Override
+			public void onCheckedChanged(RadioGroup group, int checkedId) {
+				searchList.setVisibility(View.INVISIBLE);
+				resultsTitle.setVisibility(View.INVISIBLE);
+			}
+		});
 
 		final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
 
@@ -127,7 +162,8 @@ public class SearchingActivity extends Fragment implements OnClickListener {
 					int dayOfMonth) {
 
 
-
+				searchList.setVisibility(View.INVISIBLE);
+				resultsTitle.setVisibility(View.INVISIBLE);
 
 		        dateCalendar.set(Calendar.YEAR, year);
 		        dateCalendar.set(Calendar.MONTH, monthOfYear);
@@ -145,7 +181,8 @@ public class SearchingActivity extends Fragment implements OnClickListener {
 			@Override
 			public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 				  // TODO Auto-generated method stub
-
+				searchList.setVisibility(View.INVISIBLE);
+				resultsTitle.setVisibility(View.INVISIBLE);
 
 		        startCalendar.setCurrentHour(hourOfDay);
 		        startCalendar.setCurrentMinute(minute);
@@ -198,6 +235,8 @@ public class SearchingActivity extends Fragment implements OnClickListener {
 		        endCalendar.setCurrentHour(hourOfDay);
 		        endCalendar.setCurrentMinute(minute);
 
+				searchList.setVisibility(View.INVISIBLE);
+				resultsTitle.setVisibility(View.INVISIBLE);
 
 		        if(checkers.endTimeValidity(startCalendar, endCalendar))
 		        {
@@ -214,12 +253,7 @@ public class SearchingActivity extends Fragment implements OnClickListener {
 		        					.setPositiveButton("ok", new DialogInterface.OnClickListener() {
 		        				        public void onClick(DialogInterface dialog, int which) {
 		        				            endCalendar.setCurrentHour(startCalendar.getCurrentHour());
-											if(startCalendar.getCurrentMinute()+30>=60){
 												endCalendar.setCurrentHour(startCalendar.getCurrentHour()+1);
-											}
-											else {
-												endCalendar.setCurrentMinute(startCalendar.getCurrentMinute() + 30);
-											}
 												endText.setText("Time End:	" + converters.timePickerToTimeS(endCalendar));
 
 		        				        }
@@ -249,6 +283,7 @@ public class SearchingActivity extends Fragment implements OnClickListener {
 
 			@Override
 			public void onClick(View v) {
+
 			TimePickerDialogs startPicker =	new TimePickerDialogs(getActivity(), startTime, startCalendar.getCurrentHour(), startCalendar.getCurrentMinute(), true);
 				startPicker.show();
 			}
@@ -262,20 +297,27 @@ public class SearchingActivity extends Fragment implements OnClickListener {
 				endPicker.show();
 			}
 		});
+
+
+
+
+
+
 		return rootView;
 	}
 	
 	@Override
 	public void onClick(View v) {
 
+
         String dateString;
         String startString;
         String endString;
-        String startDateTimestamp;
-        String endDateTimestamp;
+
         Date startDate;
       	Date endDate;
       	SearchRoom searchTask = new SearchRoom();
+
 
 
 
@@ -305,9 +347,6 @@ public class SearchingActivity extends Fragment implements OnClickListener {
 		else if(capacities.getCheckedRadioButtonId()==R.id.capacity_high){
 			selectedCapacity=3;
 		}
-
-
-			Log.e("SELECTED CAPACITY", Integer.toString(selectedCapacity));
 
 		   searchTask.execute(searchBooking);
 		   
@@ -435,24 +474,232 @@ public class SearchingActivity extends Fragment implements OnClickListener {
 
 
 		public void createList(ArrayList<String> resultList ) {
-			
-			
-			
-			
-			   ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(getActivity(),
-			            R.layout.result_list_item, resultList);
-			
-		    
-		    listAdapter
-		            .setDropDownViewResource(R.layout.result_list_item);
 
-		    searchList.setAdapter(listAdapter);
+
+
+			final ListAdapter adapter = new ListAdapter(getActivity(), resultList);
+			adapter.setCustomButtonListner(new ListAdapter.customButtonListener() {
+				@Override
+				public void onButtonClickListner(int position, final String room) {
+
+
+					final EditText editText= new EditText(getActivity());
+					AlertDialog.Builder alert = new AlertDialog.Builder(getActivity(),AlertDialog.THEME_HOLO_DARK);
+
+
+					editText.setTextColor(Color.WHITE);
+					alert.setTitle("Book a Room");
+					alert.setMessage("Please enter purpose or name for your booking");
+
+					alert.setView(editText);
+
+
+
+					alert.setPositiveButton("Book", new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int whichButton) {
+
+							String purposeName = editText.getText().toString();
+							Booking newBooking= new Booking();
+							BookRoom bookingTask = new BookRoom();
+
+
+							try {
+								newBooking.setBookingStart(converters.stringToDate(startDateTimestamp));
+								newBooking.setBookingEnd(converters.stringToDate(endDateTimestamp));
+								newBooking.setRoomName(room);
+								newBooking.setBookingName(purposeName);
+
+								bookingTask.execute(newBooking);
+
+							} catch (ParseException e) {
+								e.printStackTrace();
+							}
+							Toast.makeText(getActivity(), "BOOK NOW " + room + " " + startDateTimestamp + " " + endDateTimestamp + " " + purposeName,
+									Toast.LENGTH_SHORT).show();
+
+
+						}
+					});
+
+					alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int whichButton) {
+							// what ever you want to do with No option.
+						}
+					});
+
+					alert.show();
+
+
+				}
+			});
+
+		    searchList.setAdapter(adapter);
 		}
 
 
 
 	}
 
+	private class BookRoom extends AsyncTask <Booking, Boolean, Boolean>{
 
+		ProgressDialog processDialog=new ProgressDialog(getActivity());
+		HttpClient httpClient=null;
+		HttpPost httpPost=null;
+
+		@Override
+		protected void onPreExecute(){
+			processDialog.setMessage("Booking room...");
+			processDialog.show();
+
+		}
+
+
+		@Override
+		protected Boolean doInBackground(Booking... newBooking) {
+
+			httpClient= new DefaultHttpClient();
+			httpPost = new HttpPost("https://zeno.computing.dundee.ac.uk/2014-msc/aralzaim/bookingRoom.php");
+
+
+			try {
+
+				JSONObject newBookingJS= new JSONObject();
+
+				newBookingJS.put("booked_room", newBooking[0].getRoomName());
+				newBookingJS.put("booking_start",converters.dateToString(newBooking[0].getBookingStart()));
+				newBookingJS.put("booking_end",converters.dateToString(newBooking[0].getBookingEnd()));
+				newBookingJS.put("booked_by",newBooking[0].getBookedBy());
+				newBookingJS.put("name_purpose",newBooking[0].getBookingName());
+
+				System.out.println(newBookingJS.toString());
+
+				httpPost = new HttpPost("https://zeno.computing.dundee.ac.uk/2014-msc/aralzaim/bookingRoom.php");
+				httpPost.setEntity(new StringEntity(newBookingJS.toString()));
+
+
+				HttpResponse bookingResponse=httpClient.execute(httpPost);
+
+				String bookingResult = converters.inputStreamToString(bookingResponse.getEntity().getContent()).toString();
+
+				System.out.println(bookingResult);
+
+				if(bookingResult.equalsIgnoreCase("collision:"))
+				{
+					return false;
+				}
+				else
+				{
+					return true;
+				}
+
+
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return true;
+		}
+
+
+
+		@Override
+		protected void onPostExecute(Boolean result){
+
+			if(result==true)
+			{
+				//	System.out.println("CONNECTED AND CAME BACK AS TRUE");
+				processDialog.dismiss();
+				//	Toast toast = Toast.makeText(getActivity(), R.string.succesful_booking, Toast.LENGTH_LONG);
+				//	toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+				//	View view = toast.getView();
+				//	view.setBackgroundColor(Color.GREEN);
+				//	toast.show();
+
+
+				AlertDialog.Builder successfulDialog = new AlertDialog.Builder(
+						getActivity(),AlertDialog.THEME_HOLO_DARK);
+
+				successfulDialog.setTitle("Successful !");
+				successfulDialog.setMessage(R.string.succesful_booking);
+
+				successfulDialog.setPositiveButton("Done !", new DialogInterface.OnClickListener() {
+
+
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+
+						dialog.dismiss();
+					}
+				});
+				AlertDialog alertDialog = successfulDialog.create();
+				alertDialog.show();
+
+
+
+				Button sButton = (Button) alertDialog.getButton(alertDialog.BUTTON_POSITIVE);
+				if(sButton!=null)
+					sButton.setBackgroundColor(Color.GREEN);
+				sButton.setTextColor(Color.BLACK);
+
+				Calendar today= Calendar.getInstance();
+			//	roomSpinner.setSelection(0);
+			//	dateSelected.updateDate(today.get(Calendar.YEAR),today.get(Calendar.MONTH),today.get(Calendar.DAY_OF_MONTH));
+			//	startTimePicker.setCurrentHour(availableBookingStartHour);
+			//	startTimePicker.setCurrentMinute(availableBookingStartMinute);
+			//	endTimePicker.setCurrentHour(availableBookingStartHour+1);
+			//	endTimePicker.setCurrentMinute(availableBookingStartMinute);
+			}
+			else
+			{
+
+				System.out.println("CONNECTED AND CAME BACK AS FALSE");
+				processDialog.dismiss();
+				//Toast toast = Toast.makeText(getActivity(), R.string.unsuccesful_booking, Toast.LENGTH_LONG);
+				//	toast.setGravity(Gravity.CENTER, 0, 0);
+
+				//	View view = toast.getView();
+				//	view.setBackgroundColor(Color.RED);
+				//	toast.show();
+
+
+				AlertDialog.Builder collisionDialog = new AlertDialog.Builder(
+						getActivity(),AlertDialog.THEME_HOLO_DARK);
+
+				collisionDialog.setTitle("Collision !");
+				collisionDialog.setMessage(R.string.unsuccesful_booking);
+				collisionDialog.setPositiveButton("Retry !", new DialogInterface.OnClickListener() {
+
+					@Override
+					public void onClick(
+							DialogInterface dialog,
+							int which) {
+						dialog.dismiss();
+					}
+				});
+
+				AlertDialog alertDialog= collisionDialog.create();
+
+				alertDialog.show();
+
+				Button fButton= (Button) alertDialog.getButton(alertDialog.BUTTON_POSITIVE);
+
+
+
+				if(fButton!=null)
+					fButton.setBackgroundColor(Color.RED);
+
+				fButton.setTextColor(Color.BLACK);
+
+
+			}
+
+		}
+
+
+
+	}
 	
 }

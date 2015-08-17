@@ -13,7 +13,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/imageView8"
+            android:id="@+id/date_icon"
             android:src="@drawable/ic_event_black_24dp"
             android:layout_marginTop="8dp" />
 
@@ -37,7 +37,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/imageView7"
+            android:id="@+id/start_icon"
             android:src="@drawable/ic_alarm_black_24dp"
             android:layout_marginTop="8dp" />
 
@@ -57,7 +57,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/imageView6"
+            android:id="@+id/end_icon"
             android:src="@drawable/ic_alarm_black_24dp"
             android:layout_marginTop="8dp" />
 
@@ -76,7 +76,7 @@
         android:layout_gravity="center_horizontal">
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/cap_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/capacity_text"
@@ -117,10 +117,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:gravity="center_horizontal" >
+        android:gravity="center_horizontal"
+        android:layout_marginTop="10dp">
 
         <TextView
-            android:id="@+id/textView1"
+            android:id="@+id/extra_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/extra_needs"
