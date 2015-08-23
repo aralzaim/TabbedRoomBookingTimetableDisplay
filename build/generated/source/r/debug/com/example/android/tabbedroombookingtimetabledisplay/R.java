@@ -1561,8 +1561,6 @@ containing a value of this type.
         public static final int capacity_text=0x7f0b0067;
         public static final int capacity_title=0x7f0b0066;
         public static final int checkbox=0x7f0b0032;
-        public static final int childButton=0x7f0b0084;
-        public static final int childText=0x7f0b0083;
         public static final int collapseActionView=0x7f0b0017;
         public static final int comment1=0x7f0b0070;
         public static final int comment2=0x7f0b006a;
@@ -1616,6 +1614,7 @@ containing a value of this type.
         public static final int outside_picture2=0x7f0b0063;
         public static final int outside_text=0x7f0b005d;
         public static final int pager=0x7f0b0071;
+        public static final int phone_box=0x7f0b0081;
         public static final int previous_week=0x7f0b0057;
         public static final int progress_circular=0x7f0b0005;
         public static final int progress_horizontal=0x7f0b0006;
@@ -1627,7 +1626,7 @@ containing a value of this type.
         public static final int resource4=0x7f0b006e;
         public static final int resources_title=0x7f0b0068;
         public static final int result_list=0x7f0b0087;
-        public static final int results_title=0x7f0b0081;
+        public static final int results_title=0x7f0b0082;
         public static final int room_spinner=0x7f0b0049;
         public static final int saturday=0x7f0b0020;
         public static final int search_badge=0x7f0b003e;
@@ -1636,7 +1635,7 @@ containing a value of this type.
         public static final int search_close_btn=0x7f0b0044;
         public static final int search_edit_frame=0x7f0b0040;
         public static final int search_go_btn=0x7f0b0046;
-        public static final int search_list=0x7f0b0082;
+        public static final int search_list=0x7f0b0083;
         public static final int search_mag_icon=0x7f0b0041;
         public static final int search_plate=0x7f0b0042;
         public static final int search_src_text=0x7f0b0043;
@@ -1655,6 +1654,7 @@ containing a value of this type.
         public static final int submit_button=0x7f0b0054;
         public static final int sunday=0x7f0b0021;
         public static final int tabMode=0x7f0b000b;
+        public static final int table=0x7f0b0084;
         public static final int text=0x7f0b0088;
         public static final int textView2=0x7f0b005a;
         public static final int textView3=0x7f0b004a;
@@ -1743,13 +1743,14 @@ containing a value of this type.
         public static final int hello_world=0x7f050019;
         public static final int moveable_tables=0x7f05001a;
         public static final int multiple_computers=0x7f05001b;
-        public static final int projector=0x7f05001c;
-        public static final int search_room_button=0x7f05001d;
-        public static final int search_room_text=0x7f05001e;
-        public static final int succesful_booking=0x7f05001f;
-        public static final int title_activity_calendar_view=0x7f050020;
-        public static final int unsuccesful_booking=0x7f050021;
-        public static final int weekly_view_text=0x7f050022;
+        public static final int phone=0x7f05001c;
+        public static final int projector=0x7f05001d;
+        public static final int search_room_button=0x7f05001e;
+        public static final int search_room_text=0x7f05001f;
+        public static final int succesful_booking=0x7f050020;
+        public static final int title_activity_calendar_view=0x7f050021;
+        public static final int unsuccesful_booking=0x7f050022;
+        public static final int weekly_view_text=0x7f050023;
     }
     public static final class style {
         public static final int Animation_AppCompat_DropDownUp=0x7f06006a;

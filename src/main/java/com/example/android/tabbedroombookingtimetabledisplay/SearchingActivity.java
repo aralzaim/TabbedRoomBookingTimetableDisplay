@@ -63,6 +63,7 @@ public class SearchingActivity extends Fragment implements OnClickListener {
 		CheckBox moveable;
 		CheckBox projector;
 		CheckBox multipleComputers;
+		CheckBox phone;
 
 		RadioGroup capacities;
 
@@ -109,7 +110,7 @@ public class SearchingActivity extends Fragment implements OnClickListener {
 		moveable=(CheckBox) rootView.findViewById(R.id.moveable_box);
 		projector=(CheckBox) rootView.findViewById(R.id.projector_box);
 		multipleComputers=(CheckBox) rootView.findViewById(R.id.multiple_box);
-
+		phone= (CheckBox) rootView.findViewById(R.id.phone_box);
 
 		capacities= (RadioGroup) rootView.findViewById(R.id.capacities);
 		capacities.clearCheck();
@@ -147,6 +148,13 @@ public class SearchingActivity extends Fragment implements OnClickListener {
 			}
 		});
 
+		phone.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				searchList.setVisibility(View.INVISIBLE);
+				resultsTitle.setVisibility(View.INVISIBLE);
+			}
+		});
 		capacities.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
 			@Override
 			public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -154,6 +162,7 @@ public class SearchingActivity extends Fragment implements OnClickListener {
 				resultsTitle.setVisibility(View.INVISIBLE);
 			}
 		});
+
 
 		final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
 
@@ -394,6 +403,7 @@ public class SearchingActivity extends Fragment implements OnClickListener {
                     newBookingJS.put("booked_by",searchBooking[0].getBookedBy());
                     newBookingJS.put("moveable_table",moveable.isChecked());
                     newBookingJS.put("projector",projector.isChecked());
+					newBookingJS.put("phone",phone.isChecked());
                     newBookingJS.put("multiple_computer",multipleComputers.isChecked());
                     newBookingJS.put("capacity", selectedCapacity);
 

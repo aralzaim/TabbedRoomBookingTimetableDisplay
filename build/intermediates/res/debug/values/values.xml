@@ -182,6 +182,7 @@
     <string name="hello_world">Hello world!</string>
     <string name="moveable_tables">Moveable tables</string>
     <string name="multiple_computers">Multiple computers</string>
+    <string name="phone">Phone</string>
     <string name="projector">Projector</string>
     <string name="search_room_button">Search now </string>
     <string name="search_room_text">Search a Room</string>

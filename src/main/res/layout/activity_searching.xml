@@ -133,21 +133,32 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/moveable_tables"
-            android:textSize="25sp" />
+            android:textSize="25sp"
+            android:layout_marginLeft="15dp" />
 
         <CheckBox
             android:id="@+id/projector_box"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/projector"
-            android:textSize="25sp" />
+            android:textSize="25sp"
+            android:layout_marginLeft="15dp" />
 
         <CheckBox
             android:id="@+id/multiple_box"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/multiple_computers"
-            android:textSize="25sp" />
+            android:textSize="25sp"
+            android:layout_marginLeft="15dp" />
+
+        <CheckBox
+            android:id="@+id/phone_box"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/phone"
+            android:textSize="25sp"
+            android:layout_marginLeft="15dp" />
 
     </LinearLayout>
 

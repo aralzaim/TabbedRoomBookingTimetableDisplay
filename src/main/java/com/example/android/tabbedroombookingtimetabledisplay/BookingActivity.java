@@ -433,7 +433,7 @@ public class BookingActivity extends Fragment implements OnClickListener {
 	}
 
 	
-	private class BookRoom extends AsyncTask <Booking, Boolean, Boolean>{
+	public class BookRoom extends AsyncTask <Booking, Boolean, Boolean>{
 
 		ProgressDialog processDialog=new ProgressDialog(getActivity());
 		HttpClient httpClient=null;
