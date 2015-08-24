@@ -17,12 +17,17 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.InputFilter;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -83,7 +88,7 @@ public class SearchingActivity extends Fragment implements OnClickListener {
             Bundle savedInstanceState) {
         LinearLayout rootView =(LinearLayout) inflater.inflate(R.layout.activity_searching, container, false);
 
-		
+
 		searchBtn=(Button) rootView.findViewById(R.id.submit_button);
 		searchBtn.setOnClickListener(this);
 		
@@ -99,8 +104,8 @@ public class SearchingActivity extends Fragment implements OnClickListener {
 		startCalendar.setCurrentMinute(availableBookingStartMinute);
 
 		endCalendar=new TimePicker(getActivity());
-		endCalendar.setCurrentHour(availableBookingStartHour);
-		endCalendar.setCurrentMinute(availableBookingStartMinute + 30);
+		endCalendar.setCurrentHour(availableBookingStartHour+1);
+		endCalendar.setCurrentMinute(availableBookingStartMinute);
 
 		dateText= (EditText) rootView.findViewById(R.id.date_text);
 		startText= (EditText) rootView.findViewById(R.id.start_text);
@@ -199,13 +204,9 @@ public class SearchingActivity extends Fragment implements OnClickListener {
 				if((endCalendar.getCurrentHour().equals(hourOfDay)&&endCalendar.getCurrentMinute()<=minute) || endCalendar.getCurrentHour()<hourOfDay ) {
 					endCalendar.setCurrentHour(hourOfDay);
 
-					if(minute+30>=60)
-					{
+
 					endCalendar.setCurrentHour(hourOfDay+1);
-					}
-					else {
-						endCalendar.setCurrentMinute(minute + 30);
-					}
+
 					}
 
 		        if(checkers.startTimeValidity(startCalendar))
@@ -493,40 +494,50 @@ public class SearchingActivity extends Fragment implements OnClickListener {
 				public void onButtonClickListner(int position, final String room) {
 
 
-					final EditText editText= new EditText(getActivity());
-					AlertDialog.Builder alert = new AlertDialog.Builder(getActivity(),AlertDialog.THEME_HOLO_DARK);
+					final EditText editText = new EditText(getActivity());
+					AlertDialog.Builder alert = new AlertDialog.Builder(getActivity(), AlertDialog.THEME_HOLO_DARK);
 
 
 					editText.setTextColor(Color.WHITE);
+
 					alert.setTitle("Book a Room");
-					alert.setMessage("Please enter purpose or name for your booking");
+					alert.setMessage("Please enter purpose or name for your booking.");
+
 
 					alert.setView(editText);
-
-
+					InputFilter[] fArray = new InputFilter[1];
+					fArray[0] = new InputFilter.LengthFilter(30);
+					editText.setFilters(fArray);
 
 					alert.setPositiveButton("Book", new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog, int whichButton) {
 
 							String purposeName = editText.getText().toString();
-							Booking newBooking= new Booking();
-							BookRoom bookingTask = new BookRoom();
 
+							if (!purposeName.matches("")) {
+								Booking newBooking = new Booking();
+								BookRoom bookingTask = new BookRoom();
 
-							try {
-								newBooking.setBookingStart(converters.stringToDate(startDateTimestamp));
-								newBooking.setBookingEnd(converters.stringToDate(endDateTimestamp));
-								newBooking.setRoomName(room);
-								newBooking.setBookingName(purposeName);
+								try {
+									newBooking.setBookingStart(converters.stringToDate(startDateTimestamp));
+									newBooking.setBookingEnd(converters.stringToDate(endDateTimestamp));
+									newBooking.setRoomName(room);
+									newBooking.setBookingName(purposeName);
 
-								bookingTask.execute(newBooking);
+									bookingTask.execute(newBooking);
 
-							} catch (ParseException e) {
-								e.printStackTrace();
+									searchList.setVisibility(View.INVISIBLE);
+									resultsTitle.setVisibility(View.INVISIBLE);
+
+								} catch (ParseException e) {
+									e.printStackTrace();
+								}
+
+							} else {
+								Toast toast = Toast.makeText(getActivity(), "Please nter name or purpose!", Toast.LENGTH_LONG);
+								toast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.CENTER_HORIZONTAL, 0, 0);
+								toast.show();
 							}
-							Toast.makeText(getActivity(), "BOOK NOW " + room + " " + startDateTimestamp + " " + endDateTimestamp + " " + purposeName,
-									Toast.LENGTH_SHORT).show();
-
 
 						}
 					});
@@ -543,9 +554,8 @@ public class SearchingActivity extends Fragment implements OnClickListener {
 				}
 			});
 
-		    searchList.setAdapter(adapter);
+			searchList.setAdapter(adapter);
 		}
-
 
 
 	}
@@ -711,5 +721,6 @@ public class SearchingActivity extends Fragment implements OnClickListener {
 
 
 	}
-	
+
+
 }

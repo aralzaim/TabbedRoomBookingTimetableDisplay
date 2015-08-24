@@ -37,6 +37,7 @@
     <string name="title_activity_calendar_view">CalendarViewActivity</string>
     <string name="capacity_text">Capacity: </string>
     <string name="action_settings">Settings</string>
+    <string name="hint_purpose">Name or Purpose of Booking</string>
 
 
 </resources>

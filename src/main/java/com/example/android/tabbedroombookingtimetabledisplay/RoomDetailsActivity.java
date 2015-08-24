@@ -80,6 +80,12 @@ public class RoomDetailsActivity extends Fragment {
 
         roomSpinner = (Spinner) rootView.findViewById(R.id.spinner2);
 
+
+          //  int myInt = getArguments().getInt("selected");
+
+          //  roomSpinner.setSelection(myInt);
+
+
         outside1=(ImageView) rootView.findViewById(R.id.outside_picture1);
         outside2=(ImageView) rootView.findViewById(R.id.outside_picture2);
         inside1=(ImageView) rootView.findViewById(R.id.inside_picture1);

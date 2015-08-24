@@ -20,13 +20,19 @@ package com.example.android.tabbedroombookingtimetabledisplay;
 import java.lang.reflect.Method;
 
 import android.app.ActionBar;
+import android.app.AlertDialog;
 import android.app.FragmentTransaction;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 
 public class MainActivity extends FragmentActivity implements ActionBar.TabListener {
 
@@ -49,6 +55,9 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+
+
         // Create the adapter that will return a fragment for each of the three primary sections
         // of the app.
         mAppSectionsPagerAdapter = new AppSectionsPagerAdapter(getSupportFragmentManager());
@@ -57,8 +66,8 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         final ActionBar actionBar = getActionBar();
 
         tabSettings(actionBar);
-        
-       
+
+
 
         // Set up the ViewPager, attaching the adapter and setting up a listener for when the
         // user swipes between sections.
@@ -88,7 +97,14 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
                             .setIcon(mAppSectionsPagerAdapter.getPageIcon(i))
                             .setTabListener(this));
         }
-       
+
+
+        if(!isNetworkAvailable())
+        {
+            createADialog();
+        }
+
+
     }
     
     public void tabSettings(ActionBar actionBar) {
@@ -116,7 +132,10 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 
     @Override
     public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
-        // When the given tab is selected, switch to the corresponding page in the ViewPager.
+        if(!isNetworkAvailable())
+        {
+            createADialog();
+        }
         mViewPager.setCurrentItem(tab.getPosition());
         
     }
@@ -154,7 +173,6 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         public Fragment getItem(int i) {
             switch (i) {
                 case 0:
-                    
                     return new BookingActivity();
 
                 case 1:
@@ -193,6 +211,35 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
             else
                 return "unknown";
         }
+    }
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting();
+    }
+
+    private void createADialog(){
+        AlertDialog.Builder noConnectionDialog = new AlertDialog.Builder(
+                this,AlertDialog.THEME_HOLO_DARK);
+        noConnectionDialog.setTitle("No Internet Connection!");
+        noConnectionDialog.setMessage("Please make sure that you are connected to internet.");
+        noConnectionDialog.setPositiveButton("Quit", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(
+                    DialogInterface dialog,
+                    int which) {
+                dialog.dismiss();
+                finish();
+                System.exit(0);
+            }
+        });
+
+        AlertDialog alertDialog= noConnectionDialog.create();
+
+        alertDialog.show();
     }
 
     

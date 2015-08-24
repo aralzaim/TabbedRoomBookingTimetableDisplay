@@ -180,6 +180,7 @@
     <string name="capacity_text">Capacity: </string>
     <string name="extra_needs">Extra needs: </string>
     <string name="hello_world">Hello world!</string>
+    <string name="hint_purpose">Name or Purpose of Booking</string>
     <string name="moveable_tables">Moveable tables</string>
     <string name="multiple_computers">Multiple computers</string>
     <string name="phone">Phone</string>

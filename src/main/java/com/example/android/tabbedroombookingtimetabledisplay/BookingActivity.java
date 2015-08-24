@@ -71,12 +71,6 @@ public class BookingActivity extends Fragment implements OnClickListener {
           RelativeLayout rootView = (RelativeLayout)(inflater.inflate(R.layout.activity_booking, container, false));
 
 
-
-
-		
-
-		
-		
 		roomSpinner= (Spinner) rootView.findViewById(R.id.room_spinner);
 
         invalidTimeText = (TextView) rootView.findViewById(R.id.button_invisible_error);
@@ -87,111 +81,18 @@ public class BookingActivity extends Fragment implements OnClickListener {
 		dateOldText.setVisibility(View.INVISIBLE);
 		dateOldText.setTextColor(Color.RED);
 
-	//	roomText= (TextView) rootView.findViewById(R.id.room_text);
-	//	roomText.setVisibility(View.VISIBLE);
-	//	roomText.setTextColor(Color.RED);
-
-
 		GetRoomsBooking getRoomTask=new GetRoomsBooking();
 
 		getRoomTask.execute();
 
+		RoomDetailsActivity fragment = new RoomDetailsActivity(); //  object of next fragment
+		Bundle bundle = new Bundle();
+		bundle.putInt("selected", roomSpinner.getSelectedItemPosition());
+		fragment.setArguments(bundle);
+
 		submitBtn=(Button) rootView.findViewById(R.id.submit_button);
 		submitBtn.setOnClickListener(this);
 
-	//	roomSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-	//		@Override
-	//		public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-///
-	//			if(roomSpinner.getSelectedItemPosition()==0){
-	//				roomText.setVisibility(View.VISIBLE);
-	//				submitBtn.setEnabled(false);
-	//			}
-	//			else if(checkers.endTimeValidity(startTimePicker, endTimePicker) || !checkers.dateOlder(dateSelected.getYear(), dateSelected.getMonth(), dateSelected.getDayOfMonth())||roomSpinner.getSelectedItemPosition()!=0){
-	//				dateOldText.setVisibility(View.INVISIBLE);
-	//				invalidTimeText.setVisibility(View.INVISIBLE);
-//
-	//				if(roomSpinner.getSelectedItemPosition()!=0) {
-	//					roomText.setVisibility(View.INVISIBLE);
-	//				}
-	//				else if(checkers.dateOlder(dateSelected.getYear(),dateSelected.getMonth(),dateSelected.getDayOfMonth()))
-	//				{
-	//					dateOldText.setVisibility(View.INVISIBLE);
-	//				}
-	//				else if(!checkers.endTimeValidity(startTimePicker, endTimePicker)){
-	//					dateOldText.setVisibility(View.INVISIBLE);
-	//				}
-	//				submitBtn.setEnabled(true);
-	//			}
-	//		}
-
-	//		@Override
-	//		public void onNothingSelected(AdapterView<?> parent) {
-
-	//		}
-	//		});
-
-
-
-
-			//selectBtn =(Button) rootView.findViewById(R.id.button);
-      //  selectBtn.setOnClickListener(new OnClickListener() {
-    //        @Override
-  //          public void onClick(View v) {
-//
-    //            final AlertDialog.Builder builderSingle = new AlertDialog.Builder(getActivity());
-
-  //              builderSingle.setIcon(R.drawable.ic_launcher);
-//                builderSingle.setTitle("Select a room...");
-
-
-
-
-
-            //    adapter.setCustomTextListner(new ListAdapter.customTextListener(){
-          //          @Override
-        //            public void onTextClickListner(int position, String value) {
-      //                  Toast.makeText(getActivity(),"Itself"+ value,Toast.LENGTH_SHORT).show();
-    //                }
-  //              });
-//
-    //            builderSingle.setNegativeButton("cancel",
-  //                      new DialogInterface.OnClickListener() {
-//
-          //                  @Override
-        //                    public void onClick(DialogInterface dialog, int which) {
-      //                          dialog.dismiss();
-    //                        }
-  //                      });
-//
-    //            builderSingle.setAdapter(adapter,
-  //                      new DialogInterface.OnClickListener() {
-//
-                    //        @Override
-                  //          public void onClick(DialogInterface dialog, int which) {
-                //                String strName = adapter.getItem(which);
-              //                  AlertDialog.Builder builderInner = new AlertDialog.Builder(
-            //                            getActivity());
-          //                      builderInner.setMessage(strName);
-        //                        builderInner.setTitle("Your Selected Item is");
-      //                          selectBtn.setText(strName);
-    //                            builderInner.setPositiveButton("Ok",
-  //                                      new DialogInterface.OnClickListener() {
-//
-                      //                      @Override
-                    //                        public void onClick(
-                  //                                  DialogInterface dialog,
-                //                                    int which) {
-              //                                  dialog.dismiss();
-             //                               }
-           //                             });
-           //                     builderInner.show();
-         //                   }
-        //                });
-         //       builderSingle.show();
-
-        //    }
-       // });
 
 		startTimePicker= (TimePicker) rootView.findViewById(R.id.time_picker_start);
 		startTimePicker.setIs24HourView(true);
@@ -376,9 +277,6 @@ public class BookingActivity extends Fragment implements OnClickListener {
         Date endParsedDateTime=null;
 		String namePurpose=null;
         Booking newBooking= new Booking();
-
-
-         //selectBtn.getText().toString();
 
         roomName=roomSpinner.getSelectedItem().toString();
 
