@@ -86,9 +86,9 @@ public class BookingActivity extends Fragment implements OnClickListener {
 		getRoomTask.execute();
 
 		RoomDetailsActivity fragment = new RoomDetailsActivity(); //  object of next fragment
-		Bundle bundle = new Bundle();
-		bundle.putInt("selected", roomSpinner.getSelectedItemPosition());
-		fragment.setArguments(bundle);
+
+
+
 
 		submitBtn=(Button) rootView.findViewById(R.id.submit_button);
 		submitBtn.setOnClickListener(this);
@@ -99,6 +99,21 @@ public class BookingActivity extends Fragment implements OnClickListener {
 		startTimePicker.setCurrentHour(availableBookingStartHour);
 		startTimePicker.setCurrentMinute(availableBookingStartMinute);
 
+
+	//	roomSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+	//		@Override
+	//		public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+	//			RoomDetailsActivity fragment = new RoomDetailsActivity();
+	//			Bundle bundle = new Bundle();
+	//			bundle.putInt("selected", roomSpinner.getSelectedItemPosition());
+	//			fragment.setArguments(bundle);
+	//		}
+//
+	//		@Override
+	//		public void onNothingSelected(AdapterView<?> parent) {
+//
+	//		}
+	//	});
 
 		endTimePicker= (TimePicker) rootView.findViewById(R.id.time_picker_end);
 		endTimePicker.setIs24HourView(true);

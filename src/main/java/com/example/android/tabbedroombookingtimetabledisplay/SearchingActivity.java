@@ -175,14 +175,36 @@ public class SearchingActivity extends Fragment implements OnClickListener {
 			public void onDateSet(DatePicker view, int year, int monthOfYear,
 					int dayOfMonth) {
 
-
 				searchList.setVisibility(View.INVISIBLE);
 				resultsTitle.setVisibility(View.INVISIBLE);
 
-		        dateCalendar.set(Calendar.YEAR, year);
-		        dateCalendar.set(Calendar.MONTH, monthOfYear);
-		        dateCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-		        dateText.setText("Date:	" + converters.dateShower(dateCalendar));
+
+				if(checkers.dateOlder(year,monthOfYear,dayOfMonth)){
+
+					AlertDialog alert= new AlertDialog.Builder(getActivity()).
+							setTitle("Invalid Date!").
+							setMessage("Date should not be older than today.")
+							.setPositiveButton("Retry!", new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog, int which) {
+
+									Calendar today= Calendar.getInstance();
+
+									dateCalendar.set(Calendar.YEAR,today.get(Calendar.YEAR));
+									dateCalendar.set(Calendar.MONTH,today.get(Calendar.MONTH));
+									dateCalendar.set(Calendar.DAY_OF_MONTH,today.get(Calendar.DAY_OF_MONTH));
+									dateText.setText("Date: " + converters.dateShower(today));
+								}
+							}).show();
+				}
+				else
+				{
+					dateCalendar.set(Calendar.YEAR, year);
+					dateCalendar.set(Calendar.MONTH, monthOfYear);
+					dateCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+					dateText.setText("Date:	" + converters.dateShower(dateCalendar));
+				}
+
+
 
 			}
 
@@ -534,7 +556,7 @@ public class SearchingActivity extends Fragment implements OnClickListener {
 								}
 
 							} else {
-								Toast toast = Toast.makeText(getActivity(), "Please nter name or purpose!", Toast.LENGTH_LONG);
+								Toast toast = Toast.makeText(getActivity(), "Please enter name or purpose!", Toast.LENGTH_LONG);
 								toast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.CENTER_HORIZONTAL, 0, 0);
 								toast.show();
 							}

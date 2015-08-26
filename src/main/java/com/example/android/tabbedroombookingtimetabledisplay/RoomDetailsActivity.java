@@ -68,6 +68,7 @@ public class RoomDetailsActivity extends Fragment {
 
     Converters converters= new Converters();
     Spinner roomSpinner;
+    Spinner roomSpinner1;
     RoomDetails selectedRoomDetails;
 
 
@@ -78,12 +79,27 @@ public class RoomDetailsActivity extends Fragment {
                              Bundle savedInstanceState) {
         RelativeLayout rootView = (RelativeLayout) (inflater.inflate(R.layout.activity_details, container, false));
 
+      //  RelativeLayout rootView1= (RelativeLayout) (inflater.inflate(R.layout.activity_booking, container, false));
+
         roomSpinner = (Spinner) rootView.findViewById(R.id.spinner2);
 
+       // roomSpinner1= (Spinner) rootView1.findViewById(R.id.room_spinner);
 
-          //  int myInt = getArguments().getInt("selected");
+      //  roomSpinner1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+      //      @Override
+      //      public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+      //          if(getArguments()!=null) {
+      //              int myInt = getArguments().getInt("selected");
+      //              roomSpinner.setSelection(myInt);
+      //          }
+     //      }
+//
+     //       @Override
+      //      public void onNothingSelected(AdapterView<?> parent) {
+//
+      //      }
+      // });
 
-          //  roomSpinner.setSelection(myInt);
 
 
         outside1=(ImageView) rootView.findViewById(R.id.outside_picture1);
