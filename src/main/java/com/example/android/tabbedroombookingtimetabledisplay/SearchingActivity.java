@@ -82,7 +82,7 @@ public class SearchingActivity extends Fragment implements OnClickListener {
 
 		String startDateTimestamp;
 		String endDateTimestamp;
-	
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
@@ -111,7 +111,6 @@ public class SearchingActivity extends Fragment implements OnClickListener {
 		startText= (EditText) rootView.findViewById(R.id.start_text);
 		endText= (EditText) rootView.findViewById(R.id.end_text);
 
-		
 		moveable=(CheckBox) rootView.findViewById(R.id.moveable_box);
 		projector=(CheckBox) rootView.findViewById(R.id.projector_box);
 		multipleComputers=(CheckBox) rootView.findViewById(R.id.multiple_box);
@@ -120,9 +119,9 @@ public class SearchingActivity extends Fragment implements OnClickListener {
 		capacities= (RadioGroup) rootView.findViewById(R.id.capacities);
 		capacities.clearCheck();
 
-		
-		
+
 		 dateText.setText("Date:	" + converters.dateShower(dateCalendar));
+		Log.e("DATE",converters.dateShower(dateCalendar));
 		 dateText.setTextSize(30);
 		 startText.setText("Time Start:	" + converters.timePickerToTimeS(startCalendar));
 		 startText.setTextSize(30);
@@ -211,8 +210,6 @@ public class SearchingActivity extends Fragment implements OnClickListener {
 		};
 
 		final TimePickerDialog.OnTimeSetListener startTime= new TimePickerDialog.OnTimeSetListener() {
-
-
 
 			@Override
 			public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
@@ -316,7 +313,7 @@ public class SearchingActivity extends Fragment implements OnClickListener {
 			@Override
 			public void onClick(View v) {
 
-			TimePickerDialogs startPicker =	new TimePickerDialogs(getActivity(), startTime, startCalendar.getCurrentHour(), startCalendar.getCurrentMinute(), true);
+				TimePickerDialogs startPicker = new TimePickerDialogs(getActivity(), startTime, startCalendar.getCurrentHour(), startCalendar.getCurrentMinute(), true);
 				startPicker.show();
 			}
 		});
@@ -334,10 +331,24 @@ public class SearchingActivity extends Fragment implements OnClickListener {
 
 
 
-
 		return rootView;
 	}
-	
+
+	@Override
+	public void onResume() {
+		super.onResume();
+		dateText.setText("Date:	" + converters.dateShower(dateCalendar));
+		Log.e("DATE", converters.dateShower(dateCalendar));
+		Log.e("START", converters.timePickerToTimeS(startCalendar));
+		Log.e("END", converters.timePickerToTimeS(endCalendar));
+
+		dateText.setTextSize(30);
+		startText.setText("Time Start:	" + converters.timePickerToTimeS(startCalendar));
+		startText.setTextSize(30);
+		endText.setText("Time End:	" + converters.timePickerToTimeS(endCalendar));
+		endText.setTextSize(30);
+	}
+
 	@Override
 	public void onClick(View v) {
 

@@ -21,6 +21,7 @@
             android:id="@+id/date_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text="FOOO"
             android:ems="10"
             android:focusable="false"
              >
