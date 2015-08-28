@@ -50,7 +50,7 @@ MERGED from com.android.support:support-v4:22.1.0:22:5
 		ADDED from AndroidManifest.xml:32:9
 	android:name
 		ADDED from AndroidManifest.xml:29:9
-activity#com.example.android.tabbedroombookingtimetabledisplay.MainActivity
+activity#com.example.android.tabbedroombookingtimetabledisplay.MainFragmentActivity
 ADDED from AndroidManifest.xml:37:9
 	android:screenOrientation
 		ADDED from AndroidManifest.xml:38:13

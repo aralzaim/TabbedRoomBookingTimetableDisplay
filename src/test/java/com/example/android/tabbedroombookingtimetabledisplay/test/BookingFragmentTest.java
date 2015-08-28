@@ -1,6 +1,5 @@
 package com.example.android.tabbedroombookingtimetabledisplay.test;
 
-import com.example.android.tabbedroombookingtimetabledisplay.BookingActivity;
 import com.example.android.tabbedroombookingtimetabledisplay.helpers.Converters;
 
 import junit.framework.Assert;
@@ -14,19 +13,16 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-
-import static com.example.android.tabbedroombookingtimetabledisplay.BookingActivity.*;
 
 
 /**
  * Created by aralzaim on 21/08/15.
  */
 
-public class BookingActivityTest {
+public class BookingFragmentTest {
 
 
         @Before

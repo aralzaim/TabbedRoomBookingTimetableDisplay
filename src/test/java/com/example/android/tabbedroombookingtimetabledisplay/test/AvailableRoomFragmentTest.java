@@ -25,7 +25,7 @@ import java.util.ArrayList;
 /**
  * Created by aralzaim on 21/08/15.
  */
-public class AvailableRoomActivityTest {
+public class AvailableRoomFragmentTest {
 
     @Before
     public void setup(){

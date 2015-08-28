@@ -14,7 +14,6 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -28,7 +27,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -44,7 +42,7 @@ import com.example.android.tabbedroombookingtimetabledisplay.helpers.Checkers;
 import com.example.android.tabbedroombookingtimetabledisplay.helpers.Converters;
 
 
-public class BookingActivity extends Fragment implements OnClickListener {
+public class BookingFragment extends Fragment implements OnClickListener {
 
 	TimePicker startTimePicker;
 	TimePicker endTimePicker;
@@ -85,7 +83,7 @@ public class BookingActivity extends Fragment implements OnClickListener {
 
 		getRoomTask.execute();
 
-		RoomDetailsActivity fragment = new RoomDetailsActivity(); //  object of next fragment
+		RoomDetailsFragment fragment = new RoomDetailsFragment(); //  object of next fragment
 
 
 
@@ -100,20 +98,6 @@ public class BookingActivity extends Fragment implements OnClickListener {
 		startTimePicker.setCurrentMinute(availableBookingStartMinute);
 
 
-	//	roomSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-	//		@Override
-	//		public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-	//			RoomDetailsActivity fragment = new RoomDetailsActivity();
-	//			Bundle bundle = new Bundle();
-	//			bundle.putInt("selected", roomSpinner.getSelectedItemPosition());
-	//			fragment.setArguments(bundle);
-	//		}
-//
-	//		@Override
-	//		public void onNothingSelected(AdapterView<?> parent) {
-//
-	//		}
-	//	});
 
 		endTimePicker= (TimePicker) rootView.findViewById(R.id.time_picker_end);
 		endTimePicker.setIs24HourView(true);

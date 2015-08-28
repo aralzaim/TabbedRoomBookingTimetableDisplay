@@ -49,7 +49,7 @@ import com.example.android.tabbedroombookingtimetabledisplay.helpers.Checkers;
 import com.example.android.tabbedroombookingtimetabledisplay.helpers.Converters;
 import com.example.android.tabbedroombookingtimetabledisplay.helpers.TimePickerDialogs;
 
-public class SearchingActivity extends Fragment implements OnClickListener {
+public class SearchingFragment extends Fragment implements OnClickListener {
 
 		Calendar dateCalendar=Calendar.getInstance();
 		TimePicker startCalendar;

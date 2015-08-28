@@ -32,9 +32,8 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 
-public class MainActivity extends FragmentActivity implements ActionBar.TabListener {
+public class MainFragmentActivity extends FragmentActivity implements ActionBar.TabListener {
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide fragments for each of the
@@ -173,16 +172,16 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         public Fragment getItem(int i) {
             switch (i) {
                 case 0:
-                    return new BookingActivity();
+                    return new BookingFragment();
 
                 case 1:
-                    return new RoomDetailsActivity();
+                    return new RoomDetailsFragment();
 
                 case 2:
-                    return new SearchingActivity();
+                    return new SearchingFragment();
 
                 case 3:
-                    return new AvailableRoomActivity();
+                    return new AvailableRoomFragment();
                 default:
                     return null;
             }

@@ -41,7 +41,7 @@ import java.util.concurrent.ExecutionException;
 /**
  * Created by aralzaim on 31/07/15.
  */
-public class RoomDetailsActivity extends Fragment {
+public class RoomDetailsFragment extends Fragment {
 
 
     ImageView outside1;
