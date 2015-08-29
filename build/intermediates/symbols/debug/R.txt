@@ -370,9 +370,10 @@ int drawable ic_action_booking 0x7f020037
 int drawable ic_action_calendar 0x7f020038
 int drawable ic_action_searching 0x7f020039
 int drawable ic_alarm_black_24dp 0x7f02003a
-int drawable ic_event_black_24dp 0x7f02003b
-int drawable ic_launcher 0x7f02003c
-int drawable ic_launcher2 0x7f02003d
+int drawable ic_details_white_24dp 0x7f02003b
+int drawable ic_event_black_24dp 0x7f02003c
+int drawable ic_launcher 0x7f02003d
+int drawable ic_launcher2 0x7f02003e
 int id action_bar 0x7f0b003a
 int id action_bar_activity_content 0x7f0b0000
 int id action_bar_container 0x7f0b0039

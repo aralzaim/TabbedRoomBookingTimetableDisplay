@@ -528,8 +528,9 @@ public class SearchingFragment extends Fragment implements OnClickListener {
 
 
 					final EditText editText = new EditText(getActivity());
-					AlertDialog.Builder alert = new AlertDialog.Builder(getActivity(), AlertDialog.THEME_HOLO_DARK);
 
+
+					AlertDialog.Builder alert = new AlertDialog.Builder(getActivity(), AlertDialog.THEME_HOLO_DARK);
 
 					editText.setTextColor(Color.WHITE);
 
@@ -541,6 +542,7 @@ public class SearchingFragment extends Fragment implements OnClickListener {
 					InputFilter[] fArray = new InputFilter[1];
 					fArray[0] = new InputFilter.LengthFilter(30);
 					editText.setFilters(fArray);
+
 
 					alert.setPositiveButton("Book", new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog, int whichButton) {
@@ -581,7 +583,22 @@ public class SearchingFragment extends Fragment implements OnClickListener {
 						}
 					});
 
-					alert.show();
+					AlertDialog nameDialog= alert.create();
+
+					nameDialog.show();
+
+					Button pButton = (Button) nameDialog.getButton(nameDialog.BUTTON_POSITIVE);
+					if(pButton!=null)
+						pButton.setBackgroundColor(Color.LTGRAY);
+					pButton.setTextColor(Color.BLACK);
+
+					Button nButton = (Button) nameDialog.getButton(nameDialog.BUTTON_NEGATIVE);
+					if(nButton!=null)
+						nButton.setBackgroundColor(Color.LTGRAY);
+					nButton.setTextColor(Color.BLACK);
+
+
+
 
 
 				}
@@ -663,13 +680,9 @@ public class SearchingFragment extends Fragment implements OnClickListener {
 
 			if(result==true)
 			{
-				//	System.out.println("CONNECTED AND CAME BACK AS TRUE");
+
 				processDialog.dismiss();
-				//	Toast toast = Toast.makeText(getActivity(), R.string.succesful_booking, Toast.LENGTH_LONG);
-				//	toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-				//	View view = toast.getView();
-				//	view.setBackgroundColor(Color.GREEN);
-				//	toast.show();
+
 
 
 				AlertDialog.Builder successfulDialog = new AlertDialog.Builder(
@@ -697,26 +710,13 @@ public class SearchingFragment extends Fragment implements OnClickListener {
 					sButton.setBackgroundColor(Color.GREEN);
 				sButton.setTextColor(Color.BLACK);
 
-				Calendar today= Calendar.getInstance();
-			//	roomSpinner.setSelection(0);
-			//	dateSelected.updateDate(today.get(Calendar.YEAR),today.get(Calendar.MONTH),today.get(Calendar.DAY_OF_MONTH));
-			//	startTimePicker.setCurrentHour(availableBookingStartHour);
-			//	startTimePicker.setCurrentMinute(availableBookingStartMinute);
-			//	endTimePicker.setCurrentHour(availableBookingStartHour+1);
-			//	endTimePicker.setCurrentMinute(availableBookingStartMinute);
+
 			}
 			else
 			{
 
 				System.out.println("CONNECTED AND CAME BACK AS FALSE");
 				processDialog.dismiss();
-				//Toast toast = Toast.makeText(getActivity(), R.string.unsuccesful_booking, Toast.LENGTH_LONG);
-				//	toast.setGravity(Gravity.CENTER, 0, 0);
-
-				//	View view = toast.getView();
-				//	view.setBackgroundColor(Color.RED);
-				//	toast.show();
-
 
 				AlertDialog.Builder collisionDialog = new AlertDialog.Builder(
 						getActivity(),AlertDialog.THEME_HOLO_DARK);

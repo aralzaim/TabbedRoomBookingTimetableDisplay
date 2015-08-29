@@ -154,7 +154,7 @@ public class MainFragmentActivity extends FragmentActivity implements ActionBar.
         	if(position==0)
         		return R.drawable.ic_action_booking;
         	else if(position==1)
-                return R.drawable.ic_action_booking;
+                return R.drawable.ic_details_white_24dp;
 
         	else if(position==2)
                 return R.drawable.ic_action_searching;
