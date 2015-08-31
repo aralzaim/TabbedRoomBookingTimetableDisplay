@@ -71,7 +71,7 @@ public class BookingFragment extends Fragment implements OnClickListener {
 
 		roomSpinner= (Spinner) rootView.findViewById(R.id.room_spinner);
 
-        invalidTimeText = (TextView) rootView.findViewById(R.id.button_invisible_error);
+        invalidTimeText = (TextView) rootView.findViewById(R.id.time_error_text);
         invalidTimeText.setVisibility(View.INVISIBLE);
         invalidTimeText.setTextColor(Color.RED);
 
@@ -234,13 +234,6 @@ public class BookingFragment extends Fragment implements OnClickListener {
 						invalidTimeText.setVisibility(View.VISIBLE);
 						dateOldText.setVisibility(View.INVISIBLE);
 					}
-				//	else if(roomSpinner.getSelectedItemPosition()==0)
-			//		{
-		//				dateOldText.setVisibility(View.INVISIBLE);
-	//					invalidTimeText.setVisibility(View.INVISIBLE);
-	//					roomText.setVisibility(View.VISIBLE);
-	//				}
-
 					submitBtn.setEnabled(false);
 				}
 				else {
@@ -400,14 +393,7 @@ public class BookingFragment extends Fragment implements OnClickListener {
 			
 			if(result==true)
 			{
-			//	System.out.println("CONNECTED AND CAME BACK AS TRUE");
 				processDialog.dismiss();
-			//	Toast toast = Toast.makeText(getActivity(), R.string.succesful_booking, Toast.LENGTH_LONG);
-			//	toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-			//	View view = toast.getView();
-			//	view.setBackgroundColor(Color.GREEN);
-			//	toast.show();
-
 
 				AlertDialog.Builder successfulDialog = new AlertDialog.Builder(
 						                            getActivity(),AlertDialog.THEME_HOLO_DARK);
@@ -446,14 +432,8 @@ public class BookingFragment extends Fragment implements OnClickListener {
 			else
 			{
 				
-				System.out.println("CONNECTED AND CAME BACK AS FALSE");
+
 				processDialog.dismiss();
-				//Toast toast = Toast.makeText(getActivity(), R.string.unsuccesful_booking, Toast.LENGTH_LONG);
-			//	toast.setGravity(Gravity.CENTER, 0, 0);
-				
-			//	View view = toast.getView();
-			//	view.setBackgroundColor(Color.RED);
-			//	toast.show();
 
 
 				AlertDialog.Builder collisionDialog = new AlertDialog.Builder(
@@ -568,13 +548,6 @@ public class BookingFragment extends Fragment implements OnClickListener {
 		}
 
 		public void createSpinner(ArrayList<String> roomNames) {
-
-            //MyCustomAdapter adapter = new MyCustomAdapter(roomNames, this);
-
-            //handle listview and assign adapter
-            //ListView lView = (ListView)findViewById(R.id.my_listview);
-            //lView.setAdapter(adapter);
-
 
 
             ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(getActivity(),

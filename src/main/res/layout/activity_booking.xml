@@ -131,10 +131,9 @@
                         android:layout_width="182dp"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:text="Time should be between 09.00-21.00 and end time must be bigger."
-                        android:id="@+id/button_invisible_error"
+                        android:text="Time should be between 09.00 and 21.00 and end time should be after start time."
+                        android:id="@+id/time_error_text"
                         android:layout_marginTop="120dp" />
-
 
                 </LinearLayout>
 

@@ -237,8 +237,8 @@ public class SearchingFragment extends Fragment implements OnClickListener {
 		        else{
 		        	AlertDialog alert= new AlertDialog.Builder(getActivity()).
 		        			setTitle("Invalid Time!").
-		        			setMessage("Times should be between 9am and 9pm as well as starting time should"
-		        					+ " not be later than ending time.")
+		        			setMessage("Times should be between 09.00 and 21.00 and end time should be"
+		        					+ " after start time.")
 		        					.setPositiveButton("Retry!", new DialogInterface.OnClickListener() {
 		        				        public void onClick(DialogInterface dialog, int which) {
 
@@ -274,8 +274,8 @@ public class SearchingFragment extends Fragment implements OnClickListener {
 		        else{
 		        	AlertDialog alert= new AlertDialog.Builder(getActivity()).
 		        			setTitle("Invalid Time!").
-		        			setMessage("Times should be between 09.00 and 21.00 as well as starting time should"
-		        					+ " not be later than ending time.")
+		        			setMessage("Times should be between 09.00 and 21.00 and end time should be"
+		        					+ " after start time.")
 		        					.setPositiveButton("ok", new DialogInterface.OnClickListener() {
 		        				        public void onClick(DialogInterface dialog, int which) {
 		        				            endCalendar.setCurrentHour(startCalendar.getCurrentHour());

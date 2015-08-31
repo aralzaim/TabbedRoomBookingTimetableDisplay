@@ -1552,7 +1552,7 @@ containing a value of this type.
         public static final int always=0x7f0b0016;
         public static final int beginning=0x7f0b0013;
         public static final int book_btn=0x7f0b0089;
-        public static final int button_invisible_error=0x7f0b0051;
+        public static final int time_error_text =0x7f0b0051;
         public static final int button_spinner=0x7f0b0086;
         public static final int cap_text=0x7f0b0078;
         public static final int capacities=0x7f0b0079;
