@@ -83,25 +83,6 @@ public class RoomDetailsFragment extends Fragment {
 
         roomSpinner = (Spinner) rootView.findViewById(R.id.spinner2);
 
-       // roomSpinner1= (Spinner) rootView1.findViewById(R.id.room_spinner);
-
-      //  roomSpinner1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-      //      @Override
-      //      public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-      //          if(getArguments()!=null) {
-      //              int myInt = getArguments().getInt("selected");
-      //              roomSpinner.setSelection(myInt);
-      //          }
-     //      }
-//
-     //       @Override
-      //      public void onNothingSelected(AdapterView<?> parent) {
-//
-      //      }
-      // });
-
-
-
         outside1=(ImageView) rootView.findViewById(R.id.outside_picture1);
         outside2=(ImageView) rootView.findViewById(R.id.outside_picture2);
         inside1=(ImageView) rootView.findViewById(R.id.inside_picture1);

@@ -17,11 +17,8 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -32,7 +29,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
@@ -47,6 +43,7 @@ import android.widget.Toast;
 
 import com.example.android.tabbedroombookingtimetabledisplay.helpers.Checkers;
 import com.example.android.tabbedroombookingtimetabledisplay.helpers.Converters;
+import com.example.android.tabbedroombookingtimetabledisplay.helpers.ListAdapter;
 import com.example.android.tabbedroombookingtimetabledisplay.helpers.TimePickerDialogs;
 
 public class SearchingFragment extends Fragment implements OnClickListener {
