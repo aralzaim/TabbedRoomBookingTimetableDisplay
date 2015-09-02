@@ -1552,7 +1552,6 @@ containing a value of this type.
         public static final int always=0x7f0b0016;
         public static final int beginning=0x7f0b0013;
         public static final int book_btn=0x7f0b0089;
-        public static final int time_error_text =0x7f0b0051;
         public static final int button_spinner=0x7f0b0086;
         public static final int cap_text=0x7f0b0078;
         public static final int capacities=0x7f0b0079;
@@ -1662,6 +1661,7 @@ containing a value of this type.
         public static final int textView5=0x7f0b0056;
         public static final int text_main_seen=0x7f0b0085;
         public static final int thursday=0x7f0b0022;
+        public static final int time_error_text=0x7f0b0051;
         public static final int time_picker_end=0x7f0b0050;
         public static final int time_picker_start=0x7f0b004f;
         public static final int title=0x7f0b0030;

@@ -391,7 +391,6 @@ int id activity_chooser_view_content 0x7f0b002a
 int id always 0x7f0b0016
 int id beginning 0x7f0b0013
 int id book_btn 0x7f0b0089
-int id button_invisible_error 0x7f0b0051
 int id button_spinner 0x7f0b0086
 int id cap_text 0x7f0b0078
 int id capacities 0x7f0b0079
@@ -501,6 +500,7 @@ int id textView3 0x7f0b004a
 int id textView5 0x7f0b0056
 int id text_main_seen 0x7f0b0085
 int id thursday 0x7f0b0022
+int id time_error_text 0x7f0b0051
 int id time_picker_end 0x7f0b0050
 int id time_picker_start 0x7f0b004f
 int id title 0x7f0b0030
