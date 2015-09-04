@@ -84,7 +84,7 @@ public class BookingFragment extends Fragment implements OnClickListener {
 		mDateOldText.setTextColor(Color.RED);
 
 
-		//class responsible for getting room names from database to insert them inside spinner
+		//class responsible for getting room names from database to insert them insde spinner
 		GetRoomsBooking getRoomTask=new GetRoomsBooking();
 
 		//Execution for getting values from database.
@@ -380,7 +380,7 @@ public class BookingFragment extends Fragment implements OnClickListener {
 			
 		}
 		
-		//method that has all implementations inside task.
+		//method that has all implementations in task.
 		@Override
 		protected Boolean doInBackground(Booking... newBooking) {
 

@@ -2,6 +2,8 @@ package com.example.android.tabbedroombookingtimetabledisplay;
 
 import java.util.Date;
 
+
+//class for Booking object
 public class Booking {
 	
 	String mBookedBy;

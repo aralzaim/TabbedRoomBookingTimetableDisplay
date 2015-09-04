@@ -1,128 +1,154 @@
 package com.example.android.tabbedroombookingtimetabledisplay;
 
-import java.util.Date;
-
 /**
  * Created by aralzaim on 03/08/15.
+ * Object for storing room detail
  */
+
 public class RoomDetails {
 
-    String roomName;
-    int capacity;
-    String resource1;
-    String resource2;
-    String resource3;
-    String resource4;
-    String outsidePic1;
-    String outsidePic2;
-    String insidePic1;
-    String insidePic2;
-    String locationPic;
-    String comment1;
-    String comment2;
+    String mRoomName;
+    int mCapacity;
+    String mResource1;
+    String mResource2;
+    String mResource3;
+    String mResource4;
+    String mOutsidePic1;
+    String mOutsidePic2;
+    String mInsidePic1;
+    String mInsidePic2;
+    String mLocationPic;
+    String mComment1;
+    String mComment2;
 
     public String getRoomName() {
-        return roomName;
+
+        return mRoomName;
     }
 
     public void setRoomName(String roomName) {
-        this.roomName = roomName;
+
+        this.mRoomName = roomName;
     }
 
     public int getCapacity() {
-        return capacity;
+
+        return mCapacity;
     }
 
     public void setCapacity(int capacity) {
-        this.capacity = capacity;
+
+        this.mCapacity = capacity;
     }
 
     public String getResource1() {
-        return resource1;
+
+        return mResource1;
     }
 
     public void setResource1(String resource1) {
-        this.resource1 = resource1;
+
+        this.mResource1 = resource1;
     }
 
     public String getResource2() {
-        return resource2;
+
+        return mResource2;
     }
 
     public void setResource2(String resource2) {
-        this.resource2 = resource2;
+
+        this.mResource2 = resource2;
     }
 
     public String getResource3() {
-        return resource3;
+
+        return mResource3;
     }
 
     public void setResource3(String resource3) {
-        this.resource3 = resource3;
+
+        this.mResource3 = resource3;
     }
 
     public String getResource4() {
-        return resource4;
+
+        return mResource4;
     }
 
     public void setResource4(String resource4) {
-        this.resource4 = resource4;
+
+        this.mResource4 = resource4;
     }
 
     public String getOutsidePic1() {
-        return outsidePic1;
+
+        return mOutsidePic1;
     }
 
     public void setOutsidePic1(String outsidePic1) {
-        this.outsidePic1 = outsidePic1;
+
+        this.mOutsidePic1 = outsidePic1;
     }
 
     public String getOutsidePic2() {
-        return outsidePic2;
+
+        return mOutsidePic2;
     }
 
     public void setOutsidePic2(String outsidePic2) {
-        this.outsidePic2 = outsidePic2;
+
+        this.mOutsidePic2 = outsidePic2;
     }
 
     public String getInsidePic1() {
-        return insidePic1;
+
+        return mInsidePic1;
     }
 
     public void setInsidePic1(String insidePic1) {
-        this.insidePic1 = insidePic1;
+
+        this.mInsidePic1 = insidePic1;
     }
 
     public String getInsidePic2() {
-        return insidePic2;
+
+        return mInsidePic2;
     }
 
     public void setInsidePic2(String insidePic2) {
-        this.insidePic2 = insidePic2;
+
+        this.mInsidePic2 = insidePic2;
     }
 
     public String getLocationPic() {
-        return locationPic;
+
+        return mLocationPic;
     }
 
     public void setLocationPic(String locationPic) {
-        this.locationPic = locationPic;
+
+        this.mLocationPic = locationPic;
     }
 
     public String getComment1() {
-        return comment1;
+
+        return mComment1;
     }
 
     public void setComment1(String comment1) {
-        this.comment1 = comment1;
+
+        this.mComment1 = comment1;
     }
 
     public String getComment2() {
-        return comment2;
+
+        return mComment2;
     }
 
     public void setComment2(String comment2) {
-        this.comment2 = comment2;
+
+        this.mComment2 = comment2;
     }
 
 

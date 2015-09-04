@@ -1,12 +1,9 @@
 package com.example.android.tabbedroombookingtimetabledisplay;
 
 import android.app.ProgressDialog;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,12 +26,8 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
@@ -44,34 +37,34 @@ import java.util.concurrent.ExecutionException;
 public class RoomDetailsFragment extends Fragment {
 
 
-    ImageView outside1;
-    ImageView outside2;
-    ImageView inside1;
-    ImageView inside2;
-    ImageView location;
-    TextView outside;
-    TextView inside;
-    TextView details;
-    TextView capacityTitle;
-    TextView capacityText;
-    TextView resourcesTitle;
-    TextView resource1;
-    TextView resource2;
-    TextView resource3;
-    TextView resource4;
-    TextView commentsTitle;
-    TextView comment2;
-    TextView comment1;
-    TextView locationTitle;
-    ArrayList<String> comments = new ArrayList<>();
-    ArrayList<String> resources = new ArrayList<>();
+    ImageView mOutside1;
+    ImageView mOutside2;
+    ImageView mInside1;
+    ImageView mInside2;
+    ImageView mLocation;
 
-    Converters converters= new Converters();
-    Spinner roomSpinner;
-    Spinner roomSpinner1;
-    RoomDetails selectedRoomDetails;
+    TextView mOutside;
+    TextView mInside;
+    TextView mDetails;
+    TextView mCapacityTitle;
+    TextView mCapacityText;
+    TextView mResourcesTitle;
+    TextView mResource1;
+    TextView mResource2;
+    TextView mResource3;
+    TextView mResource4;
+    TextView mCommentsTitle;
+    TextView mComment1;
+    TextView mComment2;
+    TextView mLocationTitle;
 
+    ArrayList<String> mComments = new ArrayList<>();
+    ArrayList<String> mResources = new ArrayList<>();
 
+    Converters mConverters = new Converters();
+    Spinner mRoomSpinner;
+
+    RoomDetails mRoomDetails;
 
 
     @Override
@@ -79,95 +72,99 @@ public class RoomDetailsFragment extends Fragment {
                              Bundle savedInstanceState) {
         RelativeLayout rootView = (RelativeLayout) (inflater.inflate(R.layout.activity_details, container, false));
 
-      //  RelativeLayout rootView1= (RelativeLayout) (inflater.inflate(R.layout.activity_booking, container, false));
+      //initialization of all elements in the user interface
 
-        roomSpinner = (Spinner) rootView.findViewById(R.id.spinner2);
+        mRoomSpinner = (Spinner) rootView.findViewById(R.id.spinner2);
 
-        outside1=(ImageView) rootView.findViewById(R.id.outside_picture1);
-        outside2=(ImageView) rootView.findViewById(R.id.outside_picture2);
-        inside1=(ImageView) rootView.findViewById(R.id.inside_picture1);
-        inside2=(ImageView) rootView.findViewById(R.id.inside_picture2);
-        location=(ImageView) rootView.findViewById(R.id.location_picture);
+        mOutside1 =(ImageView) rootView.findViewById(R.id.outside_picture1);
+        mOutside2 =(ImageView) rootView.findViewById(R.id.outside_picture2);
+        mInside1 =(ImageView) rootView.findViewById(R.id.inside_picture1);
+        mInside2 =(ImageView) rootView.findViewById(R.id.inside_picture2);
+        mLocation =(ImageView) rootView.findViewById(R.id.location_picture);
 
-        details=(TextView) rootView.findViewById(R.id.details_text);
-        inside= (TextView) rootView.findViewById(R.id.inside_text);
-        outside=(TextView) rootView.findViewById(R.id.outside_text);
-        capacityTitle=(TextView) rootView.findViewById(R.id.capacity_title);
-        capacityText=(TextView) rootView.findViewById(R.id.capacity_text);
-        resourcesTitle=(TextView) rootView.findViewById(R.id.resources_title);
-        resource1=(TextView) rootView.findViewById(R.id.resource1);
-        resource2=(TextView) rootView.findViewById(R.id.resource2);
-        resource3=(TextView) rootView.findViewById(R.id.resource3);
-        resource4=(TextView) rootView.findViewById(R.id.resource4);
-        commentsTitle=(TextView) rootView.findViewById(R.id.comment_title);
-        comment1=(TextView) rootView.findViewById(R.id.comment1);
-        comment2=(TextView) rootView.findViewById(R.id.comment2);
-        locationTitle=(TextView) rootView.findViewById(R.id.location_title);
-
-
-        inside.setVisibility(View.INVISIBLE);
-        outside.setVisibility(View.INVISIBLE);
-        details.setVisibility(View.INVISIBLE);
-        outside1.setVisibility(View.INVISIBLE);
-        inside1.setVisibility(View.INVISIBLE);
-        outside2.setVisibility(View.INVISIBLE);
-        inside2.setVisibility(View.INVISIBLE);
-        location.setVisibility(View.INVISIBLE);
-        locationTitle.setVisibility(View.INVISIBLE);
-        capacityTitle.setVisibility(View.INVISIBLE);
-        capacityText.setVisibility(View.INVISIBLE);
-        resourcesTitle.setVisibility(View.INVISIBLE);
-        resource1.setVisibility(View.INVISIBLE);
-        resource2.setVisibility(View.INVISIBLE);
-        resource3.setVisibility(View.INVISIBLE);
-        resource4.setVisibility(View.INVISIBLE);
-        commentsTitle.setVisibility(View.INVISIBLE);
-        comment1.setVisibility(View.INVISIBLE);
-        comment2.setVisibility(View.INVISIBLE);
+        mDetails =(TextView) rootView.findViewById(R.id.details_text);
+        mInside = (TextView) rootView.findViewById(R.id.inside_text);
+        mOutside =(TextView) rootView.findViewById(R.id.outside_text);
+        mCapacityTitle =(TextView) rootView.findViewById(R.id.capacity_title);
+        mCapacityText =(TextView) rootView.findViewById(R.id.capacity_text);
+        mResourcesTitle =(TextView) rootView.findViewById(R.id.resources_title);
+        mResource1 =(TextView) rootView.findViewById(R.id.resource1);
+        mResource2 =(TextView) rootView.findViewById(R.id.resource2);
+        mResource3 =(TextView) rootView.findViewById(R.id.resource3);
+        mResource4 =(TextView) rootView.findViewById(R.id.resource4);
+        mCommentsTitle =(TextView) rootView.findViewById(R.id.comment_title);
+        mComment1 =(TextView) rootView.findViewById(R.id.comment1);
+        mComment2 =(TextView) rootView.findViewById(R.id.comment2);
+        mLocationTitle =(TextView) rootView.findViewById(R.id.location_title);
 
 
+        //setting visibility of all elements, in the beginning they are all invisible.
+        mInside.setVisibility(View.INVISIBLE);
+        mOutside.setVisibility(View.INVISIBLE);
+        mDetails.setVisibility(View.INVISIBLE);
+        mOutside1.setVisibility(View.INVISIBLE);
+        mInside1.setVisibility(View.INVISIBLE);
+        mOutside2.setVisibility(View.INVISIBLE);
+        mInside2.setVisibility(View.INVISIBLE);
+        mLocation.setVisibility(View.INVISIBLE);
+        mLocationTitle.setVisibility(View.INVISIBLE);
+        mCapacityTitle.setVisibility(View.INVISIBLE);
+        mCapacityText.setVisibility(View.INVISIBLE);
+        mResourcesTitle.setVisibility(View.INVISIBLE);
+        mResource1.setVisibility(View.INVISIBLE);
+        mResource2.setVisibility(View.INVISIBLE);
+        mResource3.setVisibility(View.INVISIBLE);
+        mResource4.setVisibility(View.INVISIBLE);
+        mCommentsTitle.setVisibility(View.INVISIBLE);
+        mComment1.setVisibility(View.INVISIBLE);
+        mComment2.setVisibility(View.INVISIBLE);
 
 
-
+    //getting rooms to put in spinner.
       GetRoomsBooking getRooms= new GetRoomsBooking();
             getRooms.execute();
 
-        roomSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        mRoomSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            //when any value in spinner is selected
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
 
-                selectedRoomDetails=new RoomDetails();
-                GetRoomDetails getRoomDetails= new GetRoomDetails();
-
-                if(!roomSpinner.getSelectedItem().toString().equalsIgnoreCase("Select a room...")){
+                mRoomDetails = new RoomDetails();
+                GetRoomDetails getRoomDetails = new GetRoomDetails();
 
 
-                    inside.setVisibility(View.VISIBLE);
-                    outside.setVisibility(View.VISIBLE);
-                    details.setVisibility(View.VISIBLE);
-                    outside1.setVisibility(View.VISIBLE);
-                    inside1.setVisibility(View.VISIBLE);
-                    outside2.setVisibility(View.VISIBLE);
-                    inside2.setVisibility(View.VISIBLE);
-                    location.setVisibility(View.VISIBLE);
-                    locationTitle.setVisibility(View.VISIBLE);
-                    capacityTitle.setVisibility(View.VISIBLE);
+                //if there is any room selected, make fields visible.
+                if (!mRoomSpinner.getSelectedItem().toString().equalsIgnoreCase("Select a room...")) {
 
-                    capacityText.setVisibility(View.INVISIBLE);
-                    resourcesTitle.setVisibility(View.INVISIBLE);
-                    resource1.setVisibility(View.INVISIBLE);
-                    resource2.setVisibility(View.INVISIBLE);
-                    resource3.setVisibility(View.INVISIBLE);
-                    resource4.setVisibility(View.INVISIBLE);
-                    commentsTitle.setVisibility(View.INVISIBLE);
-                    comment1.setVisibility(View.INVISIBLE);
-                    comment2.setVisibility(View.INVISIBLE);
+                    mInside.setVisibility(View.VISIBLE);
+                    mOutside.setVisibility(View.VISIBLE);
+                    mDetails.setVisibility(View.VISIBLE);
+                    mOutside1.setVisibility(View.VISIBLE);
+                    mInside1.setVisibility(View.VISIBLE);
+                    mOutside2.setVisibility(View.VISIBLE);
+                    mInside2.setVisibility(View.VISIBLE);
+                    mLocation.setVisibility(View.VISIBLE);
+                    mLocationTitle.setVisibility(View.VISIBLE);
+                    mCapacityTitle.setVisibility(View.VISIBLE);
 
-                    selectedRoomDetails.setRoomName(roomSpinner.getSelectedItem().toString());
+                    mCapacityText.setVisibility(View.INVISIBLE);
+                    mResourcesTitle.setVisibility(View.INVISIBLE);
+                    mResource1.setVisibility(View.INVISIBLE);
+                    mResource2.setVisibility(View.INVISIBLE);
+                    mResource3.setVisibility(View.INVISIBLE);
+                    mResource4.setVisibility(View.INVISIBLE);
+                    mCommentsTitle.setVisibility(View.INVISIBLE);
+                    mComment1.setVisibility(View.INVISIBLE);
+                    mComment2.setVisibility(View.INVISIBLE);
+
+
+                    mRoomDetails.setRoomName(mRoomSpinner.getSelectedItem().toString());
+
+                   //getting all details about room from details
                     getRoomDetails.execute();
 
-
-
+                    //pooling untill getRooms.execute finishes all implementations
                     try {
                         getRoomDetails.get();
                     } catch (InterruptedException e) {
@@ -176,133 +173,123 @@ public class RoomDetailsFragment extends Fragment {
                         e.printStackTrace();
                     }
 
+                //clearing and redeclaring the resources and comments arrays to refresh
+                    mResources.clear();
+                    mComments.clear();
+                    mResources = new ArrayList<>();
+                    mComments = new ArrayList<>();
 
-                    resources.clear();
-                    comments.clear();
-                    resources= new ArrayList<>();
-                    comments = new ArrayList<>();
+
+                    //setting Capacity value.
+                    mCapacityTitle.setText("Capacity");
+                    mCapacityText.setText(Integer.toString(mRoomDetails.getCapacity()));
+                    mCapacityText.setVisibility(View.VISIBLE);
 
 
-                    capacityTitle.setText("Capacity");
-                    capacityText.setText(Integer.toString(selectedRoomDetails.getCapacity()));
-                    capacityText.setVisibility(View.VISIBLE);
+                    //setting resources available, necessary implementation is done to show all the resources neatly in user interface.
+                    mResourcesTitle.setVisibility(View.VISIBLE);
 
-                    resourcesTitle.setVisibility(View.VISIBLE);
-
-                    if(!selectedRoomDetails.getResource1().equalsIgnoreCase("NULL")){
-                       resources.add(selectedRoomDetails.getResource1());
+                    if (!mRoomDetails.getResource1().equalsIgnoreCase("NULL")) {
+                        mResources.add(mRoomDetails.getResource1());
                     }
-                    if(!selectedRoomDetails.getResource2().equalsIgnoreCase("NULL")){
-                        resources.add(selectedRoomDetails.getResource2());
+                    if (!mRoomDetails.getResource2().equalsIgnoreCase("NULL")) {
+                        mResources.add(mRoomDetails.getResource2());
                     }
-                    if(!selectedRoomDetails.getResource3().equalsIgnoreCase("NULL")){
-                        resources.add(selectedRoomDetails.getResource3());
+                    if (!mRoomDetails.getResource3().equalsIgnoreCase("NULL")) {
+                        mResources.add(mRoomDetails.getResource3());
                     }
-                    if(!selectedRoomDetails.getResource4().equalsIgnoreCase("NULL")){
-                        resources.add(selectedRoomDetails.getResource4());
+                    if (!mRoomDetails.getResource4().equalsIgnoreCase("NULL")) {
+                        mResources.add(mRoomDetails.getResource4());
                     }
 
 
-                        for(int i=0; i<resources.size();i++){
+                    for (int i = 0; i < mResources.size(); i++) {
 
-                            if(i==0){
-                                resource1.setText(resources.get(i));
-                                resource1.setVisibility(View.VISIBLE);
-                            }
-                            if(i==1){
-                                resource2.setText(resources.get(i));
-                                resource2.setVisibility(View.VISIBLE);
-                            }
-                            if(i==2){
-                                resource3.setText(resources.get(i));
-                                resource3.setVisibility(View.VISIBLE);
-                            }
-                            if(i==3){
-                                resource4.setText(resources.get(i));
-                                resource4.setVisibility(View.VISIBLE);
-                            }
-
+                        if (i == 0) {
+                            mResource1.setText(mResources.get(i));
+                            mResource1.setVisibility(View.VISIBLE);
                         }
-
-                    if(resources.size()<=0)
-                    {
-                        resource1.setText("No resources added.");
-                        resource1.setVisibility(View.VISIBLE);
-                        resource2.setVisibility(View.INVISIBLE);
-                        resource3.setVisibility(View.INVISIBLE);
-                        resource4.setVisibility(View.INVISIBLE);
-                    }
-
-
-                    commentsTitle.setVisibility(View.VISIBLE);
-
-                    if(!selectedRoomDetails.getComment1().equalsIgnoreCase("NULL")){
-                       comments.add(selectedRoomDetails.getComment1());
-                    }
-
-                    if(!selectedRoomDetails.getComment2().equalsIgnoreCase("NULL")){
-                        comments.add(selectedRoomDetails.getComment2());
-                    }
-
-                    for(int i=0; i<comments.size();i++){
-
-                        if(i==0){
-                            comment1.setText(comments.get(i));
-                            comment1.setVisibility(View.VISIBLE);
+                        if (i == 1) {
+                            mResource2.setText(mResources.get(i));
+                            mResource2.setVisibility(View.VISIBLE);
                         }
-                        if(i==1){
-                            comment2.setText(comments.get(i));
-                            comment2.setVisibility(View.VISIBLE);
+                        if (i == 2) {
+                            mResource3.setText(mResources.get(i));
+                            mResource3.setVisibility(View.VISIBLE);
+                        }
+                        if (i == 3) {
+                            mResource4.setText(mResources.get(i));
+                            mResource4.setVisibility(View.VISIBLE);
                         }
 
                     }
 
-                    if(comments.size()<=0)
-                    {
-                        comment1.setText("No comments added.");
-                        comment1.setVisibility(View.VISIBLE);
-                        comment2.setVisibility(View.INVISIBLE);
+                    if (mResources.size() <= 0) {
+                        mResource1.setText("No resources added.");
+                        mResource1.setVisibility(View.VISIBLE);
+                        mResource2.setVisibility(View.INVISIBLE);
+                        mResource3.setVisibility(View.INVISIBLE);
+                        mResource4.setVisibility(View.INVISIBLE);
                     }
 
+                    //setting comments available, necessary implementation is done to show all the comments neatly in user interface.
+                    mCommentsTitle.setVisibility(View.VISIBLE);
 
-                    Picasso.with(getActivity()).load(selectedRoomDetails.getOutsidePic1()).resize(350, 250).into(outside1);
-                    Picasso.with(getActivity()).load(selectedRoomDetails.getOutsidePic2()).resize(350,250).into(outside2);
-                    Picasso.with(getActivity()).load(selectedRoomDetails.getInsidePic1()).resize(350, 250).into(inside1);
-                    Picasso.with(getActivity()).load(selectedRoomDetails.getInsidePic2()).resize(350, 250).into(inside2);
-                    Picasso.with(getActivity()).load(selectedRoomDetails.getLocationPic()).resize(400, 250).into(location);
+                    if (!mRoomDetails.getComment1().equalsIgnoreCase("NULL")) {
+                        mComments.add(mRoomDetails.getComment1());
+                    }
 
+                    if (!mRoomDetails.getComment2().equalsIgnoreCase("NULL")) {
+                        mComments.add(mRoomDetails.getComment2());
+                    }
 
+                    for (int i = 0; i < mComments.size(); i++) {
 
+                        if (i == 0) {
+                            mComment1.setText(mComments.get(i));
+                            mComment1.setVisibility(View.VISIBLE);
+                        }
+                        if (i == 1) {
+                            mComment2.setText(mComments.get(i));
+                            mComment2.setVisibility(View.VISIBLE);
+                        }
 
-                }
+                    }
 
+                    if (mComments.size() <= 0) {
+                        mComment1.setText("No comments added.");
+                        mComment1.setVisibility(View.VISIBLE);
+                        mComment2.setVisibility(View.INVISIBLE);
+                    }
 
+                //showing all the pictures with the help of Picasso library. http://square.github.io/picasso/
+                    Picasso.with(getActivity()).load(mRoomDetails.getOutsidePic1()).resize(350, 250).into(mOutside1);
+                    Picasso.with(getActivity()).load(mRoomDetails.getOutsidePic2()).resize(350, 250).into(mOutside2);
+                    Picasso.with(getActivity()).load(mRoomDetails.getInsidePic1()).resize(350, 250).into(mInside1);
+                    Picasso.with(getActivity()).load(mRoomDetails.getInsidePic2()).resize(350, 250).into(mInside2);
+                    Picasso.with(getActivity()).load(mRoomDetails.getLocationPic()).resize(400, 250).into(mLocation);
 
-
-
-
-
-                else if(roomSpinner.getSelectedItem().toString().equalsIgnoreCase("Select a room..."))
-                {
-                    inside.setVisibility(View.INVISIBLE);
-                    outside.setVisibility(View.INVISIBLE);
-                    details.setVisibility(View.INVISIBLE);
-                    outside1.setVisibility(View.INVISIBLE);
-                    inside1.setVisibility(View.INVISIBLE);
-                    outside2.setVisibility(View.INVISIBLE);
-                    inside2.setVisibility(View.INVISIBLE);
-                    location.setVisibility(View.INVISIBLE);
-                    locationTitle.setVisibility(View.INVISIBLE);
-                    capacityTitle.setVisibility(View.INVISIBLE);
-                    capacityText.setVisibility(View.INVISIBLE);
-                    resourcesTitle.setVisibility(View.INVISIBLE);
-                    resource1.setVisibility(View.INVISIBLE);
-                    resource2.setVisibility(View.INVISIBLE);
-                    resource3.setVisibility(View.INVISIBLE);
-                    resource4.setVisibility(View.INVISIBLE);
-                    commentsTitle.setVisibility(View.INVISIBLE);
-                    comment1.setVisibility(View.INVISIBLE);
-                    comment2.setVisibility(View.INVISIBLE);
+                //if there is no room selected, make all elements invisible on the user interface.
+                } else if (mRoomSpinner.getSelectedItem().toString().equalsIgnoreCase("Select a room...")) {
+                    mInside.setVisibility(View.INVISIBLE);
+                    mOutside.setVisibility(View.INVISIBLE);
+                    mDetails.setVisibility(View.INVISIBLE);
+                    mOutside1.setVisibility(View.INVISIBLE);
+                    mInside1.setVisibility(View.INVISIBLE);
+                    mOutside2.setVisibility(View.INVISIBLE);
+                    mInside2.setVisibility(View.INVISIBLE);
+                    mLocation.setVisibility(View.INVISIBLE);
+                    mLocationTitle.setVisibility(View.INVISIBLE);
+                    mCapacityTitle.setVisibility(View.INVISIBLE);
+                    mCapacityText.setVisibility(View.INVISIBLE);
+                    mResourcesTitle.setVisibility(View.INVISIBLE);
+                    mResource1.setVisibility(View.INVISIBLE);
+                    mResource2.setVisibility(View.INVISIBLE);
+                    mResource3.setVisibility(View.INVISIBLE);
+                    mResource4.setVisibility(View.INVISIBLE);
+                    mCommentsTitle.setVisibility(View.INVISIBLE);
+                    mComment1.setVisibility(View.INVISIBLE);
+                    mComment2.setVisibility(View.INVISIBLE);
 
                 }
 
@@ -310,17 +297,14 @@ public class RoomDetailsFragment extends Fragment {
 
             @Override
             public void onNothingSelected(AdapterView<?> parentView) {
-
-
             }
-
         });
 
-
+//returning view with all the elements in it
         return rootView;
     }
 
-
+    //class for getting rooms to make a spinner
     private class GetRoomsBooking extends AsyncTask <String, Void, Boolean>{
 
         ProgressDialog fetchingDialog;
@@ -341,12 +325,16 @@ public class RoomDetailsFragment extends Fragment {
         protected Boolean doInBackground(String... params) {
 
             httpClient= new DefaultHttpClient();
+
+            //php service link to get bookable rooms.
             httpGet = new HttpGet("https://zeno.computing.dundee.ac.uk/2014-msc/aralzaim/getRooms.php");
 
             try {
+
+                //getting response
                 httpResponse= httpClient.execute(httpGet);
 
-
+                //parsing the response to json object.
                 jsonRoomParse(httpResponse);
 
             } catch (IOException e) {
@@ -363,16 +351,14 @@ public class RoomDetailsFragment extends Fragment {
             if(roomNames.size()<=0) {
                 try {
                     roomNames.add("Select a room...");
-                    jsonResult = converters.inputStreamToString(httpResponse.getEntity().getContent()).toString();
-
+                    jsonResult = mConverters.inputStreamToString(httpResponse.getEntity().getContent()).toString();
                     JSONObject jsonObj = new JSONObject(jsonResult);
-
                     if (jsonObj != null) {
                         JSONArray rooms = jsonObj.getJSONArray("rooms");
 
                         for (int i = 0; i < rooms.length(); i++) {
                             JSONObject catObj = (JSONObject) rooms.get(i);
-
+                            //adding retrieved rooms to array.
                             roomNames.add(catObj.getString("room_name"));
                         }
                     }
@@ -390,34 +376,29 @@ public class RoomDetailsFragment extends Fragment {
         }
         @Override
         protected void onPostExecute(Boolean result){
+            //creating spinner with all rooms
             createSpinner(roomNames);
             fetchingDialog.dismiss();
 
         }
 
+        //method to create spinner.
         public void createSpinner(ArrayList<String> roomNames) {
-
-
-
-            ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(getActivity(),
-                    R.layout.spinner_item, roomNames);
-
-            spinnerAdapter
-                    .setDropDownViewResource(R.layout.list_item);
-
-            roomSpinner.setAdapter(spinnerAdapter);
+            ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(getActivity(),R.layout.spinner_item, roomNames);
+            spinnerAdapter.setDropDownViewResource(R.layout.list_item);
+            mRoomSpinner.setAdapter(spinnerAdapter);
         }
 
     }
 
+
+    //class to get all details about selected room.
     private class GetRoomDetails extends AsyncTask <String, Boolean, Boolean>{
 
         ProgressDialog processDialog=new ProgressDialog(getActivity());
         HttpClient httpClient=null;
         HttpPost httpPost=null;
         ProgressDialog fetchingDialog;
-
-        ArrayList<String> resultList = new ArrayList<String>();
 
         @Override
         protected void onPreExecute(){
@@ -437,45 +418,37 @@ public class RoomDetailsFragment extends Fragment {
 
                 JSONObject newBookingJS = new JSONObject();
 
-                newBookingJS.put("room_name", selectedRoomDetails.getRoomName());
+                newBookingJS.put("room_name", mRoomDetails.getRoomName());
 
-
+            //php service link to get details about rooms
                 httpPost = new HttpPost("https://zeno.computing.dundee.ac.uk/2014-msc/aralzaim/getDetails.php");
                 httpPost.setEntity(new StringEntity(newBookingJS.toString()));
 
 
                 HttpResponse httpResponse = httpClient.execute(httpPost);
-
-                String jsonResult = converters.inputStreamToString(httpResponse.getEntity().getContent()).toString();
-
-
-                //Log.e("JSONRESULT", jsonResult);
-
+                String jsonResult = mConverters.inputStreamToString(httpResponse.getEntity().getContent()).toString();
                 JSONObject jsonObj = new JSONObject(jsonResult);
 
 
                 if (jsonObj != null) {
                     JSONArray details = jsonObj.getJSONArray("details");
 
+                    //getting every single details for selected rooms
                     for (int i = 0; i < details.length(); i++) {
                         JSONObject catObj = (JSONObject) details.get(i);
-
-
-                        selectedRoomDetails.setCapacity((catObj.getInt("room_capacity")));
-                        selectedRoomDetails.setOutsidePic1((catObj.getString("outside_picture1")));
-                        selectedRoomDetails.setOutsidePic2((catObj.getString("outside_picture2")));
-                        selectedRoomDetails.setInsidePic1((catObj.getString("inside_picture1")));
-                        selectedRoomDetails.setInsidePic2((catObj.getString("inside_picture2")));
-                        selectedRoomDetails.setComment1((catObj.getString("comment1")));
-                        selectedRoomDetails.setComment2((catObj.getString("comment2")));
-                        selectedRoomDetails.setResource1((catObj.getString("resource1")));
-                        selectedRoomDetails.setResource2((catObj.getString("resource2")));
-                        selectedRoomDetails.setResource3((catObj.getString("resource3")));
-                        selectedRoomDetails.setResource4((catObj.getString("resource4")));
-                        selectedRoomDetails.setLocationPic((catObj.getString("location")));
-
+                        mRoomDetails.setCapacity((catObj.getInt("room_capacity")));
+                        mRoomDetails.setOutsidePic1((catObj.getString("outside_picture1")));
+                        mRoomDetails.setOutsidePic2((catObj.getString("outside_picture2")));
+                        mRoomDetails.setInsidePic1((catObj.getString("inside_picture1")));
+                        mRoomDetails.setInsidePic2((catObj.getString("inside_picture2")));
+                        mRoomDetails.setComment1((catObj.getString("comment1")));
+                        mRoomDetails.setComment2((catObj.getString("comment2")));
+                        mRoomDetails.setResource1((catObj.getString("resource1")));
+                        mRoomDetails.setResource2((catObj.getString("resource2")));
+                        mRoomDetails.setResource3((catObj.getString("resource3")));
+                        mRoomDetails.setResource4((catObj.getString("resource4")));
+                        mRoomDetails.setLocationPic((catObj.getString("location")));
                     }
-
 
                     return true;
 
@@ -497,8 +470,6 @@ public class RoomDetailsFragment extends Fragment {
             protected void onPostExecute(Boolean result){
                 fetchingDialog.dismiss();
         }
-
-
 
     }
 }
