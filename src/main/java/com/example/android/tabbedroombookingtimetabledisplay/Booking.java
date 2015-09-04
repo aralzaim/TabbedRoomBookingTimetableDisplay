@@ -4,44 +4,53 @@ import java.util.Date;
 
 public class Booking {
 	
-	String bookedBy;
-	String roomName;
-	Date bookingStart;
-	Date bookingEnd;
-	String bookingName;
+	String mBookedBy;
+	String mRoomName;
+	Date mBookingStart;
+	Date mBookingEnd;
+	String mBookingName;
 
 	public String getBookingName() {
-		return bookingName;
+		return mBookingName;
 	}
 
 	public void setBookingName(String bookingName) {
-		this.bookingName = bookingName;
+		this.mBookingName = bookingName;
 	}
 
 	
 	public String getBookedBy() {
-		return bookedBy;
+
+		return mBookedBy;
 	}
 	public void setBookedBy(String bookedBy) {
-		this.bookedBy = bookedBy;
+
+		this.mBookedBy = bookedBy;
 	}
+
 	public String getRoomName() {
-		return roomName;
+
+		return mRoomName;
 	}
 	public void setRoomName(String roomName) {
-		this.roomName = roomName;
+
+		this.mRoomName = roomName;
 	}
 	public Date getBookingStart() {
-		return bookingStart;
+
+		return mBookingStart;
 	}
 	public void setBookingStart(Date bookingStart) {
-		this.bookingStart = bookingStart;
+
+		this.mBookingStart = bookingStart;
 	}
 	public Date getBookingEnd() {
-		return bookingEnd;
+
+		return mBookingEnd;
 	}
 	public void setBookingEnd(Date bookingEnd) {
-		this.bookingEnd = bookingEnd;
+
+		this.mBookingEnd = bookingEnd;
 	}
 	
 	

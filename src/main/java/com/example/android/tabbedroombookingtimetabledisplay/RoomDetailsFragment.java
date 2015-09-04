@@ -397,11 +397,7 @@ public class RoomDetailsFragment extends Fragment {
 
         public void createSpinner(ArrayList<String> roomNames) {
 
-            //MyCustomAdapter adapter = new MyCustomAdapter(roomNames, this);
 
-            //handle listview and assign adapter
-            //ListView lView = (ListView)findViewById(R.id.my_listview);
-            //lView.setAdapter(adapter);
 
             ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(getActivity(),
                     R.layout.spinner_item, roomNames);

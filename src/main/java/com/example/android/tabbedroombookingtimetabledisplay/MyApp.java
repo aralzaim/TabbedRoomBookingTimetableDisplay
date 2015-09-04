@@ -27,4 +27,3 @@ public class MyApp extends Application {
         return sContext;
     }
 }
- 

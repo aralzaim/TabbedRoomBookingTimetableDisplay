@@ -44,291 +44,335 @@ import com.example.android.tabbedroombookingtimetabledisplay.helpers.Converters;
 
 public class BookingFragment extends Fragment implements OnClickListener {
 
-	TimePicker startTimePicker;
-	TimePicker endTimePicker;
-	DatePicker dateSelected;
-	Button submitBtn;
-	Spinner roomSpinner;
-	Converters converters = new Converters();
-	Checkers checkers= new Checkers();
-    Button selectBtn;
-    ArrayList<String> roomNames= new ArrayList<>();
-    TextView invalidTimeText;
-    TextView dateOldText;
-	TextView nameWarn;
-	EditText nameBooking;
+	TimePicker mStartTimePicker;
+	TimePicker mEndTimePicker;
+	DatePicker mDatePicker;
 
-	int availableBookingStartHour=9;
-	int availableBookingStartMinute=00;
-	
-	
+	Button mSubmitButton;
+	Spinner mRoomSpinner;
+	EditText mPurposeNameBooking;
+
+    ArrayList<String> mRoomNames = new ArrayList<>();
+
+    TextView mInvalidTimeText;
+    TextView mDateOldText;
+	TextView mStarWarning;
+
+
+	Converters mConverters = new Converters();
+	Checkers mCheckers = new Checkers();
+
+	private int mAvailableBookingStartHour =9;
+	private int mAvailableBookingStartMinute =00;
+
+
 	
 	@Override
 	  public View onCreateView(LayoutInflater inflater, ViewGroup container,
               Bundle savedInstanceState) {
           RelativeLayout rootView = (RelativeLayout)(inflater.inflate(R.layout.activity_booking, container, false));
 
+		//initialization of the user interface elements.
+		mRoomSpinner = (Spinner) rootView.findViewById(R.id.room_spinner);
 
-		roomSpinner= (Spinner) rootView.findViewById(R.id.room_spinner);
+        mInvalidTimeText = (TextView) rootView.findViewById(R.id.time_error_text);
+        mInvalidTimeText.setVisibility(View.INVISIBLE);
+        mInvalidTimeText.setTextColor(Color.RED);
 
-        invalidTimeText = (TextView) rootView.findViewById(R.id.time_error_text);
-        invalidTimeText.setVisibility(View.INVISIBLE);
-        invalidTimeText.setTextColor(Color.RED);
+		mDateOldText = (TextView) rootView.findViewById(R.id.date_error_text);
+		mDateOldText.setVisibility(View.INVISIBLE);
+		mDateOldText.setTextColor(Color.RED);
 
-		dateOldText= (TextView) rootView.findViewById(R.id.date_error_text);
-		dateOldText.setVisibility(View.INVISIBLE);
-		dateOldText.setTextColor(Color.RED);
 
+		//class responsible for getting room names from database to insert them inside spinner
 		GetRoomsBooking getRoomTask=new GetRoomsBooking();
 
+		//Execution for getting values from database.
 		getRoomTask.execute();
 
-		RoomDetailsFragment fragment = new RoomDetailsFragment(); //  object of next fragment
+
+		//initialization of user interface elements and listeners of them
+		mSubmitButton =(Button) rootView.findViewById(R.id.submit_button);
+		mSubmitButton.setOnClickListener(this);
 
 
+		mStartTimePicker = (TimePicker) rootView.findViewById(R.id.time_picker_start);
+		mStartTimePicker.setIs24HourView(true);
+		mStartTimePicker.setCurrentHour(mAvailableBookingStartHour);
+		mStartTimePicker.setCurrentMinute(mAvailableBookingStartMinute);
 
 
-		submitBtn=(Button) rootView.findViewById(R.id.submit_button);
-		submitBtn.setOnClickListener(this);
+		mEndTimePicker = (TimePicker) rootView.findViewById(R.id.time_picker_end);
+		mEndTimePicker.setIs24HourView(true);
+		mEndTimePicker.setCurrentHour((mAvailableBookingStartHour) + 1);
+		mEndTimePicker.setCurrentMinute(mAvailableBookingStartMinute);
 
+		mPurposeNameBooking = (EditText) rootView.findViewById(R.id.name_booking);
 
-		startTimePicker= (TimePicker) rootView.findViewById(R.id.time_picker_start);
-		startTimePicker.setIs24HourView(true);
-		startTimePicker.setCurrentHour(availableBookingStartHour);
-		startTimePicker.setCurrentMinute(availableBookingStartMinute);
-
-
-
-		endTimePicker= (TimePicker) rootView.findViewById(R.id.time_picker_end);
-		endTimePicker.setIs24HourView(true);
-		endTimePicker.setCurrentHour((availableBookingStartHour)+1);
-		endTimePicker.setCurrentMinute(availableBookingStartMinute);
-
-		nameBooking= (EditText) rootView.findViewById(R.id.name_booking);
-
-		nameWarn=(TextView) rootView.findViewById(R.id.name_warning);
-		nameWarn.setTextColor(Color.RED);
+		mStarWarning =(TextView) rootView.findViewById(R.id.name_warning);
+		mStarWarning.setTextColor(Color.RED);
 		
-		dateSelected = (DatePicker) rootView.findViewById(R.id.datePicker);
-			
-		 startTimePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
+		mDatePicker = (DatePicker) rootView.findViewById(R.id.datePicker);
 
-				@Override
-	            public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
+			//listener when a hour or a minute is changed for start time.
+		 mStartTimePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
+			 @Override
+			 public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
 
-	            int newEndHour=(startTimePicker.getCurrentHour())+1;
-	            int newEndMinute=startTimePicker.getCurrentMinute();
+				//default 1 hour for booking
+				 int newEndHour = (mStartTimePicker.getCurrentHour()) + 1;
+				 int newEndMinute = mStartTimePicker.getCurrentMinute();
 
-					final int TIME_PICKER_INTERVAL=30;
-					boolean mIgnoreEvent=false;
-					if (mIgnoreEvent)
-						return;
-					if (minute%TIME_PICKER_INTERVAL!=0) {
-						int minuteFloor = minute - (minute % TIME_PICKER_INTERVAL);
-						minute = minuteFloor + (minute == minuteFloor + 1 ? TIME_PICKER_INTERVAL : 0);
-						if (minute == 60)
-							minute = 0;
-						mIgnoreEvent = true;
-						startTimePicker.setCurrentMinute(minute);
-						mIgnoreEvent = false;
-					}
-	            if(newEndMinute>=60){
-	            	newEndHour++;
-	            }
-	            
-           	if(checkers.startTimeValidity(startTimePicker) && checkers.endTimeValidity(startTimePicker, endTimePicker) && !checkers.dateOlder(dateSelected.getYear(), dateSelected.getMonth(), dateSelected.getDayOfMonth()) )/*&& roomSpinner.getSelectedItemPosition()!=0)*/ {
-                invalidTimeText.setVisibility(View.INVISIBLE);
-				dateOldText.setVisibility(View.INVISIBLE);
-                submitBtn.setEnabled(true);
-            }
-            else {
-				if(!checkers.startTimeValidity(startTimePicker) || !checkers.endTimeValidity(startTimePicker, endTimePicker)){
+				//implementing 30 minutes of blocks for minute spinner.
+				 final int mTimeBlock = 30;
+				 boolean mStopEvent = false;
 
-					invalidTimeText.setVisibility(View.VISIBLE);
-					dateOldText.setVisibility(View.INVISIBLE);
-				}
-				else if(checkers.dateOlder(dateSelected.getYear(), dateSelected.getMonth(), dateSelected.getDayOfMonth())){
-					dateOldText.setVisibility(View.VISIBLE);
-					invalidTimeText.setVisibility(View.INVISIBLE);
-				}
-		//		else if(roomSpinner.getSelectedItemPosition()==0){
-		//			dateOldText.setVisibility(View.INVISIBLE);
-		//			invalidTimeText.setVisibility(View.INVISIBLE);
-		//			 roomText.setVisibility(View.VISIBLE);
-		//		}
-                submitBtn.setEnabled(false);
-            }
-	            
-	            
-	            	if(hourOfDay>endTimePicker.getCurrentHour()||(endTimePicker.getCurrentHour().equals(hourOfDay) && endTimePicker.getCurrentMinute()<=minute)){
-						 endTimePicker.setCurrentHour(newEndHour);
-						  endTimePicker.setCurrentMinute(newEndMinute);
-					}
+				 if (mStopEvent)
+					 return;
 
-	            }
-	        });
-		 
-		 endTimePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
+				 if (minute % mTimeBlock != 0) {
+					 int mChangeFactor = minute - (minute % mTimeBlock);
+					 minute = mChangeFactor + (minute == mChangeFactor + 1 ? mTimeBlock : 0);
+					 if (minute == 60)
+						 minute = 0;
+					 mStopEvent = true;
+					 mStartTimePicker.setCurrentMinute(minute);
+					 mStopEvent = false;
+				 }
+				 if (newEndMinute >= 60) {
+					 newEndHour++;
+				 }
 
-			@Override
-			public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
 
-				final int TIME_PICKER_INTERVAL=30;
-				boolean mIgnoreEvent=false;
-				if (mIgnoreEvent)
-					return;
-				if (minute%TIME_PICKER_INTERVAL!=0) {
-					int minuteFloor = minute - (minute % TIME_PICKER_INTERVAL);
-					minute = minuteFloor + (minute == minuteFloor + 1 ? TIME_PICKER_INTERVAL : 0);
-					if (minute == 60)
-						minute = 0;
-					mIgnoreEvent = true;
-					endTimePicker.setCurrentMinute(minute);
-					mIgnoreEvent = false;
-				}
-				
-				if(checkers.endTimeValidity(startTimePicker, endTimePicker) && !checkers.dateOlder(dateSelected.getYear(), dateSelected.getMonth(), dateSelected.getDayOfMonth()) /*&& roomSpinner.getSelectedItemPosition()!=0*/) {
-                    submitBtn.setEnabled(true);
-                    invalidTimeText.setVisibility(View.INVISIBLE);
-					dateOldText.setVisibility(View.INVISIBLE);
-                }
-                else {
-					if(checkers.dateOlder(dateSelected.getYear(), dateSelected.getMonth(), dateSelected.getDayOfMonth())){
-						dateOldText.setVisibility(View.VISIBLE);
-						invalidTimeText.setVisibility(View.INVISIBLE);
-					}
-					else if(!checkers.endTimeValidity(startTimePicker,endTimePicker)){
-						dateOldText.setVisibility(View.INVISIBLE);
-						invalidTimeText.setVisibility(View.VISIBLE);
+				 //checking if selected time is between 09.00 and 21.00, if start time is before end time and checking if date is older than today.
+				 if (mCheckers.startTimeValidity(mStartTimePicker) && mCheckers.endTimeValidity(mStartTimePicker, mEndTimePicker) && !mCheckers.dateOlder(mDatePicker.getYear(), mDatePicker.getMonth(), mDatePicker.getDayOfMonth())) {
+					//if statement above is true date and time warnings will be invisible and button will be enable
+					 mInvalidTimeText.setVisibility(View.INVISIBLE);
+					 mDateOldText.setVisibility(View.INVISIBLE);
+					 mSubmitButton.setEnabled(true);
 
-					}
-			//		else if(roomSpinner.getSelectedItemPosition()==0){
-			//			dateOldText.setVisibility(View.INVISIBLE);
-			//			invalidTimeText.setVisibility(View.INVISIBLE);
-			//			roomText.setVisibility(View.VISIBLE);
-			//		}
+				 }
+				 //one of above statements are wrong
+				 else {
+					//checking if the time is problematic
+					 if (!mCheckers.startTimeValidity(mStartTimePicker) || !mCheckers.endTimeValidity(mStartTimePicker, mEndTimePicker)) {
 
-					submitBtn.setEnabled(false);
-                }
-                }
+						 mInvalidTimeText.setVisibility(View.VISIBLE);
+						 mDateOldText.setVisibility(View.INVISIBLE);
 
+					 }
+					 //checking if date is problematic
+					 else if (mCheckers.dateOlder(mDatePicker.getYear(), mDatePicker.getMonth(), mDatePicker.getDayOfMonth())) {
+
+						 mDateOldText.setVisibility(View.VISIBLE);
+						 mInvalidTimeText.setVisibility(View.INVISIBLE);
+
+					 }
+					 //if any of date or time is problematic, set the submit button disabled.
+					 mSubmitButton.setEnabled(false);
+				 }
+
+				//automatically making end time default 1 hour more than start time.
+				 if (hourOfDay > mEndTimePicker.getCurrentHour() || (mEndTimePicker.getCurrentHour().equals(hourOfDay) && mEndTimePicker.getCurrentMinute() <= minute)) {
+					 mEndTimePicker.setCurrentHour(newEndHour);
+					 mEndTimePicker.setCurrentMinute(newEndMinute);
+				 }
+
+			 }
+		 });
+
+		//listener when a hour or a minute is changed for end time.
+		 mEndTimePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
+
+			 @Override
+			 public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
+
+				 //implementing 30 minutes of blocks for minute spinner.
+				 final int mTimeBlock = 30;
+				 boolean mStopEvent = false;
+				 if (mStopEvent)
+					 return;
+				 if (minute % mTimeBlock != 0) {
+					 int mChangeFafctor = minute - (minute % mTimeBlock);
+					 minute = mChangeFafctor + (minute == mChangeFafctor + 1 ? mTimeBlock : 0);
+					 if (minute == 60)
+						 minute = 0;
+					 mStopEvent = true;
+					 mEndTimePicker.setCurrentMinute(minute);
+					 mStopEvent = false;
+				 }
+
+				 //checking if end time or date older is problematic
+				 if (mCheckers.endTimeValidity(mStartTimePicker, mEndTimePicker) && !mCheckers.dateOlder(mDatePicker.getYear(), mDatePicker.getMonth(), mDatePicker.getDayOfMonth())) {
+
+					 //if they are not problematic, remove warnings and enable button
+					 mSubmitButton.setEnabled(true);
+					 mInvalidTimeText.setVisibility(View.INVISIBLE);
+
+					 mDateOldText.setVisibility(View.INVISIBLE);
+				 }
+
+				 else {
+					 //checking if date is problematic
+					 if (mCheckers.dateOlder(mDatePicker.getYear(), mDatePicker.getMonth(), mDatePicker.getDayOfMonth())) {
+
+						 mDateOldText.setVisibility(View.VISIBLE);
+						 mInvalidTimeText.setVisibility(View.INVISIBLE);
+					 }
+					//checking if end time is problematic
+					 else if (!mCheckers.endTimeValidity(mStartTimePicker, mEndTimePicker)) {
+
+						 mDateOldText.setVisibility(View.INVISIBLE);
+						 mInvalidTimeText.setVisibility(View.VISIBLE);
+
+					 }
+					 //if any of date or time is problematic, set the submit button disabled.
+					 mSubmitButton.setEnabled(false);
+				 }
+			 }
 
 
 		 });
-		 
-		dateSelected.init(dateSelected.getYear(), dateSelected.getMonth(), dateSelected.getDayOfMonth(), new OnDateChangedListener() {
+
+		//listener when date is changed.
+		mDatePicker.init(mDatePicker.getYear(), mDatePicker.getMonth(), mDatePicker.getDayOfMonth(), new OnDateChangedListener() {
 			
 			@Override
 			public void onDateChanged(DatePicker view, int year, int monthOfYear,
 					int dayOfMonth) {
 				
-				
-				if(checkers.dateOlder(year,monthOfYear,dayOfMonth) || !checkers.endTimeValidity(startTimePicker, endTimePicker) || !checkers.startTimeValidity(startTimePicker) /*|| roomSpinner.getSelectedItemPosition()==0*/)
+				//checking if date is older than today, end time is problematic, if start time is problematic
+				if(mCheckers.dateOlder(year,monthOfYear,dayOfMonth) || !mCheckers.endTimeValidity(mStartTimePicker, mEndTimePicker) || !mCheckers.startTimeValidity(mStartTimePicker))
 				{
-					if(checkers.dateOlder(year,monthOfYear,dayOfMonth)) {
-						dateOldText.setVisibility(View.VISIBLE);
-						invalidTimeText.setVisibility(View.INVISIBLE);
-					}
 
-					else if(!checkers.endTimeValidity(startTimePicker, endTimePicker) || !checkers.startTimeValidity(startTimePicker)){
-						invalidTimeText.setVisibility(View.VISIBLE);
-						dateOldText.setVisibility(View.INVISIBLE);
+					//checking if its only date problematic
+					if(mCheckers.dateOlder(year,monthOfYear,dayOfMonth)) {
+
+						mDateOldText.setVisibility(View.VISIBLE);
+						mInvalidTimeText.setVisibility(View.INVISIBLE);
+
 					}
-					submitBtn.setEnabled(false);
+					//checking if start or end time is problematic
+					else if(!mCheckers.endTimeValidity(mStartTimePicker, mEndTimePicker) || !mCheckers.startTimeValidity(mStartTimePicker)){
+
+						mInvalidTimeText.setVisibility(View.VISIBLE);
+						mDateOldText.setVisibility(View.INVISIBLE);
+
+					}
+					//if any variable is problematic, set the button disabled.
+					mSubmitButton.setEnabled(false);
+
 				}
+				//all variables are without any problems, so set button enabled.
 				else {
-					invalidTimeText.setVisibility(View.INVISIBLE);
-					dateOldText.setVisibility(View.INVISIBLE);
-                    submitBtn.setEnabled(true);
+
+					mInvalidTimeText.setVisibility(View.INVISIBLE);
+					mDateOldText.setVisibility(View.INVISIBLE);
+                    mSubmitButton.setEnabled(true);
+
                 }
                 }
 
 		});
+		//returning all the view.
 		return rootView;
 	    
 
 		
 	}
 
-
+	//action which will be taken when the submit button will be clicked.
 	@Override
 	public void onClick(View v) {
 
-        String roomName;
-        int year=0;
-        int month=0;
-        int day=0;
-        int startHour = 0;
-        int startMinute = 0;
-        int endHour=0;
-        int endMinute=0;
-        String startDateTimestamp;
-        String endDateTimestamp;
+        String mRoomName;
+        int mYear=0;
+        int mMonth=0;
+        int mDay=0;
+        int mStartHour = 0;
+        int mStartMinute = 0;
+        int mEndHour=0;
+        int mEndMinute=0;
+
+        String mStartDateTimestamp;
+        String mEndDateTimestamp;
+
         BookRoom bookingTask;
+
         Date startParsedDateTime=null;
         Date endParsedDateTime=null;
-		String namePurpose=null;
-        Booking newBooking= new Booking();
 
-        roomName=roomSpinner.getSelectedItem().toString();
+		String mNamePurpose=null;
 
-        year=dateSelected.getYear();
-        month=dateSelected.getMonth()+1;
-        day=dateSelected.getDayOfMonth();
+        Booking mNewBooking= new Booking();
 
-        startHour=startTimePicker.getCurrentHour();
-        startMinute=startTimePicker.getCurrentMinute();
+        mRoomName= mRoomSpinner.getSelectedItem().toString();
 
-        endHour=endTimePicker.getCurrentHour();
-        endMinute=endTimePicker.getCurrentMinute();
+        mYear= mDatePicker.getYear();
+        mMonth= mDatePicker.getMonth()+1;
+        mDay= mDatePicker.getDayOfMonth();
 
-        startDateTimestamp=year+"-"+month+"-"+day + " " + startHour +":"+ startMinute;
-        endDateTimestamp = year+"-"+month+"-"+day + " " + endHour +":"+ endMinute;
+        mStartHour= mStartTimePicker.getCurrentHour();
+        mStartMinute= mStartTimePicker.getCurrentMinute();
 
-      if(!roomName.equalsIgnoreCase("select a room to book..." ) && !nameBooking.getText().toString().matches("")) {
+        mEndHour= mEndTimePicker.getCurrentHour();
+        mEndMinute= mEndTimePicker.getCurrentMinute();
+
+        mStartDateTimestamp=mYear+"-"+mMonth+"-"+mDay + " " + mStartHour +":"+ mStartMinute;
+        mEndDateTimestamp = mYear+"-"+mMonth+"-"+mDay + " " + mEndHour +":"+ mEndMinute;
+
+		//giving error if no room is selected or the purpose is empty
+      if(!mRoomName.equalsIgnoreCase("select a room to book..." ) && !mPurposeNameBooking.getText().toString().matches("")) {
 		  try {
 
-			  startParsedDateTime = converters.stringToDate(startDateTimestamp);
-			  endParsedDateTime = converters.stringToDate(endDateTimestamp);
-			  namePurpose=nameBooking.getText().toString();
+			  //converting string objects to the to date objects
+			  startParsedDateTime = mConverters.stringToDate(mStartDateTimestamp);
+			  endParsedDateTime = mConverters.stringToDate(mEndDateTimestamp);
 
+			  //getting purpose/name for booking
+			  mNamePurpose= mPurposeNameBooking.getText().toString();
 
-			  newBooking.setBookingStart(startParsedDateTime);
-			  newBooking.setBookingEnd(endParsedDateTime);
-			  newBooking.setRoomName(roomName);
-			  newBooking.setBookingName(namePurpose);
+			//setting values to newBooking object
+			  mNewBooking.setBookingStart(startParsedDateTime);
+			  mNewBooking.setBookingEnd(endParsedDateTime);
+			  mNewBooking.setRoomName(mRoomName);
+			  mNewBooking.setBookingName(mNamePurpose);
 
 
 		  } catch (Exception e) {
 
 			  e.printStackTrace();
 		  }
-
+		//bookingTask is for connecting to php and make necessary queries with newBooking object.
 		  bookingTask = new BookRoom();
-		  bookingTask.execute(newBooking);
+		  bookingTask.execute(mNewBooking);
 
 
 
 	  }
-		else if (roomName.equalsIgnoreCase("select a room to book..." )) {
+	  //if room is not selected give warning
+		else if (mRoomName.equalsIgnoreCase("select a room to book..." )) {
 		  Toast toast = Toast.makeText(getActivity(), "Select a room to book.", Toast.LENGTH_LONG);
 		  toast.setGravity(Gravity.CENTER, 0, 0);
 		  toast.show();
 	  }
-		else if(nameBooking.getText().toString().matches("")){
+	  //if purpose or name is not selected, give warning
+		else if(mPurposeNameBooking.getText().toString().matches("")){
 		  Toast toast = Toast.makeText(getActivity(), "Enter purpose or name for booking.", Toast.LENGTH_LONG);
 		  toast.setGravity(Gravity.CENTER, 0, 0);
 		  toast.show();
 	  }
 	}
 
-	
+	//class responsible for booking a room through
 	public class BookRoom extends AsyncTask <Booking, Boolean, Boolean>{
 
 		ProgressDialog processDialog=new ProgressDialog(getActivity());
 		HttpClient httpClient=null;
 		HttpPost httpPost=null;
-		
+
+
+		//actions to be taken before execution of task.
 		@Override
 		protected void onPreExecute(){
 			processDialog.setMessage("Booking room...");
@@ -336,36 +380,35 @@ public class BookingFragment extends Fragment implements OnClickListener {
 			
 		}
 		
-		
+		//method that has all implementations inside task.
 		@Override
 		protected Boolean doInBackground(Booking... newBooking) {
-			
+
 			httpClient= new DefaultHttpClient();
-			httpPost = new HttpPost("https://zeno.computing.dundee.ac.uk/2014-msc/aralzaim/bookingRoom.php");
-		
-			
+
 				try {
-					
-					 JSONObject newBookingJS= new JSONObject();
-	                    
-	                    newBookingJS.put("booked_room", newBooking[0].getRoomName());
-					newBookingJS.put("booking_start",converters.dateToString(newBooking[0].getBookingStart()));
-	                    newBookingJS.put("booking_end",converters.dateToString(newBooking[0].getBookingEnd()));
+
+					//putting all booking information to the json object.
+					JSONObject newBookingJS= new JSONObject();
+					newBookingJS.put("booked_room", newBooking[0].getRoomName());
+					newBookingJS.put("booking_start", mConverters.dateToString(newBooking[0].getBookingStart()));
+					newBookingJS.put("booking_end", mConverters.dateToString(newBooking[0].getBookingEnd()));
 					newBookingJS.put("booked_by",newBooking[0].getBookedBy());
-					newBookingJS.put("name_purpose",newBooking[0].getBookingName());
-                   
-                    System.out.println(newBookingJS.toString());
-                    
-                    httpPost = new HttpPost("https://zeno.computing.dundee.ac.uk/2014-msc/aralzaim/bookingRoom.php");
+					newBookingJS.put("name_purpose", newBooking[0].getBookingName());
+
+
+					//httpPost was assigned as bookingRoom.php adress
+					httpPost = new HttpPost("https://zeno.computing.dundee.ac.uk/2014-msc/aralzaim/bookingRoom.php");
                     httpPost.setEntity(new StringEntity(newBookingJS.toString()));
                     
-                    
+                    //getting response of the php service
                     HttpResponse bookingResponse=httpClient.execute(httpPost);
-                  
-                	String bookingResult = converters.inputStreamToString(bookingResponse.getEntity().getContent()).toString();
-                  
-                	System.out.println(bookingResult);
-                	
+
+					//converting response from php to string to check what is the value.
+                	String bookingResult = mConverters.inputStreamToString(bookingResponse.getEntity().getContent()).toString();
+
+
+					//checking if the response from  php is Collision, or a success message.
                 	if(bookingResult.equalsIgnoreCase("collision:"))
                 	{
                 		return false;
@@ -387,99 +430,88 @@ public class BookingFragment extends Fragment implements OnClickListener {
 	}
 		
 		
-
+		//method responsible to do necessary implementations after execution
 		@Override
 		protected void onPostExecute(Boolean result){
-			
+
+			//if the result is successful give pop up feedback
 			if(result==true)
 			{
 				processDialog.dismiss();
 
-				AlertDialog.Builder successfulDialog = new AlertDialog.Builder(
-						                            getActivity(),AlertDialog.THEME_HOLO_DARK);
+				AlertDialog.Builder successfulDialog = new AlertDialog.Builder(getActivity(),AlertDialog.THEME_HOLO_DARK);
 
 				successfulDialog.setTitle("Successful !");
 				successfulDialog.setMessage(R.string.succesful_booking);
 
 				successfulDialog.setPositiveButton("Done !", new DialogInterface.OnClickListener() {
-
-
 					@Override
-					public void onClick(DialogInterface dialog, int which) {
+					public void onClick(DialogInterface successDialog, int which) {
 
-						dialog.dismiss();
+						successDialog.dismiss();
 					}
 				});
-				AlertDialog alertDialog = successfulDialog.create();
-				alertDialog.show();
+
+				AlertDialog sDialog = successfulDialog.create();
+				sDialog.show();
 
 
-
-				Button sButton = (Button) alertDialog.getButton(alertDialog.BUTTON_POSITIVE);
+				//changing background and text color of positive button on successfulAlert
+				Button sButton = (Button) sDialog.getButton(sDialog.BUTTON_POSITIVE);
 				if(sButton!=null)
 				sButton.setBackgroundColor(Color.GREEN);
 				sButton.setTextColor(Color.BLACK);
 
+
+			// reseting values after succesful booking
 				Calendar today= Calendar.getInstance();
-				nameBooking.setText("");
-				roomSpinner.setSelection(0);
-				dateSelected.updateDate(today.get(Calendar.YEAR),today.get(Calendar.MONTH),today.get(Calendar.DAY_OF_MONTH));
-				startTimePicker.setCurrentHour(availableBookingStartHour);
-				startTimePicker.setCurrentMinute(availableBookingStartMinute);
-				endTimePicker.setCurrentHour(availableBookingStartHour+1);
-				endTimePicker.setCurrentMinute(availableBookingStartMinute);
+				mPurposeNameBooking.setText("");
+				mRoomSpinner.setSelection(0);
+				mDatePicker.updateDate(today.get(Calendar.YEAR), today.get(Calendar.MONTH), today.get(Calendar.DAY_OF_MONTH));
+				mStartTimePicker.setCurrentHour(mAvailableBookingStartHour);
+				mStartTimePicker.setCurrentMinute(mAvailableBookingStartMinute);
+				mEndTimePicker.setCurrentHour(mAvailableBookingStartHour + 1);
+				mEndTimePicker.setCurrentMinute(mAvailableBookingStartMinute);
 			}
+
+			//if the booking is not successful
 			else
 			{
-				
-
 				processDialog.dismiss();
 
-
-				AlertDialog.Builder collisionDialog = new AlertDialog.Builder(
-						getActivity(),AlertDialog.THEME_HOLO_DARK);
+				AlertDialog.Builder collisionDialog = new AlertDialog.Builder(getActivity(),AlertDialog.THEME_HOLO_DARK);
 
 				collisionDialog.setTitle("Collision !");
 				collisionDialog.setMessage(R.string.unsuccesful_booking);
 				collisionDialog.setPositiveButton("Retry !", new DialogInterface.OnClickListener() {
 
 					@Override
-					public void onClick(
-							DialogInterface dialog,
-							int which) {
-						dialog.dismiss();
+					public void onClick(DialogInterface colliDialog, int which) {
+						colliDialog.dismiss();
 					}
 				});
 
-				AlertDialog alertDialog= collisionDialog.create();
+				AlertDialog cDialog= collisionDialog.create();
 
-				alertDialog.show();
+				cDialog.show();
 
-				Button fButton= (Button) alertDialog.getButton(alertDialog.BUTTON_POSITIVE);
-
-
-
+				//changing background and text color of positive button on collisionAlert
+				Button fButton= (Button) cDialog.getButton(cDialog.BUTTON_POSITIVE);
 				if(fButton!=null)
 				fButton.setBackgroundColor(Color.RED);
-
 				fButton.setTextColor(Color.BLACK);
-
-
 				}
-			
 		}
 
-
-
 	}
-
+//class responsible for getting rooms into spinner
 	private class GetRoomsBooking extends AsyncTask <String, Void, Boolean>{
 
 		ProgressDialog fetchingDialog;
 		HttpClient httpClient=null;
 		HttpGet httpGet=null;
 		HttpResponse httpResponse=null;
-	//	ArrayList<String> roomNames = new ArrayList<>();
+	
 
 		@Override
 		protected void onPreExecute(){
@@ -493,12 +525,13 @@ public class BookingFragment extends Fragment implements OnClickListener {
 		protected Boolean doInBackground(String... params) {
 
 			httpClient= new DefaultHttpClient();
+			//getRooms.php has queries to get all bookable rooms from web service.
 			httpGet = new HttpGet("https://zeno.computing.dundee.ac.uk/2014-msc/aralzaim/getRooms.php");
 
 			try {
+
+				//getting the response (result) and parsing it to json object
 				httpResponse= httpClient.execute(httpGet);
-
-
 				jsonRoomParse(httpResponse);
 
 			} catch (IOException e) {
@@ -510,13 +543,13 @@ public class BookingFragment extends Fragment implements OnClickListener {
 		}
 
 		public void jsonRoomParse(HttpResponse httpResponse) {
+
 			String jsonResult;
-
-            if(roomNames.size()<=0) {
+            if(mRoomNames.size()<=0) {
                 try {
-                    roomNames.add("Select a room to book...");
-                    jsonResult = converters.inputStreamToString(httpResponse.getEntity().getContent()).toString();
-
+					//making first room name Select a room
+                    mRoomNames.add("Select a room to book...");
+                    jsonResult = mConverters.inputStreamToString(httpResponse.getEntity().getContent()).toString();
                     JSONObject jsonObj = new JSONObject(jsonResult);
 
                     if (jsonObj != null) {
@@ -524,11 +557,10 @@ public class BookingFragment extends Fragment implements OnClickListener {
 
                         for (int i = 0; i < rooms.length(); i++) {
                             JSONObject catObj = (JSONObject) rooms.get(i);
-
-                            roomNames.add(catObj.getString("room_name"));
+							//adding room names retrieved from database to array
+                            mRoomNames.add(catObj.getString("room_name"));
                         }
                     }
-
 
                 } catch (IllegalStateException | IOException e) {
                     // TODO Auto-generated catch block
@@ -542,21 +574,17 @@ public class BookingFragment extends Fragment implements OnClickListener {
 		}
 		@Override
 		protected void onPostExecute(Boolean result){
-			createSpinner(roomNames);
+			//creating spinner with room names
+			createSpinner(mRoomNames);
 			fetchingDialog.dismiss();
 
 		}
-
+		//creating an spinner with room names taken from database.
 		public void createSpinner(ArrayList<String> roomNames) {
 
-
-            ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(getActivity(),
-					R.layout.spinner_item, roomNames);
-
-			spinnerAdapter
-					.setDropDownViewResource(R.layout.list_item);
-
-			roomSpinner.setAdapter(spinnerAdapter);
+            ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(getActivity(), R.layout.spinner_item, roomNames);
+			spinnerAdapter.setDropDownViewResource(R.layout.list_item);
+			mRoomSpinner.setAdapter(spinnerAdapter);
 		}
 
 	}
