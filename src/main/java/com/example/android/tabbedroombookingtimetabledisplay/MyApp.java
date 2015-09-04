@@ -3,27 +3,19 @@ package com.example.android.tabbedroombookingtimetabledisplay;
 import android.app.Application;
 import android.content.Context;
 
+
+//class to get application context.
 public class MyApp extends Application {
 
-    /**
-     * Keeps a reference of the application context
-     */
-    private static Context sContext;
+    private static Context mContext;
 
     @Override
     public void onCreate() {
         super.onCreate();
-
-        sContext = getApplicationContext();
-
+        mContext = getApplicationContext();
     }
-
-    /**
-     * Returns the application context
-     *
-     * @return application context
-     */
+//returning application context
     public static Context getContext() {
-        return sContext;
+        return mContext;
     }
 }

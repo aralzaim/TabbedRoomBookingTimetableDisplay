@@ -1741,18 +1741,17 @@ containing a value of this type.
         public static final int capacity=0x7f050016;
         public static final int capacity_text=0x7f050017;
         public static final int extra_needs=0x7f050018;
-        public static final int hello_world=0x7f050019;
-        public static final int hint_purpose=0x7f05001a;
-        public static final int moveable_tables=0x7f05001b;
-        public static final int multiple_computers=0x7f05001c;
-        public static final int phone=0x7f05001d;
-        public static final int projector=0x7f05001e;
-        public static final int search_room_button=0x7f05001f;
-        public static final int search_room_text=0x7f050020;
-        public static final int succesful_booking=0x7f050021;
-        public static final int title_activity_calendar_view=0x7f050022;
-        public static final int unsuccesful_booking=0x7f050023;
-        public static final int weekly_view_text=0x7f050024;
+        public static final int hint_purpose=0x7f050019;
+        public static final int moveable_tables=0x7f05001a;
+        public static final int multiple_computers=0x7f05001b;
+        public static final int phone=0x7f05001c;
+        public static final int projector=0x7f05001d;
+        public static final int search_room_button=0x7f05001e;
+        public static final int search_room_text=0x7f05001f;
+        public static final int succesful_booking=0x7f050020;
+        public static final int title_activity_calendar_view=0x7f050021;
+        public static final int unsuccesful_booking=0x7f050022;
+        public static final int weekly_view_text=0x7f050023;
     }
     public static final class style {
         public static final int Animation_AppCompat_DropDownUp=0x7f06006a;

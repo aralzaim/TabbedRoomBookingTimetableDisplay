@@ -12,7 +12,8 @@ import java.util.Date;
 import android.widget.TimePicker;
 
 public class Converters {
-	
+
+	//method to convert date object into string object
 	public String dateToString (Date ddate){
 		java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
@@ -20,6 +21,8 @@ public class Converters {
 	
 	
 	}
+
+	//method to convert string object to date object.
 	public Date stringToDate(String sDate) throws ParseException{
 		
 		
@@ -28,7 +31,7 @@ public class Converters {
 		 return sdf.parse(sDate);
 	}
 	
-	
+	//method to convert input stream object to string.
 	public StringBuilder inputStreamToString(InputStream is) {
 	    String rLine = "";
 	    StringBuilder answer = new StringBuilder();
@@ -45,25 +48,24 @@ public class Converters {
 	     }
 	    return answer;
 	   }
-	
+
+	//method to converting calendar object to String
 	  public String calendarToDateS(Calendar dateCalendar) {
-//, d MMM yyyy
 		   
 		    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
 		    return sdf.format(dateCalendar.getTime());
 		   
 		    }
-
+	//method to convert Date object to string but in EEE, d MMM yyyy which is Sat, 28 Aug 2015
 	public String dateShower(Calendar dateCalendar) {
-//, d MMM yyyy
 
 		SimpleDateFormat sdf = new SimpleDateFormat("EEE, d MMM yyyy");
 
 		return sdf.format(dateCalendar.getTime());
 
 	}
-	  
+	  //method to convert timepicker object to string
 	  public String timePickerToTimeS( TimePicker editingCalendar){
 		  Calendar calendar= Calendar.getInstance();
 		  

@@ -5,6 +5,7 @@ import java.util.Calendar;
 /**
  * Created by Raquib-ul-Alam Kanak on 7/21/2014.
  * Website: http://april-shower.com
+ * Website: http://alamkanak.github.io/
  */
 public class WeekViewEvent {
     private long mId;

@@ -23,7 +23,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.InputFilter;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -48,136 +47,140 @@ import com.example.android.tabbedroombookingtimetabledisplay.helpers.TimePickerD
 
 public class SearchingFragment extends Fragment implements OnClickListener {
 
-		Calendar dateCalendar=Calendar.getInstance();
-		TimePicker startCalendar;
-		TimePicker endCalendar;
-		EditText dateText;
-		EditText startText;
-		EditText endText;
-		Button searchBtn;
-		TextView resultsTitle;
-		ListView searchList;
+		Calendar mDateCalendar =Calendar.getInstance();
+		TimePicker mStartCalendar;
+		TimePicker mEndCalendar;
 
-		Converters converters = new Converters();
-		Booking searchBooking= new Booking();
-		Checkers checkers = new Checkers();
-		
-		CheckBox moveable;
-		CheckBox projector;
-		CheckBox multipleComputers;
-		CheckBox phone;
+		EditText mDateText;
+		EditText mStartText;
+		EditText mEndText;
 
-		RadioGroup capacities;
+		Button mSearchBtn;
+		TextView mResultsTitle;
+		ListView mSearchList;
 
-	    RadioButton capacityLow;
-		RadioButton capacityMedium;
-		RadioButton capacityHigh;
+		Converters mConverters = new Converters();
+		Checkers mCheckers = new Checkers();
 
-		int availableBookingStartHour=9;
-		int availableBookingStartMinute=00;
-		int selectedCapacity = 0;
+		Booking mSearchBooking = new Booking();
 
-		String startDateTimestamp;
-		String endDateTimestamp;
+		CheckBox mMoveable;
+		CheckBox mProjector;
+		CheckBox mMultipleComputers;
+		CheckBox mPhone;
+
+		RadioGroup mCapacities;
+
+	    RadioButton mCapacityLow;
+		RadioButton mCapacityMedium;
+		RadioButton mCapacityHigh;
+
+		int mAvailableBookingStartHour =9;
+		int mAvailableBookingStartMinute =00;
+		int mSelectedCapacity = 0;
+
+		String mStartDateTimestamp;
+		String mEndDateTimestamp;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
         LinearLayout rootView =(LinearLayout) inflater.inflate(R.layout.activity_searching, container, false);
 
-
-		searchBtn=(Button) rootView.findViewById(R.id.submit_button);
-		searchBtn.setOnClickListener(this);
+		//initializations of elements in user interface.
+		mSearchBtn =(Button) rootView.findViewById(R.id.submit_button);
+		mSearchBtn.setOnClickListener(this);
 		
-		searchList=(ListView) rootView.findViewById(R.id.search_list);
+		mSearchList =(ListView) rootView.findViewById(R.id.search_list);
 		
-		resultsTitle=(TextView) rootView.findViewById(R.id.results_title);
-	   resultsTitle.setVisibility(View.GONE);
+		mResultsTitle =(TextView) rootView.findViewById(R.id.results_title);
+	   	mResultsTitle.setVisibility(View.GONE);
 
 
-		dateCalendar = Calendar.getInstance();
-		startCalendar= new TimePicker(getActivity());
-		startCalendar.setCurrentHour(availableBookingStartHour);
-		startCalendar.setCurrentMinute(availableBookingStartMinute);
+		mDateCalendar = Calendar.getInstance();
+		mStartCalendar = new TimePicker(getActivity());
+		mStartCalendar.setCurrentHour(mAvailableBookingStartHour);
+		mStartCalendar.setCurrentMinute(mAvailableBookingStartMinute);
 
-		endCalendar=new TimePicker(getActivity());
-		endCalendar.setCurrentHour(availableBookingStartHour+1);
-		endCalendar.setCurrentMinute(availableBookingStartMinute);
+		mEndCalendar =new TimePicker(getActivity());
+		mEndCalendar.setCurrentHour(mAvailableBookingStartHour + 1);
+		mEndCalendar.setCurrentMinute(mAvailableBookingStartMinute);
 
-		dateText= (EditText) rootView.findViewById(R.id.date_text);
-		startText= (EditText) rootView.findViewById(R.id.start_text);
-		endText= (EditText) rootView.findViewById(R.id.end_text);
+		mDateText = (EditText) rootView.findViewById(R.id.date_text);
+		mStartText = (EditText) rootView.findViewById(R.id.start_text);
+		mEndText = (EditText) rootView.findViewById(R.id.end_text);
 
-		moveable=(CheckBox) rootView.findViewById(R.id.moveable_box);
-		projector=(CheckBox) rootView.findViewById(R.id.projector_box);
-		multipleComputers=(CheckBox) rootView.findViewById(R.id.multiple_box);
-		phone= (CheckBox) rootView.findViewById(R.id.phone_box);
+		mMoveable =(CheckBox) rootView.findViewById(R.id.moveable_box);
+		mProjector =(CheckBox) rootView.findViewById(R.id.projector_box);
+		mMultipleComputers =(CheckBox) rootView.findViewById(R.id.multiple_box);
+		mPhone = (CheckBox) rootView.findViewById(R.id.phone_box);
 
-		capacities= (RadioGroup) rootView.findViewById(R.id.capacities);
-		capacities.clearCheck();
+		mCapacities = (RadioGroup) rootView.findViewById(R.id.capacities);
+		mCapacities.clearCheck();
 
+		//default values of text views.
+		 mDateText.setText("Date:	" + mConverters.dateShower(mDateCalendar));
+		 mDateText.setTextSize(30);
+		 mStartText.setText("Time Start:	" + mConverters.timePickerToTimeS(mStartCalendar));
+		 mStartText.setTextSize(30);
+		 mEndText.setText("Time End:	" + mConverters.timePickerToTimeS(mEndCalendar));
+		 mEndText.setTextSize(30);
 
-		 dateText.setText("Date:	" + converters.dateShower(dateCalendar));
-		Log.e("DATE",converters.dateShower(dateCalendar));
-		 dateText.setTextSize(30);
-		 startText.setText("Time Start:	" + converters.timePickerToTimeS(startCalendar));
-		 startText.setTextSize(30);
-		 endText.setText("Time End:	" + converters.timePickerToTimeS(endCalendar));
-		 endText.setTextSize(30);
-
-		moveable.setOnClickListener(new OnClickListener() {
+		//listener that hides result list when moveable is clicked
+		mMoveable.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				searchList.setVisibility(View.INVISIBLE);
-				resultsTitle.setVisibility(View.INVISIBLE);
+				mSearchList.setVisibility(View.INVISIBLE);
+				mResultsTitle.setVisibility(View.INVISIBLE);
 			}
 		});
-
-		projector.setOnClickListener(new OnClickListener() {
+		//listener that hides result list when projectors is clicked
+		mProjector.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				searchList.setVisibility(View.INVISIBLE);
-				resultsTitle.setVisibility(View.INVISIBLE);
+				mSearchList.setVisibility(View.INVISIBLE);
+				mResultsTitle.setVisibility(View.INVISIBLE);
 			}
 		});
-
-		multipleComputers.setOnClickListener(new OnClickListener() {
+		//listener that hides result list when multiples computers is clicked
+		mMultipleComputers.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				searchList.setVisibility(View.INVISIBLE);
-				resultsTitle.setVisibility(View.INVISIBLE);
+				mSearchList.setVisibility(View.INVISIBLE);
+				mResultsTitle.setVisibility(View.INVISIBLE);
 			}
 		});
-
-		phone.setOnClickListener(new OnClickListener() {
+		//listener that hides result list when phones is clicked
+		mPhone.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				searchList.setVisibility(View.INVISIBLE);
-				resultsTitle.setVisibility(View.INVISIBLE);
+				mSearchList.setVisibility(View.INVISIBLE);
+				mResultsTitle.setVisibility(View.INVISIBLE);
 			}
 		});
-		capacities.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+		//listener that hides result list when any of capacities is clicked
+		mCapacities.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
 			@Override
 			public void onCheckedChanged(RadioGroup group, int checkedId) {
-				searchList.setVisibility(View.INVISIBLE);
-				resultsTitle.setVisibility(View.INVISIBLE);
+				mSearchList.setVisibility(View.INVISIBLE);
+				mResultsTitle.setVisibility(View.INVISIBLE);
 			}
 		});
 
-
+	//listener that is responsible for when date is setted
 		final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
 
 			@Override
 			public void onDateSet(DatePicker view, int year, int monthOfYear,
 					int dayOfMonth) {
 
-				searchList.setVisibility(View.INVISIBLE);
-				resultsTitle.setVisibility(View.INVISIBLE);
+				mSearchList.setVisibility(View.INVISIBLE);
+				mResultsTitle.setVisibility(View.INVISIBLE);
 
+				//checks if date is older than today, give error
+				if(mCheckers.dateOlder(year,monthOfYear,dayOfMonth)){
 
-				if(checkers.dateOlder(year,monthOfYear,dayOfMonth)){
-
-					AlertDialog alert= new AlertDialog.Builder(getActivity()).
+					AlertDialog dateAlert= new AlertDialog.Builder(getActivity()).
 							setTitle("Invalid Date!").
 							setMessage("Date should not be older than today.")
 							.setPositiveButton("Retry!", new DialogInterface.OnClickListener() {
@@ -185,19 +188,20 @@ public class SearchingFragment extends Fragment implements OnClickListener {
 
 									Calendar today= Calendar.getInstance();
 
-									dateCalendar.set(Calendar.YEAR,today.get(Calendar.YEAR));
-									dateCalendar.set(Calendar.MONTH,today.get(Calendar.MONTH));
-									dateCalendar.set(Calendar.DAY_OF_MONTH,today.get(Calendar.DAY_OF_MONTH));
-									dateText.setText("Date: " + converters.dateShower(today));
+									mDateCalendar.set(Calendar.YEAR, today.get(Calendar.YEAR));
+									mDateCalendar.set(Calendar.MONTH, today.get(Calendar.MONTH));
+									mDateCalendar.set(Calendar.DAY_OF_MONTH, today.get(Calendar.DAY_OF_MONTH));
+									mDateText.setText("Date: " + mConverters.dateShower(today));
 								}
 							}).show();
 				}
+				//if date is not problematic, set selected date to text views
 				else
 				{
-					dateCalendar.set(Calendar.YEAR, year);
-					dateCalendar.set(Calendar.MONTH, monthOfYear);
-					dateCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-					dateText.setText("Date:	" + converters.dateShower(dateCalendar));
+					mDateCalendar.set(Calendar.YEAR, year);
+					mDateCalendar.set(Calendar.MONTH, monthOfYear);
+					mDateCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+					mDateText.setText("Date:	" + mConverters.dateShower(mDateCalendar));
 				}
 
 
@@ -206,45 +210,49 @@ public class SearchingFragment extends Fragment implements OnClickListener {
 
 		};
 
+
+		//listener that is responsible for when start time is setted
 		final TimePickerDialog.OnTimeSetListener startTime= new TimePickerDialog.OnTimeSetListener() {
 
 			@Override
 			public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 				  // TODO Auto-generated method stub
-				searchList.setVisibility(View.INVISIBLE);
-				resultsTitle.setVisibility(View.INVISIBLE);
+				mSearchList.setVisibility(View.INVISIBLE);
+				mResultsTitle.setVisibility(View.INVISIBLE);
 
-		        startCalendar.setCurrentHour(hourOfDay);
-		        startCalendar.setCurrentMinute(minute);
+		        mStartCalendar.setCurrentHour(hourOfDay);
+		        mStartCalendar.setCurrentMinute(minute);
 
-				if((endCalendar.getCurrentHour().equals(hourOfDay)&&endCalendar.getCurrentMinute()<=minute) || endCalendar.getCurrentHour()<hourOfDay ) {
-					endCalendar.setCurrentHour(hourOfDay);
+				//if start time is bigger than end time, set end time to 1 hour after selected start time.
+				if((mEndCalendar.getCurrentHour().equals(hourOfDay)&& mEndCalendar.getCurrentMinute()<=minute) || mEndCalendar.getCurrentHour()<hourOfDay ) {
+					mEndCalendar.setCurrentHour(hourOfDay);
 
 
-					endCalendar.setCurrentHour(hourOfDay+1);
+					mEndCalendar.setCurrentHour(hourOfDay+1);
 
 					}
-
-		        if(checkers.startTimeValidity(startCalendar))
+				//checks if start time is problematic, if its not, sets text as selected time.
+		        if(mCheckers.startTimeValidity(mStartCalendar))
 		        {
 
-		        	startText.setText("Time Start:	" + converters.timePickerToTimeS(startCalendar));
-				    endText.setText("Time End:	" + converters.timePickerToTimeS(endCalendar));
-				    startText.setTextColor(Color.BLACK);
-				    endText.setTextColor(Color.BLACK);
+		        	mStartText.setText("Time Start:	" + mConverters.timePickerToTimeS(mStartCalendar));
+				    mEndText.setText("Time End:	" + mConverters.timePickerToTimeS(mEndCalendar));
+				    mStartText.setTextColor(Color.BLACK);
+				    mEndText.setTextColor(Color.BLACK);
 
 		        }
+				//if start time is problematic, sets the start time to 09.00 which is default.
 		        else{
-		        	AlertDialog alert= new AlertDialog.Builder(getActivity()).
+		        	AlertDialog startTimeAlert= new AlertDialog.Builder(getActivity()).
 		        			setTitle("Invalid Time!").
 		        			setMessage("Times should be between 09.00 and 21.00 and end time should be"
 		        					+ " after start time.")
 		        					.setPositiveButton("Retry!", new DialogInterface.OnClickListener() {
 		        				        public void onClick(DialogInterface dialog, int which) {
 
-		        				        	startCalendar.setCurrentHour(availableBookingStartHour);
-		        				        	startCalendar.setCurrentMinute(availableBookingStartMinute);
-		        				        	 startText.setText("Time Start:	" + converters.timePickerToTimeS(startCalendar));
+		        				        	mStartCalendar.setCurrentHour(mAvailableBookingStartHour);
+		        				        	mStartCalendar.setCurrentMinute(mAvailableBookingStartMinute);
+		        				        	 mStartText.setText("Time Start:	" + mConverters.timePickerToTimeS(mStartCalendar));
 		        				        }
 		        				     }).show();
 		        }
@@ -252,35 +260,35 @@ public class SearchingFragment extends Fragment implements OnClickListener {
 			}
 		};
 
-
+		//listener that is responsible for when end time is setted
 		final TimePickerDialog.OnTimeSetListener endTime= new TimePickerDialog.OnTimeSetListener() {
 
 			@Override
 			public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 				  // TODO Auto-generated method stub
-		        endCalendar.setCurrentHour(hourOfDay);
-		        endCalendar.setCurrentMinute(minute);
+		        mEndCalendar.setCurrentHour(hourOfDay);
+		        mEndCalendar.setCurrentMinute(minute);
 
-				searchList.setVisibility(View.INVISIBLE);
-				resultsTitle.setVisibility(View.INVISIBLE);
-
-		        if(checkers.endTimeValidity(startCalendar, endCalendar))
+				mSearchList.setVisibility(View.INVISIBLE);
+				mResultsTitle.setVisibility(View.INVISIBLE);
+				//checks if end time is smaller than star time.
+		        if(mCheckers.endTimeValidity(mStartCalendar, mEndCalendar))
 		        {
 
-				        endText.setText("Time End:	" + converters.timePickerToTimeS(endCalendar));
+				        mEndText.setText("Time End:	" + mConverters.timePickerToTimeS(mEndCalendar));
 
 		        }
-
+				//if end time is problematic, set it to 1 hour after the start time selected.
 		        else{
-		        	AlertDialog alert= new AlertDialog.Builder(getActivity()).
+		        	AlertDialog endTimeAlert= new AlertDialog.Builder(getActivity()).
 		        			setTitle("Invalid Time!").
 		        			setMessage("Times should be between 09.00 and 21.00 and end time should be"
 		        					+ " after start time.")
 		        					.setPositiveButton("ok", new DialogInterface.OnClickListener() {
 		        				        public void onClick(DialogInterface dialog, int which) {
-		        				            endCalendar.setCurrentHour(startCalendar.getCurrentHour());
-												endCalendar.setCurrentHour(startCalendar.getCurrentHour()+1);
-												endText.setText("Time End:	" + converters.timePickerToTimeS(endCalendar));
+		        				            mEndCalendar.setCurrentHour(mStartCalendar.getCurrentHour());
+												mEndCalendar.setCurrentHour(mStartCalendar.getCurrentHour() + 1);
+												mEndText.setText("Time End:	" + mConverters.timePickerToTimeS(mEndCalendar));
 
 		        				        }
 		        				     }).show();
@@ -290,13 +298,14 @@ public class SearchingFragment extends Fragment implements OnClickListener {
 
 		};
 
-		dateText.setOnClickListener(new View.OnClickListener() {
+		//listener that opens timepicker when time date textview is clicked.
+		mDateText.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				DatePickerDialog dateDialog = new DatePickerDialog(getActivity(),date , dateCalendar
-	                    .get(Calendar.YEAR), dateCalendar.get(Calendar.MONTH),
-	                    dateCalendar.get(Calendar.DAY_OF_MONTH));
+				DatePickerDialog dateDialog = new DatePickerDialog(getActivity(), date, mDateCalendar
+						.get(Calendar.YEAR), mDateCalendar.get(Calendar.MONTH),
+						mDateCalendar.get(Calendar.DAY_OF_MONTH));
 
 				dateDialog.getDatePicker().setSpinnersShown(false);
 				dateDialog.show();
@@ -305,90 +314,93 @@ public class SearchingFragment extends Fragment implements OnClickListener {
 			}
 		});
 
-		startText.setOnClickListener(new View.OnClickListener() {
+		//listener that opens timepicker when time start textview is clicked.
+		mStartText.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
 
-				TimePickerDialogs startPicker = new TimePickerDialogs(getActivity(), startTime, startCalendar.getCurrentHour(), startCalendar.getCurrentMinute(), true);
+				TimePickerDialogs startPicker = new TimePickerDialogs(getActivity(), startTime, mStartCalendar.getCurrentHour(), mStartCalendar.getCurrentMinute(), true);
 				startPicker.show();
 			}
 		});
 
-		endText.setOnClickListener(new View.OnClickListener() {
+		//listener that opens timepicker when time end textview is clicked.
+		mEndText.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				TimePickerDialogs endPicker= new TimePickerDialogs(getActivity(), endTime, endCalendar.getCurrentHour(), endCalendar.getCurrentMinute(), true);
+				TimePickerDialogs endPicker = new TimePickerDialogs(getActivity(), endTime, mEndCalendar.getCurrentHour(), mEndCalendar.getCurrentMinute(), true);
 				endPicker.show();
 			}
 		});
 
-
-
-
-
+		//returns all user interface elements
 		return rootView;
 	}
-
+//method to reset all dates and user interface elements to default when fragment is continued.
 	@Override
 	public void onResume() {
 		super.onResume();
-		dateText.setText("Date:	" + converters.dateShower(dateCalendar));
-		Log.e("DATE", converters.dateShower(dateCalendar));
-		Log.e("START", converters.timePickerToTimeS(startCalendar));
-		Log.e("END", converters.timePickerToTimeS(endCalendar));
+		mDateText.setText("Date:	" + mConverters.dateShower(mDateCalendar));
 
-		dateText.setTextSize(30);
-		startText.setText("Time Start:	" + converters.timePickerToTimeS(startCalendar));
-		startText.setTextSize(30);
-		endText.setText("Time End:	" + converters.timePickerToTimeS(endCalendar));
-		endText.setTextSize(30);
+
+		mDateText.setTextSize(30);
+		mStartText.setText("Time Start:	" + mConverters.timePickerToTimeS(mStartCalendar));
+		mStartText.setTextSize(30);
+		mEndText.setText("Time End:	" + mConverters.timePickerToTimeS(mEndCalendar));
+		mEndText.setTextSize(30);
 	}
 
+	//all implementations which runs after clicking search room button.
 	@Override
 	public void onClick(View v) {
 
 
-        String dateString;
-        String startString;
-        String endString;
+        String mDateString;
+        String mStartString;
+        String mEndString;
 
-        Date startDate;
-      	Date endDate;
+        Date mStartDate;
+      	Date mEndDate;
       	SearchRoom searchTask = new SearchRoom();
 
 
 
+		//converting calendar values to string.
+        mDateString= mConverters.calendarToDateS(mDateCalendar);
 
-        dateString=converters.calendarToDateS(dateCalendar);
-        startString= converters.timePickerToTimeS(startCalendar);
-        endString=converters.timePickerToTimeS(endCalendar);
+		//converting timepicker values to string.
+        mStartString= mConverters.timePickerToTimeS(mStartCalendar);
+        mEndString= mConverters.timePickerToTimeS(mEndCalendar);
 
-      	startDateTimestamp=(dateString+ " " + startString);
-      	endDateTimestamp=(dateString+ " "+ endString);
+      	mStartDateTimestamp =(mDateString+ " " + mStartString);
+      	mEndDateTimestamp =(mDateString+ " "+ mEndString);
      
       
     
 	try {
-		startDate = converters.stringToDate(startDateTimestamp);
-		endDate =converters.stringToDate(endDateTimestamp);
-		
-		
-		   searchBooking.setBookingStart(startDate);
-		   searchBooking.setBookingEnd(endDate);
 
-		if(capacities.getCheckedRadioButtonId()==R.id.capacity_low){
-		selectedCapacity=1;
-		}
-		else if(capacities.getCheckedRadioButtonId()==R.id.capacity_medium){
-			selectedCapacity=2;
-		}
-		else if(capacities.getCheckedRadioButtonId()==R.id.capacity_high){
-			selectedCapacity=3;
-		}
+		//converting string values to Date format.
+		mStartDate = mConverters.stringToDate(mStartDateTimestamp);
+		mEndDate = mConverters.stringToDate(mEndDateTimestamp);
+		
+		//assigning start and end time to Booking Object to be used in searchTask.
+		   mSearchBooking.setBookingStart(mStartDate);
+		   mSearchBooking.setBookingEnd(mEndDate);
 
-		   searchTask.execute(searchBooking);
+		//checking which radio box is selected
+		if(mCapacities.getCheckedRadioButtonId()==R.id.capacity_low){
+		mSelectedCapacity =1;
+		}
+		else if(mCapacities.getCheckedRadioButtonId()==R.id.capacity_medium){
+			mSelectedCapacity =2;
+		}
+		else if(mCapacities.getCheckedRadioButtonId()==R.id.capacity_high){
+			mSelectedCapacity =3;
+		}
+		//executing task for searching room.
+		   searchTask.execute(mSearchBooking);
 		   
 		   
 	} catch (ParseException e) {
@@ -398,7 +410,7 @@ public class SearchingFragment extends Fragment implements OnClickListener {
       
 		
 	}
-	
+	//class responsible for searching rooms and showing results.
 	private class SearchRoom extends AsyncTask <Booking, Boolean, Boolean>{
 
 		ProgressDialog processDialog=new ProgressDialog(getActivity());
@@ -414,7 +426,7 @@ public class SearchingFragment extends Fragment implements OnClickListener {
 			
 		}
 		
-		
+		//all necessary implementations to be run background
 		@Override
 		protected Boolean doInBackground(Booking... searchBooking) {
 			
@@ -425,57 +437,48 @@ public class SearchingFragment extends Fragment implements OnClickListener {
 			
 				try {
 					
-					
+					//converting all information collected from user interface to json object.
 				    JSONObject newBookingJS= new JSONObject();
-                    
                     newBookingJS.put("booked_room", searchBooking[0].getRoomName());
-                    newBookingJS.put("booking_start",converters.dateToString(searchBooking[0].getBookingStart()));
-                    newBookingJS.put("booking_end",converters.dateToString(searchBooking[0].getBookingEnd()));
+                    newBookingJS.put("booking_start", mConverters.dateToString(searchBooking[0].getBookingStart()));
+                    newBookingJS.put("booking_end", mConverters.dateToString(searchBooking[0].getBookingEnd()));
                     newBookingJS.put("booked_by",searchBooking[0].getBookedBy());
-                    newBookingJS.put("moveable_table",moveable.isChecked());
-                    newBookingJS.put("projector",projector.isChecked());
-					newBookingJS.put("phone",phone.isChecked());
-                    newBookingJS.put("multiple_computer",multipleComputers.isChecked());
-                    newBookingJS.put("capacity", selectedCapacity);
+                    newBookingJS.put("moveable_table", mMoveable.isChecked());
+                    newBookingJS.put("projector", mProjector.isChecked());
+					newBookingJS.put("phone", mPhone.isChecked());
+                    newBookingJS.put("multiple_computer", mMultipleComputers.isChecked());
+                    newBookingJS.put("capacity", mSelectedCapacity);
 
-                    
+                    //sending all information collected from user interface to searchRoom web service.
                     httpPost = new HttpPost("https://zeno.computing.dundee.ac.uk/2014-msc/aralzaim/searchRoom.php");
                     httpPost.setEntity(new StringEntity(newBookingJS.toString()));
                     
 
-                 
+                 //converting httpResponse to string then to JsonObject
                 	HttpResponse httpResponse=httpClient.execute(httpPost);
-                    
-                	String jsonResult = converters.inputStreamToString(httpResponse.getEntity().getContent()).toString();
-                
-                   
-                	System.out.println(jsonResult);
+                	String jsonResult = mConverters.inputStreamToString(httpResponse.getEntity().getContent()).toString();
 					JSONObject jsonObj = new JSONObject(jsonResult);
-					   
+
+					//converting all results to the string
 	                  if (jsonObj != null) {
-	                      JSONArray jsonBookings = jsonObj.getJSONArray("resultrooms");                        
-
-	                      for (int i = 0; i < jsonBookings.length(); i++) {
-	                          JSONObject catObj = (JSONObject) jsonBookings.get(i);
-	                         
+	                      JSONArray jsonBookings = jsonObj.getJSONArray("resultrooms");
+	                      for (int i = 0; i < jsonBookings.length(); i++) {JSONObject catObj = (JSONObject) jsonBookings.get(i);
 	                      emptyRoom=(catObj.getString("booked_room"));
-
+	                      //adding all resulting values to  resultList array.
 	                      resultList.add(emptyRoom);
 	                      }
-	                  } 	
+	                  }
+						//if result list having got any values inside return false
 	                      if(resultList.size()<=0){
-	                    
-	                    	  System.out.println("No booking available");
 	                    	  return false;
 	                      }
+
+						  //if result list has values inside, return true
 	                      else{
 	                    	
 	                    	  return true;
 	                      }
-				}      
-	                  
-					
-					
+				}
 				catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -491,22 +494,23 @@ public class SearchingFragment extends Fragment implements OnClickListener {
 
 		@Override
 		protected void onPostExecute(Boolean result){
-			
+			//giving the results if the list is not empty.
 			if(result==true)
 			{
-				resultsTitle.setText("Matching Rooms");
-				resultsTitle.setVisibility(View.VISIBLE);
+				mResultsTitle.setText("Matching Rooms");
+				mResultsTitle.setVisibility(View.VISIBLE);
 				createList(resultList);
 
-				searchList.setVisibility(View.VISIBLE);
+				mSearchList.setVisibility(View.VISIBLE);
 				processDialog.dismiss();
 			}
+			//Giving notification that there are no rooms matching this query..
 			else if(result==false)
 			{
 				
-				resultsTitle.setText("There are no results matching.");
-				resultsTitle.setVisibility(View.VISIBLE);
-				searchList.setVisibility(View.INVISIBLE);
+				mResultsTitle.setText("There are no results matching.");
+				mResultsTitle.setVisibility(View.VISIBLE);
+				mSearchList.setVisibility(View.INVISIBLE);
 				
 			processDialog.dismiss();
 			}
@@ -516,56 +520,65 @@ public class SearchingFragment extends Fragment implements OnClickListener {
 
 		public void createList(ArrayList<String> resultList ) {
 
-
-
+		//a custom list with button which has custom array adapter "helpers/ListAdapter"
 			final ListAdapter adapter = new ListAdapter(getActivity(), resultList);
 			adapter.setCustomButtonListner(new ListAdapter.customButtonListener() {
 				@Override
 				public void onButtonClickListner(int position, final String room) {
 
 
-					final EditText editText = new EditText(getActivity());
+					final EditText namePurposeText = new EditText(getActivity());
+
+					AlertDialog.Builder mPurposeNameDialog = new AlertDialog.Builder(getActivity(), AlertDialog.THEME_HOLO_DARK);
+
+					namePurposeText.setTextColor(Color.WHITE);
+
+					mPurposeNameDialog.setTitle("Book a Room");
+					mPurposeNameDialog.setMessage("Please enter purpose or name for your booking.");
 
 
-					AlertDialog.Builder alert = new AlertDialog.Builder(getActivity(), AlertDialog.THEME_HOLO_DARK);
+					mPurposeNameDialog.setView(namePurposeText);
 
-					editText.setTextColor(Color.WHITE);
-
-					alert.setTitle("Book a Room");
-					alert.setMessage("Please enter purpose or name for your booking.");
-
-
-					alert.setView(editText);
-					InputFilter[] fArray = new InputFilter[1];
-					fArray[0] = new InputFilter.LengthFilter(30);
-					editText.setFilters(fArray);
+					//setting max 30 characters for name purpose.
+					InputFilter[] mFilterArray = new InputFilter[1];
+					mFilterArray[0] = new InputFilter.LengthFilter(30);
+					namePurposeText.setFilters(mFilterArray);
 
 
-					alert.setPositiveButton("Book", new DialogInterface.OnClickListener() {
-						public void onClick(DialogInterface dialog, int whichButton) {
 
-							String purposeName = editText.getText().toString();
+					//setting a listener for book button.
+					mPurposeNameDialog.setPositiveButton("Book", new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface nameDialog, int whichButton) {
 
+							String purposeName = namePurposeText.getText().toString();
+
+
+							//if purpose is not empt book room
 							if (!purposeName.matches("")) {
 								Booking newBooking = new Booking();
 								BookRoom bookingTask = new BookRoom();
 
 								try {
-									newBooking.setBookingStart(converters.stringToDate(startDateTimestamp));
-									newBooking.setBookingEnd(converters.stringToDate(endDateTimestamp));
+									//assigning values to booking object
+									newBooking.setBookingStart(mConverters.stringToDate(mStartDateTimestamp));
+									newBooking.setBookingEnd(mConverters.stringToDate(mEndDateTimestamp));
 									newBooking.setRoomName(room);
 									newBooking.setBookingName(purposeName);
 
 									bookingTask.execute(newBooking);
 
-									searchList.setVisibility(View.INVISIBLE);
-									resultsTitle.setVisibility(View.INVISIBLE);
+									mSearchList.setVisibility(View.INVISIBLE);
+									mResultsTitle.setVisibility(View.INVISIBLE);
 
 								} catch (ParseException e) {
 									e.printStackTrace();
 								}
 
-							} else {
+							}
+
+							//if name purpose is empty, dont book room and give a warning.
+							else {
+
 								Toast toast = Toast.makeText(getActivity(), "Please enter name or purpose!", Toast.LENGTH_LONG);
 								toast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.CENTER_HORIZONTAL, 0, 0);
 								toast.show();
@@ -574,45 +587,46 @@ public class SearchingFragment extends Fragment implements OnClickListener {
 						}
 					});
 
-					alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-						public void onClick(DialogInterface dialog, int whichButton) {
-							// what ever you want to do with No option.
+					mPurposeNameDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface nameDialog, int whichButton) {
 						}
 					});
 
-					AlertDialog nameDialog= alert.create();
+					AlertDialog nDialog= mPurposeNameDialog.create();
 
-					nameDialog.show();
+					nDialog.show();
 
-					Button pButton = (Button) nameDialog.getButton(nameDialog.BUTTON_POSITIVE);
+
+					//setting background colors for both positive and negative buttons in name purpose dialog.
+					Button pButton = (Button) nDialog.getButton(nDialog.BUTTON_POSITIVE);
 					if(pButton!=null)
 						pButton.setBackgroundColor(Color.LTGRAY);
 					pButton.setTextColor(Color.BLACK);
 
-					Button nButton = (Button) nameDialog.getButton(nameDialog.BUTTON_NEGATIVE);
+
+					Button nButton = (Button) nDialog.getButton(nDialog.BUTTON_NEGATIVE);
 					if(nButton!=null)
 						nButton.setBackgroundColor(Color.LTGRAY);
 					nButton.setTextColor(Color.BLACK);
 
 
 
-
-
 				}
 			});
 
-			searchList.setAdapter(adapter);
+			mSearchList.setAdapter(adapter);
 		}
-
 
 	}
 
+	//class responsible for booking a room from the button.
 	private class BookRoom extends AsyncTask <Booking, Boolean, Boolean>{
 
 		ProgressDialog processDialog=new ProgressDialog(getActivity());
 		HttpClient httpClient=null;
 		HttpPost httpPost=null;
 
+		//progress dialog to be shown untill the progress is finished.
 		@Override
 		protected void onPreExecute(){
 			processDialog.setMessage("Booking room...");
@@ -620,33 +634,31 @@ public class SearchingFragment extends Fragment implements OnClickListener {
 
 		}
 
-
+		//things that will run in background while booking room.
 		@Override
 		protected Boolean doInBackground(Booking... newBooking) {
 
 			httpClient= new DefaultHttpClient();
-			httpPost = new HttpPost("https://zeno.computing.dundee.ac.uk/2014-msc/aralzaim/bookingRoom.php");
 
+			//a link to web service responsible for room booking.
 
 			try {
-
+			//all details about booking is assigned to json object to be used in queries in php.
 				JSONObject newBookingJS= new JSONObject();
-
 				newBookingJS.put("booked_room", newBooking[0].getRoomName());
-				newBookingJS.put("booking_start",converters.dateToString(newBooking[0].getBookingStart()));
-				newBookingJS.put("booking_end",converters.dateToString(newBooking[0].getBookingEnd()));
+				newBookingJS.put("booking_start", mConverters.dateToString(newBooking[0].getBookingStart()));
+				newBookingJS.put("booking_end", mConverters.dateToString(newBooking[0].getBookingEnd()));
 				newBookingJS.put("booked_by",newBooking[0].getBookedBy());
-				newBookingJS.put("name_purpose",newBooking[0].getBookingName());
+				newBookingJS.put("name_purpose", newBooking[0].getBookingName());
 
-				System.out.println(newBookingJS.toString());
-
+				//a link assigned to httpPost for booking room.
 				httpPost = new HttpPost("https://zeno.computing.dundee.ac.uk/2014-msc/aralzaim/bookingRoom.php");
 				httpPost.setEntity(new StringEntity(newBookingJS.toString()));
 
 
 				HttpResponse bookingResponse=httpClient.execute(httpPost);
 
-				String bookingResult = converters.inputStreamToString(bookingResponse.getEntity().getContent()).toString();
+				String bookingResult = mConverters.inputStreamToString(bookingResponse.getEntity().getContent()).toString();
 
 				System.out.println(bookingResult);
 
@@ -670,21 +682,14 @@ public class SearchingFragment extends Fragment implements OnClickListener {
 			return true;
 		}
 
-
-
 		@Override
 		protected void onPostExecute(Boolean result){
 
 			if(result==true)
 			{
-
 				processDialog.dismiss();
-
-
-
-				AlertDialog.Builder successfulDialog = new AlertDialog.Builder(
-						getActivity(),AlertDialog.THEME_HOLO_DARK);
-
+				//successfull feedback with pop up dialog.
+				AlertDialog.Builder successfulDialog = new AlertDialog.Builder(getActivity(),AlertDialog.THEME_HOLO_DARK);
 				successfulDialog.setTitle("Successful !");
 				successfulDialog.setMessage(R.string.succesful_booking);
 
@@ -692,65 +697,21 @@ public class SearchingFragment extends Fragment implements OnClickListener {
 
 
 					@Override
-					public void onClick(DialogInterface dialog, int which) {
+					public void onClick(DialogInterface successDialog, int which) {
 
-						dialog.dismiss();
+						successDialog.dismiss();
 					}
 				});
-				AlertDialog alertDialog = successfulDialog.create();
-				alertDialog.show();
+				AlertDialog sDialog = successfulDialog.create();
+				sDialog.show();
 
 
-
-				Button sButton = (Button) alertDialog.getButton(alertDialog.BUTTON_POSITIVE);
+				//setting background color of positive button in successfull dialog
+				Button sButton = (Button) sDialog.getButton(sDialog.BUTTON_POSITIVE);
 				if(sButton!=null)
 					sButton.setBackgroundColor(Color.GREEN);
 				sButton.setTextColor(Color.BLACK);
-
-
 			}
-			else
-			{
-
-				System.out.println("CONNECTED AND CAME BACK AS FALSE");
-				processDialog.dismiss();
-
-				AlertDialog.Builder collisionDialog = new AlertDialog.Builder(
-						getActivity(),AlertDialog.THEME_HOLO_DARK);
-
-				collisionDialog.setTitle("Collision !");
-				collisionDialog.setMessage(R.string.unsuccesful_booking);
-				collisionDialog.setPositiveButton("Retry !", new DialogInterface.OnClickListener() {
-
-					@Override
-					public void onClick(
-							DialogInterface dialog,
-							int which) {
-						dialog.dismiss();
-					}
-				});
-
-				AlertDialog alertDialog= collisionDialog.create();
-
-				alertDialog.show();
-
-				Button fButton= (Button) alertDialog.getButton(alertDialog.BUTTON_POSITIVE);
-
-
-
-				if(fButton!=null)
-					fButton.setBackgroundColor(Color.RED);
-
-				fButton.setTextColor(Color.BLACK);
-
-
-			}
-
 		}
-
-
-
 	}
-
-
 }
