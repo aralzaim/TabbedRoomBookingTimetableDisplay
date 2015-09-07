@@ -1046,7 +1046,7 @@ public class WeekView extends View {
      * Set the first day of the week. First day of the week is used only when the week view is first
      * drawn. It does not of any effect after user starts scrolling horizontally.
      * <p>
-     *     <b>Note:</b> This method will only work if the week view is set to display more than 6 days at
+     *   //  <b>Note:</b> This method will only work if the week view is set to display more than 6 days at
      *     once.
      * </p>
      * @param firstDayOfWeek The supported values are {@link Calendar#SUNDAY},
