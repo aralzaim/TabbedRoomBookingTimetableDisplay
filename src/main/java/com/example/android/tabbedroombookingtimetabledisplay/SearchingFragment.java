@@ -42,7 +42,7 @@ import android.widget.Toast;
 
 import com.example.android.tabbedroombookingtimetabledisplay.helpers.Checkers;
 import com.example.android.tabbedroombookingtimetabledisplay.helpers.Converters;
-import com.example.android.tabbedroombookingtimetabledisplay.helpers.ListAdapter;
+import com.example.android.tabbedroombookingtimetabledisplay.helpers.customArrayAdapter;
 import com.example.android.tabbedroombookingtimetabledisplay.helpers.TimePickerDialogs;
 
 public class SearchingFragment extends Fragment implements OnClickListener {
@@ -520,11 +520,11 @@ public class SearchingFragment extends Fragment implements OnClickListener {
 
 		public void createList(ArrayList<String> resultList ) {
 
-		//a custom list with button which has custom array adapter "helpers/ListAdapter"
-			final ListAdapter adapter = new ListAdapter(getActivity(), resultList);
-			adapter.setCustomButtonListner(new ListAdapter.customButtonListener() {
+		//a custom list with button which has custom array adapter "helpers/ArrayAdapter"
+			final customArrayAdapter adapter = new customArrayAdapter(getActivity(), resultList);
+			adapter.setCustomButtonListener(new customArrayAdapter.customButtonListener() {
 				@Override
-				public void onButtonClickListner(int position, final String room) {
+				public void onButtonClickListener(int position, final String room) {
 
 
 					final EditText namePurposeText = new EditText(getActivity());
@@ -543,7 +543,6 @@ public class SearchingFragment extends Fragment implements OnClickListener {
 					InputFilter[] mFilterArray = new InputFilter[1];
 					mFilterArray[0] = new InputFilter.LengthFilter(30);
 					namePurposeText.setFilters(mFilterArray);
-
 
 
 					//setting a listener for book button.
@@ -592,23 +591,22 @@ public class SearchingFragment extends Fragment implements OnClickListener {
 						}
 					});
 
-					AlertDialog nDialog= mPurposeNameDialog.create();
+					AlertDialog nDialog = mPurposeNameDialog.create();
 
 					nDialog.show();
 
 
 					//setting background colors for both positive and negative buttons in name purpose dialog.
 					Button pButton = (Button) nDialog.getButton(nDialog.BUTTON_POSITIVE);
-					if(pButton!=null)
+					if (pButton != null)
 						pButton.setBackgroundColor(Color.LTGRAY);
 					pButton.setTextColor(Color.BLACK);
 
 
 					Button nButton = (Button) nDialog.getButton(nDialog.BUTTON_NEGATIVE);
-					if(nButton!=null)
+					if (nButton != null)
 						nButton.setBackgroundColor(Color.LTGRAY);
 					nButton.setTextColor(Color.BLACK);
-
 
 
 				}

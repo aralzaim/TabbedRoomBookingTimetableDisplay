@@ -984,12 +984,7 @@ public class WeekView extends View {
                     if (hour >= 0 && hour <= 12) {
                         hour=hour+9;
                     }
-              /**      if (hour == 0) {
-                        hour = 12;
-                    }
-                    if (hour > 12){
-                        hour -= 12;
-                    }*/
+
                     return String.format("%02d.00", hour);
                 }
             };

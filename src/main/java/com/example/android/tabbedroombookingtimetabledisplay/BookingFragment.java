@@ -193,8 +193,8 @@ public class BookingFragment extends Fragment implements OnClickListener {
 				 if (mStopEvent)
 					 return;
 				 if (minute % mTimeBlock != 0) {
-					 int mChangeFafctor = minute - (minute % mTimeBlock);
-					 minute = mChangeFafctor + (minute == mChangeFafctor + 1 ? mTimeBlock : 0);
+					 int mChangeFactor = minute - (minute % mTimeBlock);
+					 minute = mChangeFactor + (minute == mChangeFactor + 1 ? mTimeBlock : 0);
 					 if (minute == 60)
 						 minute = 0;
 					 mStopEvent = true;
